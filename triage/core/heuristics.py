@@ -1,4 +1,4 @@
-from .scoring import init_scores
+from scoring import init_scores
 
 
 class HeuristicClassifier:
