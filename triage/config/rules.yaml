@@ -1,0 +1,28 @@
+rules:
+  - label: financeiro
+    confidence: 0.90
+    senders:
+      - banco@itau.com.br
+      - noreply@nubank.com.br
+    subject_patterns:
+      - fatura
+      - boleto
+      - pagamento
+      - extrato
+
+  - label: spam
+    confidence: 0.95
+    subject_patterns:
+      - ganhe
+      - grátis
+      - clique aqui
+    body_patterns:
+      - unsubscribe
+      - descadastre-se
+
+  - label: notificacao
+    confidence: 0.88
+    senders:
+      - notifications@github.com
+    subject_patterns:
+      - "\\[GitHub\\]"
