@@ -5,7 +5,7 @@ from unittest.mock import patch
 from email.message import EmailMessage
 from email.header import Header
 
-from triage.e_mail.imap_reader import IMAPReader
+from triage.email.imap_reader import IMAPReader
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def make_email(subject="Assunto", sender="from@example.com", body="Corpo"):
     return msg
 
 
-@patch("triage.e_mail.imap_reader.imaplib.IMAP4_SSL")
+@patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
 def test_connect_calls_imap_correctly(mock_imap, reader):
     mock_conn = mock_imap.return_value
     reader.connect()
@@ -32,7 +32,7 @@ def test_connect_calls_imap_correctly(mock_imap, reader):
     assert reader.conn is mock_conn
 
 
-@patch("triage.e_mail.imap_reader.imaplib.IMAP4_SSL")
+@patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
 def test_fetch_unseen_no_messages(mock_imap, reader):
     mock_conn = mock_imap.return_value
     # connect
@@ -47,7 +47,7 @@ def test_fetch_unseen_no_messages(mock_imap, reader):
     assert emails == []
 
 
-@patch("triage.e_mail.imap_reader.imaplib.IMAP4_SSL")
+@patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
 def test_fetch_unseen_single_simple_email(mock_imap, reader):
     mock_conn = mock_imap.return_value
     reader.connect()
@@ -78,7 +78,7 @@ def test_fetch_unseen_single_simple_email(mock_imap, reader):
     assert "Olá mundo" in email_data["body"]
 
 
-@patch("triage.e_mail.imap_reader.imaplib.IMAP4_SSL")
+@patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
 def test_fetch_unseen_multipart_email_usa_text_plain(mock_imap, reader):
     mock_conn = mock_imap.return_value
     reader.connect()
@@ -102,7 +102,7 @@ def test_fetch_unseen_multipart_email_usa_text_plain(mock_imap, reader):
     assert "HTML" not in body  # _get_body só pega text/plain
 
 
-@patch("triage.e_mail.imap_reader.imaplib.IMAP4_SSL")
+@patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
 def test_parse_email_with_encoded_subject(mock_imap, reader):
     mock_conn = mock_imap.return_value
     reader.connect()

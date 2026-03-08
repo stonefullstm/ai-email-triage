@@ -1,0 +1,27 @@
+--- Folder Structure ---
+ai-triage.txt
+[docs]
+    ├── .project_structure_filter
+    ├── .project_structure_ignore
+    └── project_structure_filtered.txt
+requirements.txt
+[tests]
+    ├── __init__.py
+    └── test_imap_reader.py
+[triage]
+    ├── __init__.py
+    ├── [core]
+        ├── __init__.py
+        ├── categories.py
+        ├── engine.py
+        ├── heuristics.py
+        └── scoring.py
+    ├── [e_mail]
+        ├── __init__.py
+        └── imap_reader.py
+    ├── [embeddings]
+        └── model.py
+    └── [llm]
+        └── classifier.py
+
+--- File Contents ---
