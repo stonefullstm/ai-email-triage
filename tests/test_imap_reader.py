@@ -2,8 +2,11 @@
 
 import pytest
 from unittest.mock import patch
+import email
+from email import policy
 from email.message import EmailMessage
 from email.header import Header
+from datetime import datetime, timedelta
 
 from triage.email.imap_reader import IMAPReader
 
@@ -42,8 +45,9 @@ def test_fetch_unseen_no_messages(mock_imap, reader):
     mock_conn.search.return_value = ("OK", [b""])
 
     emails = reader.fetch_unseen()
-
-    mock_conn.search.assert_called_once_with(None, "UNSEEN")
+    since = (datetime.now() - timedelta(days=1)).strftime('%d-%b-%Y')
+    mock_conn.search.assert_called_once_with(
+        None, f'(UNSEEN SINCE {since})')
     assert emails == []
 
 
@@ -72,10 +76,11 @@ def test_fetch_unseen_single_simple_email(mock_imap, reader):
     emails = reader.fetch_unseen()
 
     assert len(emails) == 1
-    email_data = emails[0]
+    email_data = email.message_from_bytes(emails[0], policy=policy.default)
+    print(email_data)
     assert email_data["subject"] == "Assunto teste"
-    assert email_data["sender"] == "remetente@example.com"
-    assert "Olá mundo" in email_data["body"]
+    assert email_data["from"] == "remetente@example.com"
+    assert "Olá mundo" in email_data.get_content()
 
 
 @patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
@@ -97,9 +102,12 @@ def test_fetch_unseen_multipart_email_usa_text_plain(mock_imap, reader):
 
     emails = reader.fetch_unseen()
     assert len(emails) == 1
-    body = emails[0]["body"]
-    assert "Texto simples" in body
-    assert "HTML" not in body  # _get_body só pega text/plain
+    email_data = email.message_from_bytes(emails[0], policy=policy.default)
+    for part in email_data.walk():
+        if part.get_content_type() == "text/plain":
+            assert "Texto simples" in part.get_payload(decode=True).decode()
+        elif part.get_content_type() == "text/html":
+            assert "HTML" in part.get_payload(decode=True).decode()
 
 
 @patch("triage.email.imap_reader.imaplib.IMAP4_SSL")
@@ -121,6 +129,7 @@ def test_parse_email_with_encoded_subject(mock_imap, reader):
 
     emails = reader.fetch_unseen()
     assert len(emails) == 1
-    assert emails[0]["subject"] == subject_text
-    assert emails[0]["sender"] == "encoded@example.com"
-    assert "Corpo" in emails[0]["body"]
+    email_data = email.message_from_bytes(emails[0], policy=policy.default)
+    assert email_data["subject"] == subject_text
+    assert email_data["from"] == "encoded@example.com"
+    assert "Corpo" in email_data.get_content()
