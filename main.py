@@ -19,31 +19,16 @@ LABELS = ["financeiro", "spam", "notificacao", "pessoal"]
 hash_cache = HashCacheLayer()
 
 
-# def build_pipeline() -> ClassificationPipeline:
-#     return ClassificationPipeline(layers=[
-#         hash_cache,
-#         EmbeddingLayer(encoder=Embedder()),
-#         HeuristicLayer(rules=load_rules()),
-#         LLMFallbackLayer(
-#             model=MODEL_NAME,
-#             client=OllamaClient(),
-#             labels=LABELS,
-#         ),
-#     ])
 def build_pipeline() -> ClassificationPipeline:
-    print("⏳ Carregando embedder...", flush=True)
-    embedder = Embedder()
-    print("✅ Embedder pronto.", flush=True)
-
-    print("⏳ Carregando regras...", flush=True)
-    rules = load_rules()
-    print("✅ Regras prontas.", flush=True)
-
     return ClassificationPipeline(layers=[
         hash_cache,
-        EmbeddingLayer(encoder=embedder),
-        HeuristicLayer(rules=rules),
-        LLMFallbackLayer(client=OllamaClient(), labels=LABELS),
+        EmbeddingLayer(encoder=Embedder()),
+        HeuristicLayer(rules=load_rules()),
+        LLMFallbackLayer(
+            model=MODEL_NAME,
+            client=OllamaClient(),
+            labels=LABELS,
+        ),
     ])
 
 
