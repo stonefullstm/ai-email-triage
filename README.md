@@ -1,4 +1,7 @@
-# AI Inbox Lens
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+# AI E-mail Triage
 
 AI-powered email triage system that automatically classifies and prioritizes incoming emails using a hybrid approach combining heuristics, semantic embeddings, and LLM-based classification.
 
@@ -93,8 +96,8 @@ If confidence is too low, the message is sent to an LLM classifier.
 Clone the repository:
 
 ```bash
-git clone git@github.com:stonefullstm/inbox-lens.git
-cd inbox-lens
+git clone git@github.com:stonefullstm/ai-email-triage.git
+cd ai-email-triage
 ```
 
 Install dependencies:

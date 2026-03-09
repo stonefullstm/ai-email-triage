@@ -11,4 +11,4 @@ class ClassificationPipeline:
             result = layer.classify(email)
             if result and layer.is_confident(result):
                 return result
-        return None  # nenhuma camada teve confiança suficiente
+        return None  # no layer had enough confidence

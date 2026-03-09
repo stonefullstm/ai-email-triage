@@ -20,16 +20,16 @@ class ClassificationResult:
 
 
 class ClassifierLayer(ABC):
-    """Interface base para todas as camadas do pipeline."""
+    """Base interface for all layers in the pipeline."""
 
     THRESHOLD: float = 0.85
 
     @abstractmethod
     def classify(self, email: EmailInput) -> Optional[ClassificationResult]:
         """
-        Tenta classificar o e-mail.
-        Retorna ClassificationResult se confiante o suficiente,
-        ou None para passar para a próxima camada.
+        Tries to classify the email.
+        Returns ClassificationResult if confident enough,
+        or None to pass to the next layer.
         """
         ...
 

@@ -4,11 +4,11 @@ from typing import Optional
 from triage.core.base import ClassifierLayer, ClassificationResult, EmailInput
 
 
-@dataclass  # usando dataclass para facilitar config externa
+@dataclass
 class HeuristicRule:
     label: str
     confidence: float
-    senders: list[str] = field(default_factory=list)       # match exato
+    senders: list[str] = field(default_factory=list)       # match
     subject_patterns: list[str] = field(default_factory=list)  # regex
     body_patterns: list[str] = field(default_factory=list)     # regex
 

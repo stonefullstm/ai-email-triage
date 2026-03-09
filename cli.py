@@ -18,7 +18,7 @@ from triage.llm.ollama_client import OllamaClient
 load_dotenv()
 
 app = typer.Typer(
-    help="AI Inbox Lens — layered e-mail classification with LLM fallback")
+    help="AI E-mail Triage — layered e-mail classification with LLM fallback")
 
 MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
 LABELS = ["financeiro", "spam", "notificacao", "pessoal"]
@@ -123,7 +123,7 @@ def check_rules(
     rules_path: Optional[str] = typer.Argument(
         None, help="Path to the rules.yaml file."),
 ):
-    """Exibe as regras heurísticas carregadas."""
+    """Displays the loaded heuristic rules."""
     path = rules_path or "triage/config/rules.yaml"
     rules = load_rules(path)
 

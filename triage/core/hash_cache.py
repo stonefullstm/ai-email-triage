@@ -12,18 +12,26 @@ class HashCacheLayer(ClassifierLayer):
         return hashlib.sha256(key.encode()).hexdigest()
 
     def classify(self, email: EmailInput) -> Optional[ClassificationResult]:
+        """
+        Return cached classification if email hash exists in cache.
+
+        Checks the internal cache using a SHA256 hash of the email's subject
+        and sender. If a matching hash is found, returns a
+        ClassificationResult with confidence 1.0. Otherwise returns None,
+        indicating no cached classification available.
+        """
         key = self._hash(email)
         label = self._cache.get(key)
         if label:
             return ClassificationResult(
                 label=label,
-                confidence=1.0,  # cache é determinístico
+                confidence=1.0,  # cache is deterministic
                 source="cache",
                 metadata={"hash": key},
             )
         return None
 
     def store(self, email: EmailInput, label: str) -> None:
-        """Retroalimenta o cache com uma classificação confirmada."""
+        """Feedback the cache with a confirmed classification."""
         key = self._hash(email)
         self._cache[key] = label

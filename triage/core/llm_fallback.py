@@ -22,14 +22,14 @@ Responda com um JSON no formato:
 
 
 class LLMFallbackLayer(ClassifierLayer):
-    THRESHOLD = 0.70  # mais permissivo por ser o último recurso
+    THRESHOLD = 0.70  # more permissive because it is the last resource
 
     def __init__(self, client, labels: list[str], model: str = "qwen2.5:7b"):
         """
-        client: qualquer objeto com método chat(model, prompt) -> str
-                compatível com Ollama, OpenAI, etc.
-        labels: lista de categorias possíveis
-        model:  nome do modelo a usar
+        client: any object with a chat(model, prompt) -> str method
+                compatible with Ollama, OpenAI, etc.
+        labels: list possible categories
+        model:  model name to use
         """
         self.client = client
         self.labels = labels

@@ -8,6 +8,10 @@ from .models import EmailMessage
 class EmailParser:
 
     def parse(self, raw_email: bytes) -> EmailMessage:
+        """
+        Parses a raw email message and extracts its components
+        into an EmailMessage object.
+        """
         msg = email.message_from_bytes(raw_email)
 
         subject = self._decode_header(msg.get("Subject"))
