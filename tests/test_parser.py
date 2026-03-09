@@ -105,9 +105,11 @@ Body.
     parser = EmailParser()
     result = parser.parse(raw_email)
 
-    # O subject decodificado deve ser "Hello World" (com um espaço não quebrável que pode ser convertido para espaço)
+    # O subject decodificado deve ser "Hello World"
+    # (com um espaço não quebrável que pode ser convertido para espaço)
     # Dependendo da decodificação, o \u00A0 pode ser mantido ou convertido.
-    # No nosso código, usamos errors="ignore" e decodificamos com utf-8, então deve ser "Hello World" (com um espaço não quebrável).
+    # No nosso código, usamos errors="ignore" e decodificamos com utf-8,
+    # então deve ser "Hello World" (com um espaço não quebrável).
     # Mas para simplificar, vamos verificar se contém "Hello" e "World".
     assert "Hello" in result.subject
     assert "World" in result.subject
