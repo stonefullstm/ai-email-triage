@@ -65,7 +65,7 @@ def run():
     print("✅ Conectado.", flush=True)
 
     print("⏳ Buscando e-mails não lidos...", flush=True)
-    emails = reader.fetch_unseen()
+    emails = reader.fetch_unseen(limit=50)
     print(f"✅ {len(emails)} e-mail(s) encontrado(s).", flush=True)
 
     if not emails:
