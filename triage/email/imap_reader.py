@@ -1,4 +1,5 @@
 import imaplib
+from datetime import datetime, timedelta
 
 
 class IMAPReader:
@@ -14,14 +15,15 @@ class IMAPReader:
         self.conn.login(self.username, self.password)
         self.conn.select(self.mailbox)
 
-    def fetch_unseen(self, limit: int = 10):
-        status, messages = self.conn.search(None, "UNSEEN")
+    def fetch_unseen(self, days: int = 1, limit: int = 20):
+        since = (datetime.now() - timedelta(days=days)).strftime("%d-%b-%Y")
+        status, messages = self.conn.search(None, f'(UNSEEN SINCE {since})')
         ids = messages[0].split()[-limit:]
 
         raw_emails = []
 
         for i, mail_id in enumerate(ids):
-            # print(f"  → Processando {i+1}/{len(ids)}...", flush=True)
+            # print(f"  → Processing {i+1}/{len(ids)}...", flush=True)
             status, msg_data = self.conn.fetch(
                 mail_id, "(BODY.PEEK[HEADER] BODY.PEEK[TEXT]<0.2000>)")
             raw_email = msg_data[0][1]
