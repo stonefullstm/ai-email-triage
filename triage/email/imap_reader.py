@@ -21,7 +21,7 @@ class IMAPReader:
         raw_emails = []
 
         for i, mail_id in enumerate(ids):
-            print(f"  → Processando {i+1}/{len(ids)}...", flush=True)
+            # print(f"  → Processando {i+1}/{len(ids)}...", flush=True)
             status, msg_data = self.conn.fetch(
                 mail_id, "(BODY.PEEK[HEADER] BODY.PEEK[TEXT]<0.2000>)")
             raw_email = msg_data[0][1]
