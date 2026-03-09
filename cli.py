@@ -94,9 +94,9 @@ def run(
     for raw in raw_emails:
         parsed = parser.parse(raw)
         email_input = EmailInput(
-            subject=parsed["subject"],
-            sender=parsed["sender"],
-            body=parsed["body"],
+            subject=parsed.subject,
+            sender=parsed.sender,
+            body=parsed.body,
         )
 
         result = pipeline.run(email_input)
