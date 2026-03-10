@@ -1,0 +1,27 @@
+From: Supabase Security <security@supabase.com>
+To: carlos@example.com
+Subject: Security vulnerabilities detected in your Supabase project
+Date: Wed, 06 Mar 2024 11:45:00 -0300
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+
+Hello Carlos,
+
+We have detected potential security vulnerabilities in your Supabase project.
+
+The following issues were identified:
+
+- Outdated dependency detected in your API layer
+- Public access enabled for a storage bucket
+- Missing RLS (Row Level Security) policies on one table
+
+These issues may expose your project to unauthorized access.
+
+We recommend reviewing your project configuration and applying the suggested fixes.
+
+You can view the details and remediation steps in the Supabase dashboard:
+
+https://app.supabase.com/project/security
+
+Best regards,
+Supabase Security Team
