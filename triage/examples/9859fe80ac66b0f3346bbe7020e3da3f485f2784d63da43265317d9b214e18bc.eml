@@ -1,0 +1,417 @@
+Delivered-To: stonefull.stm@gmail.com
+Received: by 2002:a05:6359:14cb:b0:27c:6aa1:5404 with SMTP id lz11csp2288301rwb;
+        Tue, 10 Mar 2026 07:30:22 -0700 (PDT)
+X-Received: by 2002:ad4:5c86:0:b0:899:b64f:5f9f with SMTP id 6a1803df08f44-89a30a5d058mr231252766d6.29.1773153021827;
+        Tue, 10 Mar 2026 07:30:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773153021; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Ygljmk7B0YaAyBBQR+1LB3499jV3ySc395nGhCUrZbtyJvQyZC1pYhc0Tu7kKox8t4
+         jlLVWj/GK0p77K0O6poaY/FIiJYoY0oJRs4BAeuwIDxvCwxOKXJ+3pgw4leEnBuboxaC
+         40AAO4rMj3yT7RzChrAtJc3W9paLij6pQE3UXAWVmg0WXPDJePYXT2Mebzl5XQ72+t+w
+         ojlqufPqmr2n3KnGnIvXIaCW7d7BEdECyj7Y+RUzSepWqjNq2X0x2GV9uMCmZBblaGW2
+         W6cHy2iZKqA8AN/g5Xjyk3bk6wAm/WZkldFSxtP/77V7IhcYev2ov1I800QAk3Nidviz
+         m9mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=message-id:list-unsubscribe-post:list-unsubscribe:to:from:subject
+         :mime-version:date:dkim-signature:dkim-signature;
+        bh=d5rChs9mpGzuO38GPPVr9r2SrDv7U2spt+NtQziVVC0=;
+        fh=QcapxEOJ3sChxN1FsCCdTIgk4JXyl6ltSIJ/yg+XlGE=;
+        b=a/uNg+DXgdz8jLaZn0aNKyhjc5JmEbCMBlquZxexElG4okJc9Gvph7y8vhprfxBQcC
+         ok07Hki3BoEum7Dj9mj5077l3ATVQ6TW8rIRMJdRPwkYsrElhLf0oeQoEPpXrdNmjckI
+         13va0V/MtDFcW6x7SN6KuVfW+FTDj74OcdTXc4lIF+B9y27+K61Pt9KWBCLj078/tAKd
+         dKbT/RIL26gRShMGzX0fDBh5jQMALBHm3o8B6DRMddeHUNmXY7XrR//5CSDfps7OQsBk
+         Lb4BbCkhw8d1r5/qiLsXLRGmo53XrEvgagGpi28moQN4bQ8ecKH4kBt3RdeiLnzfIG/D
+         3zhw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@cio78101.realpython.com header.s=krs header.b=fDIxg3aL;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=RtJ8MDHp;
+       spf=pass (google.com: domain of postmaster@cio78101.realpython.com designates 159.112.241.47 as permitted sender) smtp.mailfrom=postmaster@cio78101.realpython.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=realpython.com
+Return-Path: <postmaster@cio78101.realpython.com>
+Received: from v547.v5c4dda55.use4.send.mailgun.net (v547.v5c4dda55.use4.send.mailgun.net. [159.112.241.47])
+        by mx.google.com with UTF8SMTPS id 6a1803df08f44-89a57d59597si31054816d6.684.2026.03.10.07.30.21
+        for <stonefull.stm@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 10 Mar 2026 07:30:21 -0700 (PDT)
+Received-SPF: pass (google.com: domain of postmaster@cio78101.realpython.com designates 159.112.241.47 as permitted sender) client-ip=159.112.241.47;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@cio78101.realpython.com header.s=krs header.b=fDIxg3aL;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=RtJ8MDHp;
+       spf=pass (google.com: domain of postmaster@cio78101.realpython.com designates 159.112.241.47 as permitted sender) smtp.mailfrom=postmaster@cio78101.realpython.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=realpython.com
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=cio78101.realpython.com; q=dns/txt; s=krs; t=1773153021; x=1773160221;
+ h=Message-Id: List-Unsubscribe-Post: List-Unsubscribe: To: To: From: From: Subject: Subject: Content-Type: Mime-Version: Date: X-Feedback-Id: Sender;
+ bh=d5rChs9mpGzuO38GPPVr9r2SrDv7U2spt+NtQziVVC0=;
+ b=fDIxg3aLzjcPL9Rxgimr0+fhxY12IhrMDj8wp8IopL5hriVenOCJPG7ojx+aUthYbemHfRm4OHsxXmXN3eZmyqHxAWRkqFKBuHQcN/2ZH4rrLRck4z56AcPDWhBJKmi2rb451oLqhgYoO0whaljDBsoIIU2F2PXAEImOdlI6sn4=
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mailgun.org; q=dns/txt; s=mg; t=1773153021; x=1773160221;
+ h=Message-Id: List-Unsubscribe-Post: List-Unsubscribe: To: To: From: From: Subject: Subject: Content-Type: Mime-Version: Date: X-Feedback-Id: Sender;
+ bh=d5rChs9mpGzuO38GPPVr9r2SrDv7U2spt+NtQziVVC0=;
+ b=RtJ8MDHpDvnFwsPi+/bJwTrzh0mh/65UUTiMb1Gw43s8vw4c9iGLz034rS5+Vi9NxT/I8vLUa9w4mTNI3XQ9fwyO6Jwglbg7eFRCQqULLWvGVtYRqq+pNhhuCtnn2xW1sXQdJBYZ13tDd4WLCr+zXP15PR36D7b41T/M+COuANw=
+X-Mailgun-Sid: WyIzYjhmYSIsInN0b25lZnVsbC5zdG1AZ21haWwuY29tIiwiNTc0YzAiXQ==
+X-Feedback-Id: postmaster@cio78101.realpython.com::631103bcc0cf530fc3393d12:mailgun
+Received: by 08bb30b62873db38ee9e81c1fb600adf43d5523040c8450b3ffcb6de48652e26 with HTTP
+ id 69b02af83b0c4bd4634d7a4b; Tue, 10 Mar 2026 14:30:16 GMT
+X-Mailgun-Sending-Ip: 159.112.241.47
+Date: Tue, 10 Mar 2026 14:30:16 +0000
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="b5bfd1b78f4bc78dba1b0875b10e45d7722bb4420327d13240de03d11ac2"
+Subject: We asked Python devs about AI. 65% said the same thing
+From: Dan at Real Python <info@realpython.com>
+To: stonefull.stm@gmail.com
+X-Mailgun-Dkim: true
+X-Mailgun-Native-Send: true
+X-Mailgun-Track-Clicks: false
+X-Mailgun-Track-Opens: false
+List-Unsubscribe: <mailto:32.MRTVGVL2KFRUIQKKNFQVCSTFMFIUCR3DGJBWK5ZSJ5LXAQLSMVZHSQKNJUYU6OB5@unsubscribe2.customer.io>,
+ <https://links.realpython.com/unsubscribe/dgSUzQcDAJiaQJeaQAGc2Cew2OWpAreryAMM1O8=>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Mailer: Customer.io (dgSUzQcDAJiaQJeaQAGc2Cew2OWpAreryAMM1O8=;
+ +https://whatis.customeriomail.com)
+X-Report-Abuse-To: badactor@customer.io
+X-Mailgun-Variables: {"email_id": "dgSUzQcDAJiaQJeaQAGc2Cew2OWpAreryAMM1O8="}
+Message-Id: <20260310143016.30da57c94e87cd17@cio78101.realpython.com>
+
+--b5bfd1b78f4bc78dba1b0875b10e45d7722bb4420327d13240de03d11ac2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+
+Hey Carlos Alberto P.,
+
+Last Tuesday, a Python dev named Marco spent 45 minutes arguing with ChatGP=
+T about a bug in his Flask app...
+
+He pasted the traceback. It gave him a fix.
+
+The fix broke something in a file it didn't know about.
+
+He pasted that error in=E2=80=94
+
+It apologized, rewrote the function from scratch, and ignored the last thre=
+e messages.
+
+He tried explaining the project structure. It lost context halfway through.=
+ He started a new thread. Re-pasted his code. Got a different answer that c=
+ontradicted the first one.
+
+He closed the tab, opened his editor, and fixed it himself. It took twelve =
+minutes.
+
+Marco isn't a bad developer. He ships code every week. He's been writing Py=
+thon for six years. He uses AI every day.
+
+And every day, he has the same thought: there has to be a better way to do
+this.
+
+He's right. There is.
+
+We recently surveyed 278 Python developers. Most of them sounded a lot like=
+ Marco:
+
+"AI is good for solving a small task, but only this."
+
+"Going through a long session then hitting context limits and having to sta=
+rt a new thread."
+
+And this one hit a nerve:
+
+"It's so easy to lose track of an application's architecture. There's a ver=
+y specific kind of frustration when something breaks, and you have no idea =
+how to trace through the code."
+
+The pattern is always the same:
+
+Chat-based AI can't see your project. It doesn't know what files you have. =
+It can't run your tests. It forgets everything when the context window fill=
+s up.
+
+So you end up doing the integration work yourself. Copying code between
+windows. Re-explaining your project every session. Reviewing output you don=
+'t fully trust.
+
+65% of the developers we surveyed are stuck at exactly this point. AI helps=
+ with small things, but it falls apart on anything *real*.
+
+And underneath all of it, a question most developers won't say out loud:
+
+If I can't figure out how to work with these tools, what happens to my care=
+er?
+
+Here's the thing. The problem isn't the AI. It's the workflow.
+
+Chat-based tools were never designed to work inside your codebase. They can=
+'t read your files. They can't edit them. They can't run your tests and fix=
+ what fails. You're doing all of that manually, and that's why it feels lik=
+e so much work for so little payoff.
+
+There's a different kind of tool. It's called an agentic coding assistant, =
+and it changes the equation completely.
+
+Instead of copying code from a chat window, the AI runs in your terminal. I=
+nside your project. It reads your files, edits them directly, runs your tes=
+ts, sees the errors, and fixes them. It manages git. It works across your w=
+hole codebase, not one snippet at a time.
+
+The best tool for this right now is called Claude Code. And we've built a c=
+ourse that teaches you how to use it.
+
+Claude Code for Python Developers ( https://realpython.com/workshops/claude=
+-code/ ) is a two-day live course (March 21-22, via Zoom) where you'll buil=
+d a complete Python CLI application from an empty directory.
+
+Not toy examples. A real project with Click, Textual, python-dotenv, git, G=
+itHub, and tests. You'll scaffold it, build features, debug it, and ship it=
+, all using Claude
+Code.
+
+By the end of Day 2, you'll have:
+
+=E2=80=A2 A working project on GitHub that you built from scratch
+
+=E2=80=A2 A repeatable workflow for planning, building, debugging, and ship=
+ping features
+
+=E2=80=A2 A portable Claude Code starter kit with custom skills you can use=
+ on any project
+
+=E2=80=A2 The confidence to review AI-generated code instead of crossing yo=
+ur fingers
+
+See the full day-by-day curriculum and enroll here:
+
+=E2=86=92=C2=A0realpython.com/workshops/claude-code ( https://realpython.co=
+m/workshops/claude-code/ )
+
+(Two days, one tool, and a workflow you can use on Monday.)
+
+=E2=80=94 Dan Bader
+
+To make sure you keep getting these emails, please add info@realpython.com =
+to your address book or allowlist. Want out of the loop? Unsubscribe ( http=
+s://track.customer.io/unsubscribe/dgSUzQcDAJiaQJeaQAGc2Cew2OWpAreryAMM1O8=
+=3D )
+
+Our postal address: #720-999 West Broadway, Vancouver BC V5Z 1K5, Canada
+--b5bfd1b78f4bc78dba1b0875b10e45d7722bb4420327d13240de03d11ac2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns=3D"http://www.w3.=
+org/1999/xhtml"><head>
+<title></title>
+<meta name=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=3D1.0=
+,user-scalable=3D1"/>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"/>
+<style type=3D"text/css">
+#outlook a {padding: 0;}
+body {
+background-color: #ffffff;
+margin: 0;
+padding: 0;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+}
+table,td {
+border-collapse: collapse;
+mso-table-lspace: 0pt;
+mso-table-rspace: 0pt;
+}
+=2Ecolumn {
+display: inline-block;
+width: 100%;
+text-align: left;
+vertical-align: top;
+}
+@media only screen and (min-width: 480px) {
+=2Ecolumn-100, * [aria-labelledby=3D'column-100'] {
+width: 100% !important;
+display: inline-block;
+text-align: left;
+vertical-align: top;
+}}
+h1 {
+font-size: 21px;
+}
+img {
+max-width: 440px;
+}
+</style>
+</head>
+<body style=3D"background-color: #ffffff; -webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; margin: 0; padding: 0;" bgcolor=3D"#ffffff">
+<!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPer=
+Inch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+<div style=3D"background-color: #ffffff;">
+<!--[if mso]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><t=
+d><![endif]-->
+<div style=3D"max-width: 450px; background-color: rgb(255, 255, 255);">
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center" st=
+yle=3D"font-size: 0px; width: 100%; background-color: rgb(255, 255, 255); b=
+order-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" bg=
+color=3D"rgb(255, 255, 255)">
+<tbody><tr><td style=3D"text-align: center; vertical-align: top; font-size:=
+ 0px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt;" align=3D"center" valign=3D"top">
+<!--[if mso]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><t=
+d style=3D"vertical-align:top;width:600px;"><![endif]-->
+<div class=3D"column column-100" aria-labelledby=3D"column-100" style=3D"di=
+splay: inline-block; width: 100%; text-align: left; vertical-align: top;" a=
+lign=3D"left"><table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=
+=3D"100%" style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-ta=
+ble-rspace: 0pt;"><tbody><tr>
+<td style=3D"word-wrap: break-word; word-break: break-word; font-size: 0px;=
+ text-align: left; border-collapse: collapse; mso-table-lspace: 0pt; mso-ta=
+ble-rspace: 0pt;" align=3D"left">
+<div style=3D"color: rgb(52, 52, 52); font-family: Helvetica, Arial, sans-s=
+erif; font-size: 15px; line-height: 1.4; margin: 0px; padding: 11px;">
+<div>Hey Carlos Alberto P.,<br/><br/>Last Tuesday, a Python dev named Marco=
+ spent 45 minutes arguing with ChatGPT about a bug in his Flask app...</div=
+><div><br/></div><div>He pasted the traceback. It gave him a fix. <br/><br/=
+>The fix broke something in a file it didn't know about. <br/><br/>He paste=
+d that error in=E2=80=94<br/><br/>It apologized, rewrote the function from =
+scratch, and ignored the last three messages.</div><div><br/></div><div>He =
+tried explaining the project structure. It lost context halfway through. He=
+ started a new thread. Re-pasted his code. Got a different answer that cont=
+radicted the first one.</div><div><br/></div><div>He closed the tab, opened=
+ his editor, and fixed it himself. It took twelve minutes.</div><div><br/><=
+/div><div>Marco isn't a bad developer. He ships code every week. He's been =
+writing Python for six years. He uses AI every day.</div><div><br/></div><d=
+iv>And every day, he has the same thought: there has to be a better way to =
+do
+this.</div><div><br/></div><div>He's right. There is.</div><div><br/></div>=
+<div>We recently surveyed 278 Python developers. Most of them sounded a lot=
+ like Marco:</div><div><br/></div><div><i>&#34;AI is good for solving a sma=
+ll task, but only this.&#34;</i></div><div><br/></div><div><i>&#34;Going th=
+rough a long session then hitting context limits and having to start a new =
+thread.&#34;</i></div><div><br/></div><div>And this one hit a nerve:</div><=
+div><br/></div><div><i>&#34;It's so easy to lose track of an application's =
+architecture. There's a very specific kind of frustration when something br=
+eaks, and you have no idea how to trace through the code.&#34;</i></div><di=
+v><br/></div><div>The pattern is always the same:</div><div><br/></div><div=
+>Chat-based AI can't see your project. It doesn't know what files you have.=
+ It can't run your tests. It forgets everything when the context window fil=
+ls up.</div><div><br/></div><div>So you end up doing the integration work y=
+ourself. Copying code between
+windows. Re-explaining your project every session. Reviewing output you don=
+'t fully trust.</div><div><br/></div><div>65% of the developers we surveyed=
+ are stuck at exactly this point. AI helps with small things, but it falls =
+apart on anything *real*.</div><div><br/></div><div>And underneath all of i=
+t, a question most developers won't say out loud: <br/><br/>If I can't figu=
+re out how to work with these tools, what happens to my career?</div><div><=
+br/></div><div>Here's the thing. The problem isn't the AI. It's the workflo=
+w.</div><div><br/></div><div>Chat-based tools were never designed to work i=
+nside your codebase. They can't read your files. They can't edit them. They=
+ can't run your tests and fix what fails. You're doing all of that manually=
+, and that's why it feels like so much work for so little payoff.</div><div=
+><br/></div><div>There's a different kind of tool. It's called an <i>agenti=
+c coding assistant</i>, and it changes the equation completely.</div><div><=
+br/></div><div>Instead of copying code from a chat window, the AI runs in y=
+our terminal. Inside your project. It reads your files, edits them directly=
+, runs your tests, sees the errors, and fixes them. It manages git. It work=
+s across your whole codebase, not one snippet at a time.</div><div><br/></d=
+iv><div>The best tool for this right now is called Claude Code. And we've b=
+uilt a course that teaches you how to use it.</div><div><br/></div><div><b>=
+<i></i></b><i><a target=3D"_blank" href=3D"https://links.realpython.com/e/c=
+/eyJlbWFpbF9pZCI6ImRnU1V6UWNEQUppYVFKZWFRQUdjMkNldzJPV3BBcmVyeUFNTTFPOD0iLC=
+JocmVmIjoiaHR0cHM6Ly9yZWFscHl0aG9uLmNvbS93b3Jrc2hvcHMvY2xhdWRlLWNvZGUvIiwia=
+W50ZXJuYWwiOiI5NGNkMDcyMzg3MGY5ODlhNDAiLCJsaW5rX2lkIjozMjg1M30/7e4e3c675f6f=
+20e95e132b96c81c3011265fdc97033e91e7e9da5a4fe21b7308">Claude Code for Pytho=
+n Developers</a> </i>is a two-day live course (March 21-22, via Zoom) where=
+ you'll build a complete Python CLI application from an empty directory.</d=
+iv><div><br/></div><div>Not toy examples. A real project with Click, Textua=
+l, python-dotenv, git, GitHub, and tests. You'll scaffold it, build feature=
+s, debug it, and ship it, all using Claude
+Code.</div><div><br/></div><div>By the end of Day 2, you'll have:</div><div=
+><br/></div><div>=E2=80=A2 A working project on GitHub that you built from =
+scratch<br/><br/></div><div>=E2=80=A2 A repeatable workflow for planning, b=
+uilding, debugging, and shipping features<br/><br/></div><div>=E2=80=A2 A p=
+ortable Claude Code starter kit with custom skills you can use on any proje=
+ct<br/><br/></div><div>=E2=80=A2 The confidence to review AI-generated code=
+ instead of crossing your fingers</div><div><br/></div><div>See the full da=
+y-by-day curriculum and enroll here:</div><div><br/></div><div><b>=E2=86=92=
+=C2=A0</b><a href=3D"https://links.realpython.com/e/c/eyJlbWFpbF9pZCI6ImRnU=
+1V6UWNEQUppYVFKZWFRQUdjMkNldzJPV3BBcmVyeUFNTTFPOD0iLCJocmVmIjoiaHR0cHM6Ly9y=
+ZWFscHl0aG9uLmNvbS93b3Jrc2hvcHMvY2xhdWRlLWNvZGUvIiwiaW50ZXJuYWwiOiI5NGNkMDc=
+yMzg3MGY5ODlhNDAiLCJsaW5rX2lkIjozMjg1M30/7e4e3c675f6f20e95e132b96c81c301126=
+5fdc97033e91e7e9da5a4fe21b7308"><b>realpython.com/workshops/claude-code</b>=
+</a></div><div><br/></div><div>(Two days, one tool, and a workflow you can =
+use on Monday.)</div><div><br/></div><div>=E2=80=94 Dan Bader</div>
+</div></td></tr></tbody></table></div>
+<!--[if mso]></td></tr></table><![endif]-->
+</td></tr></tbody></table></div>
+<!--[if mso]></td></tr></table><table border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0"><tr><td><![endif]-->
+<div style=3D"max-width: 450px; background-color: rgb(255, 255, 255);">
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"center" st=
+yle=3D"font-size: 0px; width: 100%; background-color: rgb(255, 255, 255); b=
+order-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" bg=
+color=3D"rgb(255, 255, 255)">
+<tbody><tr><td style=3D"text-align: center; vertical-align: top; font-size:=
+ 0px; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0=
+pt;" align=3D"center" valign=3D"top">
+<!--[if mso]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><t=
+d style=3D"vertical-align:top;width:600px;"><![endif]-->
+<div class=3D"column column-100" aria-labelledby=3D"column-100" style=3D"di=
+splay: inline-block; width: 100%; text-align: left; vertical-align: top;" a=
+lign=3D"left"><table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=
+=3D"100%" style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-ta=
+ble-rspace: 0pt;"><tbody><tr>
+<td class=3D"alignmentContainer" style=3D"word-wrap: break-word; word-break=
+: break-word; font-size: 0px; text-align: center; border-collapse: collapse=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 25px 11px;" align=
+=3D"center">
+<div>
+<!--[if mso]>
+<hr
+xmlns=3D"http://www.w3.org/1999/xhtml" align=3D"center" style=3D"width: 100=
+%;
+border-color: rgb(208, 208, 208); background-color: rgb(208, 208, 208);
+color: rgb(208, 208, 208); border-width: 1px 0px 0px; height: 1px;" />
+<![endif]-->
+<div style=3D"width: 100%; background-color: rgb(208, 208, 208); color: rgb=
+(208, 208, 208); height: 1px; mso-hide: all; margin: 0px auto; border: rgb(=
+208,208,208);" xmlns=3D"http://www.w3.org/1999/xhtml"></div>
+</div></td></tr></tbody></table></div>
+<!--[if mso]></td></tr></table><![endif]--></td></tr></tbody></table></div>
+<!--[if mso]></td></tr></table><table border=3D"0"cellpadding=3D"0" cellspa=
+cing=3D"0"><tr><td><![endif]-->
+<div style=3D"max-width: 450px; background-color: rgb(255, 255, 255);"><tab=
+le border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"font-size: 0px=
+; width: 100%; background-color: rgb(255, 255, 255); border-collapse: colla=
+pse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;" bgcolor=3D"rgb(255, 255=
+, 255)"><tbody><tr><td style=3D"border-collapse: collapse; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt;">
+<!--[if mso]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><t=
+d style=3D"vertical-align:top;width:600px;"><![endif]-->
+<div class=3D"column column-100" aria-labelledby=3D"column-100" style=3D"di=
+splay: inline-block; width: 100%; text-align: left; vertical-align: top;" a=
+lign=3D"left"><table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=
+=3D"100%" style=3D"border-collapse: collapse; mso-table-lspace: 0pt; mso-ta=
+ble-rspace: 0pt;"><tbody><tr>
+<td class=3D"alignmentContainer" style=3D"word-wrap: break-word; word-break=
+: break-word; font-size: 0px; text-align: left; border-collapse: collapse; =
+mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 11px;" align=3D"left=
+">
+<div style=3D"margin-left: auto; margin-right: auto; font-family: Helvetica=
+, Arial, sans-serif; line-height: 1.4; color: rgb(153, 153, 153); font-size=
+: 11px; padding: 0px;">
+<div id=3D"footer">
+To make sure you keep getting these emails, please add info@realpython.com =
+to your address book or allowlist. Want out of the loop? <a href=3D"https:/=
+/links.realpython.com/unsubscribe/dgSUzQcDAJiaQJeaQAGc2Cew2OWpAreryAMM1O8=
+=3D" style=3D"color: rgb(153, 153, 153);">Unsubscribe</a><br/>
+<br/>
+Our postal address: #720-999 West Broadway, Vancouver BC V5Z 1K5, Canada
+</div>
+</div></td></tr></tbody></table></div><!--[if mso]></td></tr></table><![end=
+if]-->
+</td></tr></tbody></table></div><!--[if mso]></td></tr></table><![endif]-->
+</div>
+
+<img src=3D"https://links.realpython.com/e/o/eyJlbWFpbF9pZCI6ImRnU1V6UWNEQU=
+ppYVFKZWFRQUdjMkNldzJPV3BBcmVyeUFNTTFPOD0ifQ=3D=3D" style=3D"height: 1px !i=
+mportant; max-height: 1px !important; max-width: 1px !important; width: 1px=
+ !important; display: none !important;" alt=3D""/></body></html>
+--b5bfd1b78f4bc78dba1b0875b10e45d7722bb4420327d13240de03d11ac2--

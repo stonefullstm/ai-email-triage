@@ -1,0 +1,638 @@
+Delivered-To: stonefull.stm@gmail.com
+Received: by 2002:a05:6359:14cb:b0:27c:6aa1:5404 with SMTP id lz11csp2339502rwb;
+        Tue, 10 Mar 2026 08:41:48 -0700 (PDT)
+X-Received: by 2002:a05:6214:2629:b0:899:f6bb:3320 with SMTP id 6a1803df08f44-89a30a3cdefmr224692216d6.24.1773157308365;
+        Tue, 10 Mar 2026 08:41:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773157308; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ESYFDsAl8goBua9nwksvZ9sPtC+Kr1D8uWmEcdCfZbFpY3kcrUSdV4nN4ptXMKAXlw
+         nZpZrHmYZJi/CB4AGIyymnKbTFQv7PvzoeF4NRBvbQELODbOiYh+5lvPw7epvYf/8FpJ
+         crAsVioBkXJprh+S1IaSctEulxFNmI3dKCE3q+f37VuL/XEDEY+cM1HikwBiowCCE33F
+         4Cw0c7D9Qv16E9vrMiJ2NQrVGlyt0cFVbcu9IUt3F0PC2GYu5YDTcdJf3ayiA8vC2YfH
+         8/eRFkvQJ+l89ecwLZLxM9OiFH5AeFrzTf7Xe0yp8chnQCjxE7parnRcSMYkMRxCOaSS
+         u73A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=feedback-id:list-unsubscribe:list-unsubscribe-post:mime-version
+         :subject:message-id:to:from:date:cfbl-address:dkim-signature
+         :dkim-signature;
+        bh=9CxULeQ0aK8/F/MdGyIpxq+m8OahMBa7LjlBbgLMO9w=;
+        fh=QcapxEOJ3sChxN1FsCCdTIgk4JXyl6ltSIJ/yg+XlGE=;
+        b=ILfwgvx/FHDRQEtctSw1vcWKHTJy/AISer8VApnncjLDYl6A6zTGVlKS7TdqeRwsLD
+         dur6xZtb5eCfPbl/rH08l/q+8fsUNqiF8HvMXPtvmWknjuUpc26pe4zxY1bbNH4zvjFw
+         kA+S90eecEWkafChIgpf8iNvnrpAU7Sru7+ltP+PZscAGls1qBZKwQyBrDtfEnEfET+V
+         KT0nXG+UcMXXmkACuuB0OnB42r9RdfxEwbYwJrDTE9q+eIV7gIFrQEf92fJX7fE7Vent
+         9iA+iIqY4bDIg8ravAJFlRetw5d4BaDbobSabexYnF0di63HpTP6/PAe9JNa6zcium4F
+         WU+Q==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@devmedia.com.br header.s=acdkim1 header.b=rdRpm+6u;
+       dkim=pass header.i=@acems2.com header.s=acdkim1 header.b=kyblSkFD;
+       spf=pass (google.com: domain of bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br designates 52.128.40.41 as permitted sender) smtp.mailfrom="bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=devmedia.com.br
+Return-Path: <bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br>
+Received: from s6.csa1.acemsb1.com (s6.csa1.acemsb1.com. [52.128.40.41])
+        by mx.google.com with ESMTPS id 6a1803df08f44-89a57ba4980si30720266d6.72.2026.03.10.08.41.48
+        for <stonefull.stm@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Mar 2026 08:41:48 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br designates 52.128.40.41 as permitted sender) client-ip=52.128.40.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@devmedia.com.br header.s=acdkim1 header.b=rdRpm+6u;
+       dkim=pass header.i=@acems2.com header.s=acdkim1 header.b=kyblSkFD;
+       spf=pass (google.com: domain of bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br designates 52.128.40.41 as permitted sender) smtp.mailfrom="bounce-434899-1843-621604-stonefull.stm=gmail.com@em-434899.devmedia.com.br";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=devmedia.com.br
+X-KumoRef: eyJfQF8iOiJcXF8vIiwicmVjaXBpZW50Ijoic3RvbmVmdWxsLnN0bUBnbWFpbC5jb20ifQ==
+DKIM-Signature: v=1; a=rsa-sha256; d=devmedia.com.br; s=acdkim1; c=relaxed/relaxed;
+	bh=9CxULeQ0aK8/F/MdGyIpxq+m8OahMBa7LjlBbgLMO9w=;
+	h=from:to:subject:date:mime-version:content-type:sender:cc:date:message-id:
+		list-unsubscribe:list-unsubscribe-post; t=1773157307; x=1773243707;
+	b=rdRpm+6u0VQsetESXHn9x2DThg2UdBdqTzQ/PWodL4tCK9NJN7D0Hfkz5yCGILIPkJCh2LZO6
+	yzhGGd9vto7k3QE3NJsjBQDH7mUh9G6zwTl16NqEFbI6sdrTiSChx/rDEBULD+NyklnhRIVvxjS
+	OGBHjie7wjFP/eMZMuCwRRPHe1K9xsUAqWsXNXItk57FmJjci5HpaVdGORv9pKwwUrIkVIXBgMg
+	2cUjDSIIC/NBjiJWEJUUW00G6xUxVFz4bv4rh0iAHtkgRvj82u+StpLOAg4Gm0LJL9mxYrxgO4G
+	9kDQM9AkZlVoJlKNBWeVU1i7+CzhnFM+L/zKRyjJl1SQ==;
+DKIM-Signature: v=1; a=rsa-sha256; d=acems2.com; s=acdkim1; c=relaxed/relaxed;
+	bh=9CxULeQ0aK8/F/MdGyIpxq+m8OahMBa7LjlBbgLMO9w=;
+	h=from:to:subject:date:mime-version:content-type:sender:cc:date:message-id:
+		list-unsubscribe:list-unsubscribe-post; t=1773157307; x=1773243707;
+	b=kyblSkFDt+sjikjYzmkzvip4pftK3SS+PPER+e9b1hTGoY3RzPaeRMR5ppFdjjrphjS6MwY7s
+	lAhBYOGLGJOBuefRKwAeU9NICmlPkqpXp/jkKbjykw0ZAOFs6ax7DSmdSMraQW1U/6dGPZpEcSU
+	bBYcXBEtwwws3h8kgnUW8vNOq3e99ZaiFsUQzFEfAwJiRtXv0DLvyCKnnBfvMCJM+EXkB9pnSPO
+	vamwGCSG8fKsHZsn/2QyH30MEU+Zmyb8/ewwRDOZwdl5khmpnP6+ogFJd7zpS/nchkrzEh/TXyq
+	TwNBLZ3Cv9i51rVkv5CTOhGH1wvGzRo56082P/15/bfA==;
+CFBL-Address: fbl-report@acems1.com; report=arf
+X-Mailer: ActiveCampaign Mailer
+Received: from cell-2-6cb9f56884-rgllt (10.65.102.163)
+  by acems1.com (KumoMTA 10.13.178.223) 
+  with ESMTPS (TLSv1_3:TLS13_AES_256_GCM_SHA384)  id a61824991c9711f1b82a0afff7d6574b for <stonefull.stm@gmail.com>;
+  Tue, 10 Mar 2026 15:41:47 +0000
+Date: Tue, 10 Mar 2026 15:41:47 +0000 (GMT)
+From: DevMedia <devmedia@devmedia.com.br>
+To: stonefull.stm@gmail.com
+Message-ID: <1750152476.2064769.1773157307685@cell-2-6cb9f56884-rgllt>
+Subject: =?UTF-8?Q?Aprenda_programa=C3=A7=C3=A3o_co?=
+ =?UTF-8?Q?m_orienta=C3=A7=C3=A3o_individual?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_2064768_262966259.1773157307685"
+X-DKIM-Options: s=acdkim1
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-Virtual-Mta: s6.csa1.acemsb1.com
+X-250ok-CID: 434899-1843
+List-Unsubscribe: <https://devmedia.activehosted.com/box.php?nl=5&c=1843&m=2873&s=506646ea238611a7d69c84e5d1f42ded&funcml=unsub2&luha=1>,<mailto:unsubscribe-13876322341e7cc395a352fad904a3dc-1843-506646ea238611a7d69c84e5d1f42ded@s6.csa1.acemsb4.com>
+Feedback-ID: 434899:activecampaign
+X-Sending-Engine: Hedwig PCS
+X-Report-Abuse: Please report abuse to abuse@activecampaign.com
+X-lid: c3RvbmVmdWxsLnN0bUBnbWFpbC5jb20gLCBjMTg0MyAsIG0yODczICwgczE0Mjk3NzkgLCBsNQ==
+X-mid: c3RvbmVmdWxsLnN0bUBnbWFpbC5jb20gLCBjMTg0MyAsIG0yODczICwgczE0Mjk3Nzk=
+
+------=_Part_2064768_262966259.1773157307685
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Mentorias em v=C3=ADdeo para destravar d=C3=BAvidas e evoluir mais r=C3=A1p=
+ido**Ol=C3=A1**
+
+****
+
+**,**
+
+Na programa=C3=A7=C3=A3o, um bom conte=C3=BAdo ajuda muito.
+
+Mas algumas=20
+
+**d=C3=BAvidas pedem uma orienta=C3=A7=C3=A3o mais individual**.
+
+Porque, em alguns casos, o aluno n=C3=A3o precisa de mais uma aula.
+Ele precisa=20
+
+**mostrar** o que est=C3=A1 acontecendo,=20
+
+**explicar**seu cen=C3=A1rio e=20
+
+**receber uma dire=C3=A7=C3=A3o** clara sobre como avan=C3=A7ar.
+
+=C3=89 exatamente esse o valor das=20
+
+**mentorias individuais** em v=C3=ADdeo da DevMedia.
+
+Elas permitem que o aluno=20
+
+**fale diretamente com um mentor** para tratar quest=C3=B5es reais da sua e=
+volu=C3=A7=C3=A3o.
+
+Pode ser uma dificuldade no c=C3=B3digo.
+Pode ser uma trava em um projeto.
+Pode ser uma d=C3=BAvida sobre curr=C3=ADculo, portf=C3=B3lio, posicionamen=
+to profissional ou at=C3=A9 sobre como conquistar clientes.
+
+A vantagem de ter esse acompanhamento =C3=A9 simples.
+
+Em vez de passar dias tentando resolver sozinho uma dificuldade espec=C3=AD=
+fica, o=20
+
+**aluno recebe uma orienta=C3=A7=C3=A3o aplicada ao seu caso**, com mais cl=
+areza, mais seguran=C3=A7a e muito mais objetividade.
+
+Isso economiza tempo.
+Evita erros desnecess=C3=A1rios.
+E acelera a evolu=C3=A7=C3=A3o de forma muito mais pr=C3=A1tica.
+
+E o mais importante =C3=A9 que essa mentoria n=C3=A3o serve s=C3=B3 para re=
+sponder d=C3=BAvida.
+
+Ela ajuda o aluno a enxergar melhor o pr=C3=B3ximo passo, ajustar rota quan=
+do necess=C3=A1rio e=20
+
+**evoluir com mais confian=C3=A7a**, tanto na parte t=C3=A9cnica quanto na =
+constru=C3=A7=C3=A3o da sua carreira.
+
+Se voc=C3=AA quer aprender programa=C3=A7=C3=A3o com=20
+
+**m=C3=A9todo**e ainda contar com um=20
+
+**acompanhamento**que potencializa sua evolu=C3=A7=C3=A3o, conhe=C3=A7a a D=
+evMedia.
+
+Quero Conhecer a Metodologia! https://www.devmedia.com.br/pro
+
+https://www.facebook.com/devmedia.com.br/=20
+
+https://www.linkedin.com/company/devmedia/=20
+
+https://www.youtube.com/@DevMediaBrasil=20
+
+https://www.instagram.com/devmedia.com.br/=20
+
+Enviado para: stonefull.stm@gmail.com
+
+Cancelar inscri=C3=A7=C3=A3o http://devmedia.activehosted.com/proc.php?c=3D=
+1843&m=3D2873&s=3D506646ea238611a7d69c84e5d1f42ded&d=3D1429779&v=3D2&nl=3D5=
+&act=3Dunsub
+
+DevMedia, Edificios Rio Office Park 4 Rua Victor Civita, 66 - Grupo de Sala=
+: 308, Rio de Janeiro - Rio de Janeiro, 22775044, Brazil
+------=_Part_2064768_262966259.1773157307685
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html>
+<head>
+<link type=3D"text/css" rel=3D"stylesheet" id=3D"dark-mode-custom-link">
+<link type=3D"text/css" rel=3D"stylesheet" id=3D"dark-mode-general-link">
+<meta charset=3D"utf-8">
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewport"=
+>
+<meta name=3D"x-apple-disable-message-reformatting">
+<meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+<meta content=3D"telephone=3Dno" name=3D"format-detection">
+<title></title><!--[if (mso 16)]><style type=3D"text/css"> a { text-decorat=
+ion: none; } </style><![endif]--><!--[if gte mso 9]><style> sup { font-size=
+: 100% !important; } </style><![endif]--><!--[if gte mso 9]><noscript>
+<xml>
+<o:OfficeDocumentSettings>
+<o:AllowPNG></o:AllowPNG>
+<o:PixelsPerInch>96</o:PixelsPerInch>
+</o:OfficeDocumentSettings>
+</xml>
+</noscript><![endif]--><!--[if gte mso 9]><style>sup { font-size: 100% !imp=
+ortant; }</style><![endif]--><!--[if mso]><xml>
+<w:WordDocument xmlns:w=3D"urn:schemas-microsoft-com:office:word">
+<w:DontUseAdvancedTypographyReadingMail/>
+</w:WordDocument>
+</xml>
+<![endif]--><!--[if !mso]><!-- -->
+<link href=3D"https://fonts.googleapis.com/css2?family=3DPoppins:ital,wght@=
+0,400;0,700;1,400;1,700&amp;display=3Dswap" rel=3D"stylesheet"><!--<![endif=
+]-->
+<style type=3D"text/css">#outlook a { padding:0;}.es-button { mso-style-pri=
+ority:100!important; text-decoration:none!important;}a[x-apple-data-detecto=
+rs] { color:inherit!important; text-decoration:none!important; font-size:in=
+herit!important; font-family:inherit!important; font-weight:inherit!importa=
+nt; line-height:inherit!important;}.es-desk-hidden { display:none; float:le=
+ft; overflow:hidden; width:0; max-height:0; line-height:0; mso-hide:all;}@m=
+edia only screen and (max-width:600px) {p, ul li, ol li, a { line-height:15=
+0%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } =
+h1 { font-size:19px!important; text-align:center } h2 { font-size:19px!impo=
+rtant; text-align:center } h3 { font-size:16px!important; text-align:center=
+ }
+.es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-si=
+ze:19px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer=
+-body h2 a { font-size:19px!important } .es-header-body h3 a, .es-content-b=
+ody h3 a, .es-footer-body h3 a { font-size:16px!important } .es-menu td a {=
+ font-size:13px!important } .es-header-body p, .es-header-body ul li, .es-h=
+eader-body ol li, .es-header-body a { font-size:12px!important } .es-conten=
+t-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body =
+a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .e=
+s-footer-body ol li, .es-footer-body a { font-size:12px!important } .es-inf=
+oblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-=
+size:14px!important } *[class=3D"gmail-fix"] { display:none!important } .es=
+-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:cente=
+r!important }
+.es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:ri=
+ght!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3=
+ { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-=
+l img { display:inline!important } .es-button-border { display:inline-block=
+!important } a.es-button, button.es-button { font-size:16px!important; disp=
+lay:inline-block!important } .es-adaptive table, .es-left, .es-right { widt=
+h:100%!important } .ac-footer, .es-content table, .es-header table, .es-foo=
+ter table, .es-content, .es-footer, .es-header { width:100%!important; max-=
+width:600px!important } .ac-footer td, .ac-footer p, .es-adapt-td { display=
+:block!important; width:100%!important } .adapt-img { width:100%!important;=
+ height:auto!important } .es-m-p0 { padding:0!important } .es-m-p0r { paddi=
+ng-right:0!important } .es-m-p0l { padding-left:0!important } .es-m-p0t { p=
+adding-top:0!important }
+.es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!i=
+mportant } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-d=
+esk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important;=
+ overflow:visible!important; float:none!important; max-height:inherit!impor=
+tant; line-height:inherit!important } tr.es-desk-hidden { display:table-row=
+!important } table.es-desk-hidden { display:table!important } td.es-desk-me=
+nu-hidden { display:table-cell!important } .es-menu td { width:1%!important=
+ } .es-adapt-td { display:block!important; width:100%!important } table.es-=
+table-not-adapt, .esd-block-html table { width:auto!important } table.es-so=
+cial { display:inline-block!important } table.es-social td { display:inline=
+-block!important } .es-m-p5 { padding:5px!important } .es-m-p5t { padding-t=
+op:5px!important } .es-m-p5b { padding-bottom:5px!important } .es-m-p5r { p=
+adding-right:5px!important }
+.es-m-p5l { padding-left:5px!important } .es-m-p10 { padding:10px!important=
+ } .es-m-p10t { padding-top:10px!important } .es-m-p10b { padding-bottom:10=
+px!important } .es-m-p10r { padding-right:10px!important } .es-m-p10l { pad=
+ding-left:10px!important } .es-m-p15 { padding:15px!important } .es-m-p15t =
+{ padding-top:15px!important } .es-m-p15b { padding-bottom:15px!important }=
+ .es-m-p15r { padding-right:15px!important } .es-m-p15l { padding-left:15px=
+!important } .es-m-p20 { padding:20px!important } .es-m-p20t { padding-top:=
+20px!important } .es-m-p20r { padding-right:20px!important } .es-m-p20l { p=
+adding-left:20px!important } .es-m-p25 { padding:25px!important } .es-m-p25=
+t { padding-top:25px!important } .es-m-p25b { padding-bottom:25px!important=
+ } .es-m-p25r { padding-right:25px!important } .es-m-p25l { padding-left:25=
+px!important } .es-m-p30 { padding:30px!important } .es-m-p30t { padding-to=
+p:30px!important }
+.es-m-p30b { padding-bottom:30px!important } .es-m-p30r { padding-right:30p=
+x!important } .es-m-p30l { padding-left:30px!important } .es-m-p35 { paddin=
+g:35px!important } .es-m-p35t { padding-top:35px!important } .es-m-p35b { p=
+adding-bottom:35px!important } .es-m-p35r { padding-right:35px!important } =
+.es-m-p35l { padding-left:35px!important } .es-m-p40 { padding:40px!importa=
+nt } .es-m-p40t { padding-top:40px!important } .es-m-p40b { padding-bottom:=
+40px!important } .es-m-p40r { padding-right:40px!important } .es-m-p40l { p=
+adding-left:40px!important } .es-desk-hidden { display:table-row!important;=
+ width:auto!important; overflow:visible!important; max-height:inherit!impor=
+tant } .h-auto { height:auto!important } }@media screen and (max-width:384p=
+x) {.mail-message-content { width:414px!important } }</style>
+</head>
+<body class=3D"es-wrapper-color" dir=3D"ltr" lang=3D"und" style=3D"font-fam=
+ily:Poppins, sans-serif;width:100%;-webkit-text-size-adjust:100%;-ms-text-s=
+ize-adjust:100%;padding:0;Margin:0;background-color:#FFFFFF">
+<div style=3D"display: none !important; padding: 0; height: 1px; font-size:=
+ 1px; background-color: inherit !important; opacity: 0; color: transparent;=
+ mso-line-height-rule: exactly; line-height:1px; mso-hide:all;">
+Mentorias em v=C3=ADdeo para destravar d=C3=BAvidas e evoluir mais r=C3=A1p=
+ido=20
+<div style=3D"display: none; max-height: 0px; overflow: hidden;">
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C&nbsp;=E2=80=8C=
+&nbsp;=E2=80=8C
+</div>
+</div><!--[if gte mso 9]>
+<v:background xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t">
+<v:fill type=3D"tile" color=3D"#ecf5fe"></v:fill>
+</v:background>
+<![endif]-->
+<table class=3D"es-wrapper" width=3D"100%" cellspacing=3D"0" cellpadding=3D=
+"0" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border=
+-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;backgro=
+und-repeat:repeat;background-position:center top;height:100%;background-col=
+or:#ECF5FE">
+<tr>
+<td valign=3D"top" style=3D"padding:0;Margin:0">
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-header" align=3D"cen=
+ter" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;borde=
+r-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:=
+100%;background-color:transparent;background-repeat:repeat;background-posit=
+ion:center top">
+<tr>
+<td align=3D"center" bgcolor=3D"#ecf5fe" style=3D"padding:0;Margin:0;backgr=
+ound-color:#ecf5fe">
+<table bgcolor=3D"#00000000" class=3D"es-header-body" align=3D"center" cell=
+padding=3D"0" cellspacing=3D"0" role=3D"none" style=3D"mso-table-lspace:0pt=
+;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;backgroun=
+d-color:transparent;width:600px">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"none" sty=
+le=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;bo=
+rder-spacing:0px">
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0;width:600px=
+">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"presentat=
+ion" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:col=
+lapse;border-spacing:0px">
+<tr>
+<td align=3D"center" style=3D"padding:0;Margin:0;font-size:0px"><img class=
+=3D"adapt-img" src=3D"https://content.app-us1.com/cdn-cgi/image/fit=3Dscale=
+-down,format=3Dauto,onerror=3Dredirect,width=3D650,dpr=3D2/XgmpK/2026/03/10=
+/04151e9f-55a2-4f06-af63-fa65bd3e1110.jpeg" alt=3D"" style=3D"display:block=
+;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"=
+ data-cf-ir-is-resized=3D"true" width=3D"600"></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table class=3D"es-content" cellspacing=3D"0" cellpadding=3D"0" align=3D"ce=
+nter" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;bord=
+er-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width=
+:100%">
+<tr>
+<td align=3D"center" bgcolor=3D"#ecf5fe" style=3D"padding:0;Margin:0;backgr=
+ound-color:#ecf5fe">
+<table class=3D"es-content-body" cellspacing=3D"0" cellpadding=3D"0" align=
+=3D"center" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-colla=
+pse:collapse;border-spacing:0px;background-color:#ecf5fe;width:600px" bgcol=
+or=3D"#ecf5fe" role=3D"none">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<table width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" role=3D"none" sty=
+le=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;bo=
+rder-spacing:0px">
+<tr>
+<td valign=3D"top" align=3D"center" style=3D"padding:0;Margin:0;width:600px=
+">
+<table width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" bgcolor=3D"#fffff=
+f" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:colla=
+pse;border-spacing:0px;background-color:#ffffff" role=3D"presentation">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0;padding-bottom:20px;padding-=
+left:25px;padding-right:25px">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+25.5px;color:#333333;font-size:17px"><br><b style=3D"color:#1c1c2e">Ol=C3=
+=A1</b><b style=3D"color:#ffc107"> </b><strong>,</strong></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px"><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Na programa=C3=A7=C3=A3o, um bom conte=
+=C3=BAdo ajuda muito.<br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Mas algumas <strong>d=C3=BAvidas pedem u=
+ma orienta=C3=A7=C3=A3o mais individual</strong>.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Porque, em alguns casos, o aluno n=C3=A3=
+o precisa de mais uma aula.<br>
+Ele precisa <strong>mostrar</strong> o que est=C3=A1 acontecendo, <strong>e=
+xplicar </strong>seu cen=C3=A1rio e <strong>receber uma dire=C3=A7=C3=A3o</=
+strong> clara sobre como avan=C3=A7ar.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">=C3=89 exatamente esse o valor das <stro=
+ng>mentorias individuais</strong> em v=C3=ADdeo da DevMedia.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Elas permitem que o aluno <strong>fale d=
+iretamente com um mentor</strong> para tratar quest=C3=B5es reais da sua ev=
+olu=C3=A7=C3=A3o.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Pode ser uma dificuldade no c=C3=B3digo.=
+<br>
+Pode ser uma trava em um projeto.<br>
+Pode ser uma d=C3=BAvida sobre curr=C3=ADculo, portf=C3=B3lio, posicionamen=
+to profissional ou at=C3=A9 sobre como conquistar clientes.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">A vantagem de ter esse acompanhamento =
+=C3=A9 simples.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Em vez de passar dias tentando resolver =
+sozinho uma dificuldade espec=C3=ADfica, o <strong>aluno recebe uma orienta=
+=C3=A7=C3=A3o aplicada ao seu caso</strong>, com mais clareza, mais seguran=
+=C3=A7a e muito mais objetividade.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Isso economiza tempo.<br>
+Evita erros desnecess=C3=A1rios.<br>
+E acelera a evolu=C3=A7=C3=A3o de forma muito mais pr=C3=A1tica.</p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px"><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">E o mais importante =C3=A9 que essa ment=
+oria n=C3=A3o serve s=C3=B3 para responder d=C3=BAvida.<br><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px">Ela ajuda o aluno a enxergar melhor o pr=
+=C3=B3ximo passo, ajustar rota quando necess=C3=A1rio e <strong>evoluir com=
+ mais confian=C3=A7a</strong>, tanto na parte t=C3=A9cnica quanto na constr=
+u=C3=A7=C3=A3o da sua carreira.<br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px"><br>
+Se voc=C3=AA quer aprender programa=C3=A7=C3=A3o com <strong>m=C3=A9todo </=
+strong>e ainda contar com um <strong>acompanhamento </strong>que potenciali=
+za sua evolu=C3=A7=C3=A3o, conhe=C3=A7a a DevMedia.<br></p></td>
+</tr>
+<tr>
+<td align=3D"center" class=3D"es-m-p10t es-m-p10b es-m-p30r es-m-p30l" bgco=
+lor=3D"#ffffff" style=3D"padding:5px;Margin:0"><!--[if mso]><a href=3D"http=
+s://devmedia.acemlnb.com/lt.php?x=3D4lZy~GDIIXaf6pKu-N1IW.Zs1a2nv_T3vM0zkHY=
+5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpEInid5Y370_HIYOW-13UnkNf" target=3D"_blank"=
+ hidden>
+<v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:schem=
+as-microsoft-com:office:word" esdevVmlButton href=3D"https://devmedia.aceml=
+nb.com/lt.php?x=3D4lZy~GDIIXaf6pKu-N1IW.Zs1a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1=
+nUnjthf0DYxzKpEInid5Y370_HIYOW-13UnkNf"=20
+style=3D"height:41px; v-text-anchor:middle; width:423px" arcsize=3D"20%" st=
+roke=3D"f"  fillcolor=3D"#ffd700">
+<w:anchorlock></w:anchorlock>
+<center style=3D'color:#1c1c2e; font-family:Poppins, sans-serif; font-size:=
+15px; font-weight:700; line-height:15px;  mso-text-raise:1px'>Quero Conhece=
+r a Metodologia!</center>
+</v:roundrect></a>
+<![endif]--><!--[if !mso]><!-- --><span class=3D"msohide es-button-border" =
+style=3D"border-style:solid;border-color:#808080;background:#ffd700;border-=
+width:0px;display:inline-block;border-radius:8px;width:auto;mso-hide:all"><=
+a href=3D"https://devmedia.acemlnb.com/lt.php?x=3D4lZy~GDIIXaf6pKu-N1IW.Zs1=
+a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpEInid5Y370_HIYOW-13UnkNf" cla=
+ss=3D"es-button es-button-1647647632494" target=3D"_blank" style=3D"mso-sty=
+le-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:no=
+ne;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#1c1c2e;fon=
+t-size:18px;display:inline-block;background:#ffd700;border-radius:8px;font-=
+family:Poppins, sans-serif;font-weight:bold;font-style:normal;line-height:2=
+1.6px;width:auto;text-align:center;padding:10px 55px;mso-padding-alt:0;mso-=
+border-alt:10px solid #ffd700">Quero Conhecer a Metodologia!</a> </span><!-=
+-<![endif]--></td>
+</tr>
+<tr>
+<td align=3D"left" bgcolor=3D"#ffffff" style=3D"padding:0;Margin:0;padding-=
+left:25px;padding-right:25px">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+27px;color:#333333;font-size:18px"><br></p></td>
+</tr>
+<tr>
+<td align=3D"center" height=3D"30" bgcolor=3D"#ecf5fe" style=3D"padding:0;M=
+argin:0"></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-footer" align=3D"cen=
+ter" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;borde=
+r-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:=
+100%;background-color:#ECF5FE;background-repeat:repeat;background-position:=
+center top">
+<tr>
+<td align=3D"center" bgcolor=3D"#ecf5fe" style=3D"padding:0;Margin:0;backgr=
+ound-color:#ecf5fe">
+<table bgcolor=3D"#ffffff" class=3D"es-footer-body" align=3D"center" cellpa=
+dding=3D"0" cellspacing=3D"0" style=3D"mso-table-lspace:0pt;mso-table-rspac=
+e:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff;=
+width:600px" role=3D"none">
+<tr>
+<td align=3D"left" style=3D"padding:0;Margin:0">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" role=3D"none" sty=
+le=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;bo=
+rder-spacing:0px">
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0;width:600px=
+">
+<table cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" bgcolor=3D"#004cf=
+f" style=3D"mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:colla=
+pse;border-spacing:0px;background-color:#004cff" role=3D"presentation">
+<tr>
+<td align=3D"center" style=3D"padding:0;Margin:0;padding-top:30px;padding-b=
+ottom:40px;font-size:0px;background-color:#ecf5fe" bgcolor=3D"#ecf5fe">
+<table cellpadding=3D"0" cellspacing=3D"0" class=3D"es-table-not-adapt es-s=
+ocial" role=3D"presentation" style=3D"mso-table-lspace:0pt;mso-table-rspace=
+:0pt;border-collapse:collapse;border-spacing:0px">
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0;padding-rig=
+ht:20px"><a target=3D"_blank" href=3D"https://devmedia.acemlnb.com/lt.php?x=
+=3D4lZy~GDIIXaf6pKu-N1IW.Zs1a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpE=
+Inid5Y370_HIYOW-13UnkNH" style=3D"-webkit-text-size-adjust:none;-ms-text-si=
+ze-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color=
+:#FFFFFF;font-size:14px"><img title=3D"Facebook" src=3D"https://stripo.clus=
+ter.app-us1.com/static/assets/img/social-icons/circle-colored/facebook-circ=
+le-colored.png" alt=3D"Facebook" width=3D"32" style=3D"display:block;border=
+:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></=
+td>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0;padding-rig=
+ht:20px"><a target=3D"_blank" href=3D"https://devmedia.acemlnb.com/lt.php?x=
+=3D4lZy~GDIIXaf6pKu-N1IW.Zs1a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpE=
+Inid5Y370_HIYOW-13UnkNL" style=3D"-webkit-text-size-adjust:none;-ms-text-si=
+ze-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color=
+:#FFFFFF;font-size:14px"><img title=3D"Linkedin" src=3D"https://stripo.clus=
+ter.app-us1.com/static/assets/img/social-icons/circle-colored/linkedin-circ=
+le-colored.png" alt=3D"Linkedin" width=3D"32" style=3D"display:block;border=
+:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></=
+td>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0;padding-rig=
+ht:20px"><a target=3D"_blank" href=3D"https://devmedia.acemlnb.com/lt.php?x=
+=3D4lZy~GDIIXaf6pKu-N1IW.Zs1a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpE=
+Inid5Y370_HIYOW-13UnkNP" style=3D"-webkit-text-size-adjust:none;-ms-text-si=
+ze-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color=
+:#FFFFFF;font-size:14px"><img title=3D"Youtube" src=3D"https://stripo.clust=
+er.app-us1.com/static/assets/img/social-icons/circle-colored/youtube-circle=
+-colored.png" alt=3D"Youtube" width=3D"32" style=3D"display:block;border:0;=
+outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+<td align=3D"center" valign=3D"top" style=3D"padding:0;Margin:0"><a target=
+=3D"_blank" href=3D"https://devmedia.acemlnb.com/lt.php?x=3D4lZy~GDIIXaf6pK=
+u-N1IW.Zs1a2nv_T3vM0zkHY5Iqad5KCu_Ey7xuFv1nUnjthf0DYxzKpEInid5Y370_HIYOW-13=
+UnkNT" style=3D"-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso=
+-line-height-rule:exactly;text-decoration:underline;color:#FFFFFF;font-size=
+:14px"><img title=3D"Instagram" src=3D"https://stripo.cluster.app-us1.com/s=
+tatic/assets/img/social-icons/circle-colored/instagram-circle-colored.png" =
+alt=3D"Instagram" width=3D"32" style=3D"display:block;border:0;outline:none=
+;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table class=3D"es-footer ac-footer" cellspacing=3D"0" cellpadding=3D"0" al=
+ign=3D"center" role=3D"none" style=3D"mso-table-lspace:0pt;mso-table-rspace=
+:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !import=
+ant;width:100%;background-color:#ECF5FE;background-repeat:repeat;background=
+-position:center top">
+<tr>
+<td align=3D"center" class=3D"es-footer-body" style=3D"padding:0;Margin:0;b=
+ackground-color:#808080;padding-top:20px;color:inherit;background:inherit;w=
+idth:600px;padding-bottom:20px;font-size:12px;font-family:inherit">
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:inherit;line-height:150%;color:i=
+nherit;font-size:inherit">Enviado para: stonefull.stm@gmail.com</p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+21px;color:#FFFFFF;font-size:14px"><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+21px;color:#FFFFFF;font-size:14px"><a style=3D"-webkit-text-size-adjust:non=
+e;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:un=
+derline;color:inherit;font-size:inherit;font-family:inherit;font-weight:inh=
+erit" href=3D"http://devmedia.activehosted.com/proc.php?c=3D1843&m=3D2873&s=
+=3D506646ea238611a7d69c84e5d1f42ded&d=3D1429779&v=3D2&nl=3D5&act=3Dunsub" t=
+arget=3D"_blank">Cancelar inscri=C3=A7=C3=A3o</a></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+21px;color:#FFFFFF;font-size:14px"><br></p>
+<p style=3D"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:non=
+e;mso-line-height-rule:exactly;font-family:Poppins, sans-serif;line-height:=
+21px;color:#FFFFFF;font-size:14px"><span class=3D"perstag_address" style=3D=
+"color:inherit;font-family:inherit;font-size:inherit">DevMedia, Edificios R=
+io Office Park 4 Rua Victor Civita, 66 - Grupo de Sala: 308, Rio de Janeiro=
+ - Rio de Janeiro, 22775044, Brazil</span></p></td>
+</tr>
+</table>
+<br>
+<img src=3D"https://devmedia.acemlnb.com/lt.php?x=3D4TZi05HLJXQKHhVpzNtLVeR=
+xAa2iitb0juZgYqTJKqOh6sF-__y9V.KfAaCRvEXvkec4YnfMkrcK5O41NAoFhR7cCeAik_Xx_~=
+LrzHX" border=3D"0" width=3D"1" height=3D"1" style=3D"display:block;width:1=
+px!important;min-width:1px!important;max-width:1px!important;height:1px!imp=
+ortant;border:0;overflow:hidden;"/>
+</body>
+</html>
+------=_Part_2064768_262966259.1773157307685--

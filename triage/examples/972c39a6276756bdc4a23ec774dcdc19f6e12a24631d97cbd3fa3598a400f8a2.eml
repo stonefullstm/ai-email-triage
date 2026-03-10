@@ -1,0 +1,828 @@
+Delivered-To: stonefull.stm@gmail.com
+Received: by 2002:a05:6359:14cb:b0:27c:6aa1:5404 with SMTP id lz11csp2420291rwb;
+        Tue, 10 Mar 2026 10:44:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e4d:b0:359:88c5:3add with SMTP id 98e67ed59e1d1-359be307609mr15528057a91.19.1773164661037;
+        Tue, 10 Mar 2026 10:44:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773164661; cv=none;
+        d=google.com; s=arc-20240605;
+        b=hwilASIl+z0vDfU7WAffB6/VSZw0GmRKmGC3PeZdljlNTGI8DmoinbpAP/kp1eWbAv
+         pUbnCUPXvavq5EiB4OoiM2nKBa+f5WkM0k7GIYHDl9jmfe49uIcCK/FOqZF89mKCcvij
+         eFiFdhG+sN9Sbb2Q6OTGTd6LUc57NeoZz+MQRHQqa8kvYGYWSO1gNBhuO7xUnUMV7qXl
+         QbDKx1AYHSMHWeRVHoo9g1MDX1P/sCFfC+/MUDWQU7rJnwbcQW3yHSPTWrydlA3/jd0D
+         6+9E2y9foUFtxrFoiEATrMRYsiE+F8Nd/BZKt6o3d3DdfSHht9f43Zm/bpNzgSHCDf4t
+         3WUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:list-unsubscribe-post:list-unsubscribe:reply-to:subject
+         :message-id:mime-version:from:date:content-transfer-encoding
+         :dkim-signature:dkim-signature;
+        bh=9YdiSFgDsQhCGMnlTHd9wHqKKVHBlqljovmCRUfG3co=;
+        fh=QcapxEOJ3sChxN1FsCCdTIgk4JXyl6ltSIJ/yg+XlGE=;
+        b=eySVd7xBoV1siqpbvRCAQ1bQdrArzioHNzKU9BOkJe0nqD9h4HVffnqUED7bT4s40D
+         KZQh0/oKs01Butk/Ld3zAMt+xy8bCWupStml0I+HHAAE+fpjdCaAN0+9IohfNszd06iT
+         8bf6LK7o8Ts+IjVnMmDc7EMUX2iiVTTGOPCVxQAurOinOkm1rbTsdyyg2cXCqwQ/xgAl
+         C6mrj/JsKvH43UjuiCtN8IVJN1zMfHfUh3ZVeHEuqXSlVujCrI/ZiTDzQ1P4DnYGL73d
+         W/bRcXGwvoTAGMSgoIfACjpxf9QR0W3XnKe+qCm1Os0eaD3E1rBlrisY71Dv6qfNkun9
+         4glQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@info.vercel.com header.s=inf header.b=EBQwkjUA;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=fb+x3MeA;
+       spf=pass (google.com: domain of bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com designates 198.37.152.180 as permitted sender) smtp.mailfrom="bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com";
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=info.vercel.com
+Return-Path: <bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com>
+Received: from o1.ptr3333.inflection.io (o1.ptr3333.inflection.io. [198.37.152.180])
+        by mx.google.com with ESMTPS id 41be03b00d2f7-c739e1c6fd9si18270349a12.270.2026.03.10.10.44.20
+        for <stonefull.stm@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Mar 2026 10:44:21 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com designates 198.37.152.180 as permitted sender) client-ip=198.37.152.180;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@info.vercel.com header.s=inf header.b=EBQwkjUA;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=fb+x3MeA;
+       spf=pass (google.com: domain of bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com designates 198.37.152.180 as permitted sender) smtp.mailfrom="bounces+22208452-71a9-stonefull.stm=gmail.com@em7637.info.vercel.com";
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=info.vercel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=info.vercel.com;
+	h=content-transfer-encoding:content-type:date:from:mime-version:subject:
+	reply-to:list-unsubscribe:list-unsubscribe-post:to:cc:content-type:date:
+	feedback-id:from:subject:to;
+	s=inf; bh=9YdiSFgDsQhCGMnlTHd9wHqKKVHBlqljovmCRUfG3co=;
+	b=EBQwkjUAuuBHURF1Xj00g+/QN3Z2eY+RLx2rauXyF9/tAsPMhSkljmU+PlyBxEeoCmC1
+	rGBtypa1HfqbRQUkI6JCRLHXx/os3dtIGAhbyunp1EJnFhxRYHClhFiwol3pjcCafXtZYQ
+	qtnZesUOUFXjAAZV4K4UxQ5GCVW6gu32rudW2yjb3JCsBCWUUP0bOw0wKCUKhv03lIIvGf
+	omMD1D2Alytv/Uw98ZeGI3Y2o/OEn9p8KYel4Xr+2qY9Hb7w2y0n0dmKPw7cE/LUa7hFGN
+	+zisJfbH5M7skMUXhMhnj0XuG1fB47R21QjiF31U+0SFTNKwZzhpYiJLSwT506Vw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sendgrid.info;
+	h=content-transfer-encoding:content-type:date:from:mime-version:subject:
+	reply-to:list-unsubscribe:list-unsubscribe-post:to:cc:content-type:date:
+	feedback-id:from:subject:to;
+	s=smtpapi; bh=9YdiSFgDsQhCGMnlTHd9wHqKKVHBlqljovmCRUfG3co=;
+	b=fb+x3MeABWBagJ22wmTcNkwLoB6P/+XZlmvyVHgCt5+zNq+VMOgLxJ9pMwCYS/KpTBaM
+	RIJWUNUcDKwB1S37brYM0dzaVVpmGhFAwpQNNoeuBAEG4yyqPhQvGbS8AgMARPJOwHda1K
+	CFC2Oeqs3rqn5fW9LURILVDX6lxM0oe/g=
+Received: by recvd-66bb7bd6bb-x2cn7 with SMTP id recvd-66bb7bd6bb-x2cn7-1-69B05873-4F
+	2026-03-10 17:44:19.486955702 +0000 UTC m=+80967.112015204
+Received: from MjIyMDg0NTI (unknown)
+	by geopod-ismtpd-16 (SG) with HTTP
+	id DT6Tc-PSSNurSCclDQLqBw
+	Tue, 10 Mar 2026 17:44:19.484 +0000 (UTC)
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=utf-8
+Date: Tue, 10 Mar 2026 17:44:19 +0000 (UTC)
+From: Vercel <ship@info.vercel.com>
+Mime-Version: 1.0
+Message-ID: <DT6Tc-PSSNurSCclDQLqBw@geopod-ismtpd-16>
+Subject: First-year standard .com pricing drops tomorrow
+Reply-To: no-reply@info.vercel.com
+List-Unsubscribe: 
+ =?us-ascii?Q?=3Chttps=3A=2F=2Fsubscriptions=2Einflection=2Eio=3Ftoken=3DeyJlbWFpbCI6ICJzdG9?=
+ =?us-ascii?Q?uZWZ1bGwuc3RtQGdtYWlsLmNvbSIsICJkZXN0aW?=
+ =?us-ascii?Q?5hdGlvbl91cmwiOiAiaHR0cHM6Ly90cmFja2luZ?=
+ =?us-ascii?Q?y5pbmZsZWN0aW9uLmlvLzAyNTIyYTJiMjcyNmZi?=
+ =?us-ascii?Q?MGEwM2JiMTlmMmQ4ZDk1MjRkL2dBQUFBQUJwc0Z?=
+ =?us-ascii?Q?oemFHZzYxUXQ0VUFnOG1fenlzc2RNbXpQbXdhd0?=
+ =?us-ascii?Q?ZKLWN0a2Z5WHo5Y0RtQWNTV2R6UHZBYXhHN2FNe?=
+ =?us-ascii?Q?UVxeHJVNDdJckkySWZhd3J2Q2JwcUVqSzBybHRp?=
+ =?us-ascii?Q?Q2lVWHdNbjFwcXlLdDFFTjM0dGxoWDB6UUJxRGd?=
+ =?us-ascii?Q?fal9BLXB5TGNGWWIycFFOT0FsNnkyUnF2NUNLLT?=
+ =?us-ascii?Q?FuMW9ZR1hXb0xJeEFyajhwR240eXJ6OVM5dEI1R?=
+ =?us-ascii?Q?1piRUU4dThjdHc2cE0xUl9ZZkR1dDhBUmRZekpX?=
+ =?us-ascii?Q?a0lPRkRwQmR6REJucWkxbDNYWlVaX0hsdWl2bzh?=
+ =?us-ascii?Q?QbnoxU01tUVJZRVY3d2FRQWtnRHFldEl6R2c1dG?=
+ =?us-ascii?Q?lvT01aelZEQktFRGhiTTlrREpHa1FSZW41elNhc?=
+ =?us-ascii?Q?VJQX0FQQldsQmE2VTBBcmpNZ1dxODQ0QWtSSHh4?=
+ =?us-ascii?Q?OE1QcVd0d2VoMzJuM1dLbzNnM2VObjY4YjQyMS0?=
+ =?us-ascii?Q?tNUVXU0RBQ2pnd010V1BQc2xjN0pnUUdWME5COW?=
+ =?us-ascii?Q?QyMkowOGRwQ2xsenhPNWUxOTBiOHpBRjlaaWIwZ?=
+ =?us-ascii?Q?XY3RzV5QzgxMFZMRVNkck9rVGVqWXJvems5X0ZK?=
+ =?us-ascii?Q?QUd4c2Z1OTYyYm1xWHRXN0FDVkpUeUVCT05ZM2o?=
+ =?us-ascii?Q?1TUVvOGlYcjhkYm1vM2hKYTJVbHN3Z2Q2V1lzSH?=
+ =?us-ascii?Q?hXOHRud1lZRDVkb0QxS0g0M2ZSUDVZbGhMTUdKN?=
+ =?us-ascii?Q?nJXbFM1b0sxbnZWS2lleVhjQWQ2TG8wNDhnRDlU?=
+ =?us-ascii?Q?OFdxc1VEcVdybmd0UnRFdmtVZXNrUWo3ZE5ZcDQ?=
+ =?us-ascii?Q?5YUhsa3hiSld0d3g2aS0tZ3BvTUNHVjkzbHZlLX?=
+ =?us-ascii?Q?pYSF82U0pRQnN5cHQ2TUpOWjJURmw3eGRsMGhtZ?=
+ =?us-ascii?Q?0RfMGtTa3lZSUpYal8xY0I4TDRjbVFISngxaldX?=
+ =?us-ascii?Q?Tm5PZkExX2MyRTRHTENMczM1bDF0R19RbXRHOHR?=
+ =?us-ascii?Q?FWko0Q0poNDNqb2tCRnlVNFQtcHdPQ2lyajlib0?=
+ =?us-ascii?Q?RsWVNLekpyanVVaU1iVlZGdHc2VWdVMkdyemJ4S?=
+ =?us-ascii?Q?k0zYWJxSFQwelJ6RU9zZW0wY3dWNjN5MjRrWDh2?=
+ =?us-ascii?Q?bFI1S09nOUVjOElqbkZGVnR3VlR0S1lkUHkwRVp?=
+ =?us-ascii?Q?BVEszTU9vUGR4c01Qd1M5UGpCQUZDaDFqZHdBWl?=
+ =?us-ascii?Q?d0RWZMX01XMDJpLV9tTkpGTnUySGxnMnFSYXdBT?=
+ =?us-ascii?Q?GVjaDJVUURmUHR2TEVNUzc3UUJ6eVVWTWx2WFV3?=
+ =?us-ascii?Q?dlZ5amctWFhsbW1mZ0kyTU9LcGpWSlQ0V3BVU3d?=
+ =?us-ascii?Q?YODV5QTRBVzdMbTZNck5UN01VeUtZeUlJeC9yZW?=
+ =?us-ascii?Q?RpcmVjdD9yZWRpcmVjdD1odHRwczovL2FwcC5pb?=
+ =?us-ascii?Q?mZsZWN0aW9uLmlvL3Vuc3Vic2NyaWJlZCJ9=3E?=
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EW3VF16x1u5WewkbUDeS13gdV9c7kqNBAdfVb=2Fxmu5LL7Vj+AaY5TlEM1H?=
+ =?us-ascii?Q?gx6FLvN=2F+M2LmDbR7wMxD4AGYqN6J7hqiIV=2FuKj?=
+ =?us-ascii?Q?Oouo6CF9LI8iI31owI87oyj+fdfbdfC74pgX8oV?=
+ =?us-ascii?Q?pJLTxgBuJdMloCfHWUl67gMjURlPJMfy8sk=2F=2F6i?=
+ =?us-ascii?Q?MtEgmqq4WpeozWDmZzDsVlfPG7xCdeEi6rTHeze?=
+ =?us-ascii?Q?sAQlSpgQUxdtTn9Rg9Rs8dM2q1VAtMsPtjzXGlj?= =?us-ascii?Q?D7oo?=
+X-SG-ID: 
+ =?us-ascii?Q?u001=2ESdBcvi+Evd=2FbQef8eZF3Bqotr1bAVDid1UPbQYQi7+vdBCw3c+Vgrdrsa?=
+ =?us-ascii?Q?ZS0mOnrW+IfYqcaJN04TrkQdRVM0aSIfyy62QiH?=
+ =?us-ascii?Q?xCDWFRbOkVUSKKxA3ZO9ngG1jbopOf3vB9l6Uwz?=
+ =?us-ascii?Q?lfqaiphExAPuOpJR+bMRsJuIUXMMQQW1ulLb0op?=
+ =?us-ascii?Q?W6u0soohx2c5u5VyAc6Qji24QMhOSNLOpXNSfzt?=
+ =?us-ascii?Q?q8fKJVGPfL4zGj+PcZi=2FG4Fd6vEauYCJyed+YwJ?=
+ =?us-ascii?Q?8CkT6lWBObWxqc8=2FGg4c0opwNWXnwYNQZLqhp27?=
+ =?us-ascii?Q?I=2FB3buBjkuq0eipYVeXyG+HiAa08BBKD4xoo8UK?=
+ =?us-ascii?Q?ijDnQPWDgvUi7NwahvE+PaApZJeWpoZR1342Vww?=
+ =?us-ascii?Q?NGkjAeNS0H9wsJsH+2NtSPBNV9tv5MmXaX91Ft6?=
+ =?us-ascii?Q?gBZvA3xTDGJWxeuu8Dwh7LO=2FVTvuLdJu=2FUpGE9D?=
+ =?us-ascii?Q?gM+VWqTHWPdpZCEp8Xg7Bo3NkgCKjXeccP1zo+d?=
+ =?us-ascii?Q?Z7SKwRyw5bsEk3EM9vA5Zt9PFoe9+kwc280L6qQ?=
+ =?us-ascii?Q?yLAZ8xlL5yYLdFHSDaYtNnYYNKHqRzNYdJgFlej?=
+ =?us-ascii?Q?UKYx921WVZ0J9zJCni8EgoSsG5867Yd6aFifWiP?=
+ =?us-ascii?Q?Er3muXB=2FopukehwqT6zQWvPRC12cVwrNHwl28Jl?=
+ =?us-ascii?Q?UuRNtdGdhMvvDYgtsZljj0NXmY51ipX+kqholRY?=
+ =?us-ascii?Q?xXvSjuoMgSoDDIcaz0nLfSQV7F21FMPfDTzslTn?=
+ =?us-ascii?Q?xySwpcRtU5tWVbMvzl3dE8soWnQ=3D?=
+To: stonefull.stm@gmail.com
+X-Entity-ID: u001.mjBfs1wEWvWu0XyAAAJFkw==
+
+<!DOCTYPE html>
+<html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:o=3D"urn:schemas-microso=
+ft-com:office:office" xmlns:v=3D"urn:schemas-microsoft-com:vml">
+<head><title></title><!--[if !mso]><!-- --><meta content=3D"IE=3Dedge" http=
+-equiv=3D"X-UA-Compatible"/><!--<![endif]--><meta content=3D"text/html; cha=
+rset=3Dutf-8" http-equiv=3D"Content-Type"/><meta content=3D"width=3Ddevice-=
+width,initial-scale=3D1" name=3D"viewport"/><style type=3D"text/css">#outlo=
+ok a { padding:0; }
+          table { border-spacing:0;}
+          img { border:0;height:auto;line-height:100%; outline:none;text-de=
+coration:none;-ms-interpolation-mode:bicubic; }
+          p { display:block; }
+          :root { color-scheme: light dark; }</style><!--[if mso]>        =20
+          <xml>        =20
+            <o:OfficeDocumentSettings xmlns:o=3D"urn:schemas-microsoft-com:=
+office:office">    =20
+              <o:AllowPNG/>          =20
+              <o:PixelsPerInch>96</o:PixelsPerInch>        =20
+            </o:OfficeDocumentSettings>     =20
+            <w:WordDocument xmlns:w=3D"urn:schemas-microsoft-com:office:wor=
+d">
+              <w:DontUseAdvancedTypographyReadingMail/>
+            </w:WordDocument>      =20
+          </xml>            =20
+          <style type=3D"text/css">
+            table { border-collapse:collapse;mso-table-lspace:0pt;mso-table=
+-rspace:0pt; }
+            .mj-outlook-group-fix { width:100% !important; }
+          </style>        =20
+        <![endif]--><!--[if !mso]><!--><link href=3D"https://client-data.kn=
+ak.io/production/company_data/672a519344809/custom-fonts/672b8bb24c152/font=
+s.css" rel=3D"stylesheet" type=3D"text/css"/><style type=3D"text/css">@impo=
+rt url(https://client-data.knak.io/production/company_data/672a519344809/cu=
+stom-fonts/672b8bb24c152/fonts.css);</style><!--<![endif]--><style type=3D"=
+text/css">@media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }</style><style type=3D"text/css">body, .body { margin:0;padding:0;-w=
+ebkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+.links-0070F3 a { color: #0070F3; text-decoration: none; }
+#body #main [x-apple-data-detectors-type] {=20
+          color: inherit !important;=20
+          -webkit-text-decoration-color: inherit !important;=20
+          text-decoration: inherit !important;
+          font-weight: inherit !important;
+         }
+.mso-button-dark-mode a {background: transparent !important;}
+.links-454545 a { color: #454545; text-decoration: none; }
+       =20
+
+       =20
+       =20
+       =20
+            @media screen and (prefers-color-scheme: dark) {       =20
+                .dark-mode-background-color-000000:not([class^=3D"x_"]) { b=
+ackground-color: #000000 !important}
+.light-mode-image:not([class^=3D"x_"]) { display: none !important } .dark-m=
+ode-image:not([class^=3D"x_"]) { display: block !important }
+.dark-mode-color-A0A0A0:not([class^=3D"x_"]) { color: #A0A0A0 !important}
+.dark-mode-background-color-FFFFFF:not([class^=3D"x_"]) { background-color:=
+ rgba(255,255,255,0.99) !important}
+.dark-mode-color-000000:not([class^=3D"x_"]) { color: #000000 !important}
+.dark-mode-color-8C8C8C:not([class^=3D"x_"]) { color: #8C8C8C !important}
+.dark-mode-link-color-8C8C8C:not([class^=3D"x_"]) a { color: #8C8C8C !impor=
+tant}
+            }</style><style type=3D"text/css">h1{font-size: 40px; margin: 0=
+;}h1.header-customization{font-size: inherit}h2{font-size: 32px; margin: 0;=
+}h2.header-customization{font-size: inherit}h3{font-size: 28px; margin: 0;}=
+h3.header-customization{font-size: inherit}h4{font-size: 24px; margin: 0;}h=
+4.header-customization{font-size: inherit}h5{font-size: 18px; margin: 0;}h5=
+.header-customization{font-size: inherit}h6{font-size: 16px; margin: 0;}h6.=
+header-customization{font-size: inherit}ul{display: block;}sup, sub{line-he=
+ight:0;}body a{text-decoration: none; color: #0070F3;}.image-highlight{tran=
+sition: 0.3s;}.image-highlight:hover{filter: brightness(1.2);}@media only s=
+creen and (min-width: 480px) { .hide-on-mobile{display:block !important;}.h=
+ide-on-desktop{display:none !important;} }.hide-on-desktop{display:block;}.=
+hide-on-mobile{display:none;}</style><!--[if mso]>
+            <style>
+                .hide-on-mobile {display:block !important}
+            </style>
+        <![endif]--><!--[if gte mso 16]>
+                <style>
+                    .mso-text-white a { mso-style-textfill-type: gradient; =
+mso-style-textfill-fill-gradientfill-stoplist: "0 \#FFFFFF 0 100000\,100000=
+ \#FFFFFF 0 100000"; color: #000000 !important; }=20
+                </style>
+            <![endif]--><style>[class~=3D"x_body"] { width: 99.9% }</style>
+</head>
+<body class=3D"body dark-mode-background-color-000000" id=3D"body" style=3D=
+"word-spacing:normal;background-color:#FFFFFF;"><!--[if !mso 9]><!--><div i=
+d=3D"emailPreHeader" style=3D"display: none;">Check out our domains page to=
+morrow</div><div style=3D"display: none;">=E2=80=87=E2=80=87=E2=80=87=E2=80=
+=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=
+=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=
+=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=
+=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=
+=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87=E2=
+=80=87=E2=80=87=E2=80=87=E2=80=87=E2=80=87 =E2=80=87=E2=80=8D=CD=8F =E2=80=
+=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F=
+ =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=
+=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=
+=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F=
+ =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=
+=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F=
+ =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=
+=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=
+=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F=
+ =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=
+=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F=
+ =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=
+=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=
+=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F=
+ =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=
+=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F=
+ =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=
+=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=
+=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F=
+ =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=
+=87=CD=8F =E2=80=87=E2=80=8D=CD=8F =E2=80=87=CD=8F =E2=80=87=E2=80=8D=CD=8F=
+ =E2=80=87=CD=8F =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=
+=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD=
+ =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =
+=C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =
+=C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=
+=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=
+=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=
+=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=
+=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =
+=C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =
+=C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=
+=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=
+=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=
+=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=
+=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD=
+ =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =
+=C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =
+=C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=
+=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=
+=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=
+=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=
+=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =
+=C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =
+=C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=
+=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=
+=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=
+=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=
+=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD=
+ =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =
+=C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =
+=C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=
+=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=
+=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=
+=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=
+=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =
+=C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =
+=C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=
+=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=
+=AD =CD=8F=E2=80=8C =C2=AD =C2=AD =C2=AD =C2=AD =C2=A0</div><!--<![endif]--=
+><img alt=3D"" border=3D"0" height=3D"1" id=3D"k_trk" src=3D"https://tracki=
+ng.inflection.io/02522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhzCMr6V2qQqDVwt=
+Q0_WrjXWC3RDP-d2vz7Wv_xz1fi0CO3SfqKpr5dVym9x-NNkxCVX1WL1qUjASy1FyU1qe0v26y5=
+MbX2KKf2Rx6UwEzHDIknmxsKmQRZ4e1Gk69ACkzB6TNS5pHJIeJQAuBDkk61WxYUC_rr4MRqaDa=
+hy2_7gKHhLUSFfKkBw7PrnEPWAq_zxWhpHPFDg7c1uyRClrdMSBKKKzwCb1rUhH4Y_E0HiX1LdE=
+D9C_cTTd4gYcI3Hht615Ecs0EUyYdma24eLrp1LdCr-VfPzfSHVjcIz-aLuOSkYCU7VqhcGETj4=
+h7iNq3YLXB3jVAh4IWxCbTAuy0k3B4__2jam00UQYhjWEhTjJH1XW9t3onqrgTXCPtqc_6SAZu6=
+rUJKNxmiN1sNBC9tX-JcJp1NhOeJHBCtPzcszM84dEKZUkkXMM-xpCFnzY98eWgdP9-27EpoxL7=
+8Zk8OHZhx2BEMblMFFCZ83tbRKu_uUEeMKbvgauKv4atuwrBVxX3RvCbOwokMtFK4wpYDpbNX-0=
+dZ8IYko3PSgJdvbWqp3VsgOJ1Z8U7UEPp0HXVeoaY-ZYbWyRPNxWnV-uL3MFseFuI_w8t-hO1T6=
+h_NGm-_BUFY3HPr80cLEpW9suZ5SgeN0ye0iUe72RIWjuHb6nVtoQTvBd3_1RSSJFvFMaWzj1Ox=
+4axYs0-pa5j2C_zHyT9qgk_94qIQw4VPLj8oBfXdzEGOTFnFsRWf4csighDSbfBLvklTDnQrqJz=
+44knaIH0fU6z76G5vsTEJW1q2hWxvkcjxwTVqOq2C1U2ajl-WurfbYNCcLKDhqgK7-YcrYCf3y1=
+FkVPY9JWnk-9ZKab5oQUMfSAgl_iZG1JJEkCy_Zx-rTa-Tvp2lyIPeFG5CZ3w7cLchwy4TEKDCQ=
+yc6GQkJKU_pB_9ksYob6xzHlTPvQdZR_9vnwuBS7P3XTbdXh4rg1YFOosdH6lqOb3sGTA=3D=3D=
+/redirect?redirect=3Dhttps://production.k-trk.com/ktrack/?k=3D69ab0d933e037=
+" style=3D"height:1px !important;
+                width:1px !important;
+                border-width:0 !important;
+                margin-top:0 !important;
+                margin-bottom:0 !important;
+                margin-right:0 !important;
+                margin-left:0 !important;
+                padding-top:0 !important;
+                padding-bottom:0 !important;
+                padding-right:0 !important;
+                padding-left:0 !important;
+                display:block;" title=3D"" width=3D"1"/><div class=3D"dark-=
+mode-background-color-000000" id=3D"main" style=3D"background-color:#FFFFFF=
+;background-position:center center;background-size:auto;background-repeat:r=
+epeat;">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"section dark-mode-background-color-000000" role=3D"presentation" sty=
+le=3D"background-color:#FFFFFF;width:100%;">
+<tr>
+<td align=3D"center"><div role=3D"none"><!--[if mso | IE]>
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"block-grid-outlook" style=3D"width:600px;" width=3D"600" >
+<tr>
+<td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><=
+![endif]--><div style=3D"background:transparent;background-color:transparen=
+t;margin:0 auto;max-width:600px;">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
+le=3D"presentation" style=3D"background-color:transparent;width:100%;">
+<tr>
+<td class=3D"block-grid" style=3D"font-size:0px;padding:0;text-align:center=
+;vertical-align:top;"><!--[if mso | IE]>
+<table role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0">
+<tr>
+<td style=3D"vertical-align:top;width:600px;" ><![endif]--><div class=3D"mj=
+-column-per-100 mj-outlook-group-fix" style=3D"font-size:0px;text-align:lef=
+t;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
+n" style=3D"border-radius:0px;vertical-align:top;" width=3D"100%">
+<tr>
+<td class=3D"img-container" style=3D"font-size:0px;padding:48px 24px 8px 24=
+px;word-break:break-word;text-align:center;"><div style=3D"margin:0 auto;ma=
+x-width:96px;"><a href=3D"https://tracking.inflection.io/02522a2b2726fb0a03=
+bb19f2d8d9524d/gAAAAABpsFhzwTgwKcnETsCHUbAoRAMJlSRKDtkfDQaJtWtqaoqF6XWNHV1h=
+Yvp6Jcyt-mq0XzEHxWh-reJANW2Yq2RWPz_lHTK2pUb-8J-6NNGF-MKL6eF_9CPK8Gd7OCvXVU9=
+Ye0-S6woFlrshTIH0ggMluAo43CxlANPxyuCdeUZdiixrICAUaPsm9mTpwmanVWFdzC43t0w9bh=
+NWiTTiXfTu9IqfUfbFp1SOI5LpSFOTXTfuc3xT__PFTt9-Z-gu3t5lq165f--qgRddlMIbSHgv6=
+u-FD9VaGR8d7LUtLuLM0lMZKAMhvO6uKC0xA1_eKg_rYJk6o8i_93vrjXQ83oiM67a1ZRc0igIo=
+rYOZ0O1X9MT_pIXsGTSuNHpbFyW9CGYfYSyaqAMHzObBLcJ-lTfLfkmUSmiCpprzdUthqemE1ad=
+CNYy0JC_0_9UzFguH3OXPxlGkNGkuXsue8yI3mG-JpE8mlx2QiL6eNChx95MTZJFrIJk2AOGjnB=
+VXOxZHb_dzUt2BVB9mDgY1bYBCZbSFDVxJJChlhyMHRiWLMMN_8LP_5XLsJcBv8ilFeycvCKEZi=
+MVlN4JrU1sUdoO85g567KDzjM_j4RVajZe9PYePrY3NXuY5rzU26Vr-f8uzqnb_dOaMGOa-DHOY=
+JVqkmpvW9tXZHvM3CBX3AwifV5f7KqThNU3foQzvL0-mLCfyR7SlBhEOM1jjbE7ogrhO0A6NrXS=
+noIM0QF-36-MVTtlISmcRoq6OGtL9CyFjX_XQNP3g4Qd7jKtBQ-9hzsk0W6IJqEhvx-d1o_pMTz=
+6jmXY4-LwFkw0i-izv47G-MGxX-aOOWAyc8rJ5iI49CHc8pFVomYm13ev0kunFxRWnONdD20Rfd=
+AF2BvXgQt--P9S9wCY85c3s2VsOctT5ZnL-CQVOdfI31X7qu49tBcPYxDcMsCZKj_KM9tAGpnZ0=
+W2DydhM3KddaAaN8e4lDxrdysDYSlWzKkPu-AzzmnEbtwklU3hdIFfCDOluweyqxJSw8jOCHrvM=
+acWNV-WxgOhhufALPyuuzOg=3D=3D/redirect?redirect=3Dhttps://vercel.com/login?=
+utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;utm_campaign=
+=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DfWZqvwfSI=
+pDIogiEvkSB3u73ZLJF5uoGiQgJLddvDI3bwBiflM6hYg7Rgyp-1zAloQ_mJl0NEjOKzyqFtbBL=
+_sidfiXUKhphFSb9l0zYcKHlVl_c0u8BTMqZvvj66d0VO01l9ZBkxSyXr2JOdbfWnOpVPpihhnr=
+Sekoj2A5JrzVONHiUmp9BPUed066SGW6Obo1rlJpHhn3OrosmFHr3JGg-7xOQFwd4M8aA71xlSL=
+_LlsI0g_e0UGFRWgxfqbvsAll6qI2Mq_dtTSXA1_sWq1W2YahkIEjts0wG4uTb8_NmqecNuAWOj=
+Kg02ymf3ai-hUFFPvtSpc2w3vhbg7Eg3g%3D%3D" style=3D"text-decoration: none; co=
+lor: #0070F3;" target=3D"_blank"><img alt=3D"" class=3D"light-mode-image" h=
+eight=3D"auto" src=3D"https://tracking.inflection.io/02522a2b2726fb0a03bb19=
+f2d8d9524d/gAAAAABpsFhzY8fKTDJYLtcsc0Pt7v8lt7tswWNI8jitEKP2nG6UKx_6x2wPgy3l=
+g9F3014395o1RXgxzY7r2g6bahLuBBygCe-PC4t9IJknoZb3slhmiVqdFyJP6ARcPh_FkIC-uhq=
+2NtwEhN-aeTXx9tucWtPW5tudZFlpQIZpOgwY3AapyT-5PsAVL-TaSTvKnmY4PPLrB3KLBpCnVd=
+BTR82EBZq87g80uD3CiAiX8eQxmV2RRWR8_3GrAsBmOnXmuRID0K7_WUAxjhQtIlYb_joMDZnlU=
+gl4T2fQZKxs7Ovh0CyhMPCEUyMNhVqj1rU13oNOrYDLu4Db8X6zq3HKNMdsC6pDQ8s4_vsYP_Vd=
+lgcBcoRZZXIrsLFedCH04AlCIOpEJzIdrXFvz8PsEp-Yy632KcyOK41OhEiCTKfEp3n8AEYHEW2=
+IVqXLSbA9evr-JbKWx1zcCfpx4JyMzFKPyU75J09m02_gEVfNlHzSrREnOASRlpEWh2uXaC38gB=
+5VSBGAaey6sMLbrJynvVzW8H_jx2jlCegnt219TVQJJySn6vZ5TSD6hJNRL2u7MNYUdO4qTt7wl=
+K-njqRu3WrR1sFVb8U4Jl2XAtEQ1g8axhfvkbNTgqtySOogg-jQG7IXWs6D1uWLxbA6dI8RmuW0=
+F5asCPLieW5FCHbB3u39-mpFq566bqjWLU_MlZ6ZOig4XMFmIyz-KCkQKMGAlbe0GkC96-RkvZs=
+vqNtiBNTUMwbuTNp3Ke44BkG9ORRZzFMNJpKx6qqFFW-shcrOC7JEA6k4nvnLh2bi9GDZ9wl2dz=
+XW2CaecmCLaIRLE78Xrf9okGoGBSWbqeGaMuU7s3Y7el1oCkC8ue9XIZwN3MQCqbbqNOYs--7Gn=
+nRyhT-i0WN0DK0iUtjwEOVaCN-ZI80ednzN9gLD2yRmrTSjrO3tdaLfG_wY7NBX7hsIuWW5fFxb=
+wSWwh6QEqaxKxFx3x8_vHznUFwUbHXbPmM6yq43q3RhoYleKW1M1GQpwhIGHo20veBfO9csn/re=
+direct?redirect=3Dhttps://res.cloudinary.com/zeit-inc/image/upload/f_auto,q=
+_auto/v1/email/vercel-circle" style=3D"border:none;border-radius:0px;outlin=
+e:none;text-decoration:none;height:auto;width:100%;font-size:13px;display:b=
+lock;" width=3D"96"/> <!--[if !mso]><!--><img alt=3D"" class=3D"dark-mode-i=
+mage" height=3D"auto" src=3D"https://tracking.inflection.io/02522a2b2726fb0=
+a03bb19f2d8d9524d/gAAAAABpsFhzub1FM37Q72CWswP-6YZVRvKois8IkCM4Y_v3K5YSFIfke=
+dvwPXyOO45Ceh-LS_rlNnJmSIIjMRFt-t4S6k1ZdoY84HcqyfNCFRticVD_elIOS9P66C8PcJ-D=
+Y-thWLq3g0nYAKBwzvw1Z4z_KHCkd7C6sTpJFNACrc9Oy1s-06PIwE5fxG8HFifYYWV6NeoShI1=
+zp-Lg5gNexCGbC80bQt-FCubm8jXwQ0EoaV7kCxHv-OHYS7yP0vZYcqgFR01qmRrn4u-XduL7TT=
+W4ubPtE3cporkRfljP2gDQlGEPbGR9LwfwPWPIG9Y80Lvh0g8r-B4haaJeFJbXx2vWemalasuke=
+9IByudAd58W021-CIyBpmA7GpriSJVIQf6cVydP4TO9GyOQzgJ-puaXZiQCgHJATfzzUjznzRLi=
+y9HSLR9fduU0A2SrYWrydYjrZJJ5A-yhOIOkQhsT7YX_3WP9kKflz2UGYW4-BZFOa3Z4J_2s1Sq=
+KzgIzfgRTQYzt9dijgyPSaVRKMTus-_fcitOpfZgxYHqPGTN0-ftcC0Afe0frBQbK24rPxyIKgN=
+YXJE5asgWKZ7NTPbPgKVBNeyTM0Er4qwSURFTlYQDIfMqU2qopY0L8zTGx9y_dRKTKT-T6jwu0_=
+zN-mWErrYi2isFoCchiazcZlwSUCQRK8soTx2RvNeXysM_KxoNgSTGTwS31Crj-syBFyI4KqaPm=
+xnDXfnu6V1C5lXq5vys12Qqdd3cNYhMoNniSCPuk1837mcN8lTDRl2EDvP5-Q2h5beGTjWb6xGf=
+osBo_wJtVNINAD8mpdecwzOnuJuhpUYlG5qXHOH-4iq7wdlIkdkQg7k5wnjAgGV0iA6AnkqWet4=
+zsF9Pq7snL_gbsVjzFvtnWVph_3DxXEekkIyK0hhnBNyFvYG1prEaEQqyL19Toe7HhijSwTwdQt=
+frfcXp5TqaSGnSGwuD0MtMIofoA9Ldb3cKekSYZn6oMLosOf7mMg6HTfrI5uPRydvTWhqEUTVqK=
+EuyQ/redirect?redirect=3Dhttps://res.cloudinary.com/zeit-inc/image/upload/f=
+_auto,q_auto/v1/email/vercel-circle-dark" style=3D"border:none;border-radiu=
+s:0px;outline:none;text-decoration:none;height:auto;width:100%;font-size:13=
+px;display:none;" width=3D"96"/><!--<![endif]--></a></div>
+</td>
+</tr>
+<tr>
+<td class=3D"text-container" style=3D"font-size:0px;padding:8px 24px 8px 24=
+px;word-break:break-word;text-align:left;"><div class=3D"links-0070F3"><div=
+ class=3D"dark-mode-color-A0A0A0" style=3D"font-family:'Geist', Arial, sans=
+-serif;font-size:16px;font-weight:normal;letter-spacing:none;line-height:1.=
+50;text-align:left;mso-line-height-alt:1.5em;color:#666666;"><p style=3D"ma=
+rgin: 0 0 0px 0;">Starting tomorrow, get standard first-year .com registrat=
+ions for $7.99. The discount (up to 38%) ends on Tuesday, March 17, 2026.</=
+p><p style=3D"margin: 0 0 0px 0;">=C2=A0</p><p style=3D"margin: 0 0 0px 0;"=
+>Many teams secure their project names before writing the first line of cod=
+e. Claiming your domain early ensures you have the branding you want when y=
+ou are ready to deploy.</p></div></div>
+</td>
+</tr>
+<tr>
+<td class=3D"button-container" style=3D"font-size:0px;padding:24px 12px 24p=
+x 12px;word-break:break-word;text-align:center;" valign=3D"middle"><div><!-=
+-[if mso]>
+<table width=3D"100%" align=3D"center" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"border-spacing:0;border-collapse:collapse;mso-table-l=
+space:0pt;mso-table-rspace:0pt;">
+<tr>
+<td align=3D"center" class=3D"mso-button-dark-mode"><a:roundrect xmlns:a=3D=
+"urn:schemas-microsoft-com:vml" xmlns:w=3D"urn:schemas-microsoft-com:office=
+:word" href=3D"https://vercel.com/domains?utm_medium=3Demail&utm_source=3Dm=
+arch-com-promo-email&utm_campaign=3DDomains+Deal&utm_content=3D1" fillcolor=
+=3D"#000000" arcsize=3D"167%" style=3D"v-text-anchor:middle;width:173.25pt;=
+height:36pt;" stroke=3D"f" ><w:anchorlock/><a:textbox inset=3D"0,0,0,0"><ce=
+nter style=3D"color:#ffffff; font-family:sans-serif, Arial; font-size:16px"=
+ class=3D"mso-text-white"><![endif]--> <a class=3D"dark-mode-background-col=
+or-FFFFFF dark-mode-color-000000" href=3D"https://tracking.inflection.io/02=
+522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhzpGtIM_qase_ha2BiK1AFFUgNGnQkO6zM=
+oVkO5zWZIvF-2m8R7rEVUSryjP8P75FHToy6rfTF7SZGU6EFSdzcIm8wkyLZ0qSgyPFi0CF6wID=
+YX1WFp7oH8D8t_ibpw6E8cXqAO5whhfh2fxdDGBuPkpagxi22rtuXxTxlJonwi0Z3DwL2bRSLYq=
+TXIPOD3G_ylD5VCn5vQQdTmaupL3zom9v_V7mjSDdhstx4CsjwD_Ufn2b-a6HN8gODRV6HUzL-v=
+OYYxbDFxNFEoaJ82CiXOVVglgBPO7SEu7hlXuwI5AYtRRBSLTxkxn7n62_rWJjUFRoBgNlyciwn=
+BqWY875OhIVAYqUmww4MEmC0DRyY9yrrREC3AZjfpz5yIuhVsr6Cs1rxp35oYV3Eb0ZmkSG92U9=
+mieWTlPM62GumyoFuP0yESVtLcQRpPyd7TGipM1w1aGOu7jvbiAzGr1LCxeLqqB0aqDc0lfigPl=
+FZOnop16btimBWdy3Rni0qRplQnu4-IFhqWQLIdHm2oRURZXGBZ8S9UWNKQKBwQGFmL_FFjvF53=
+mD9vcdDyh9XRvPvsw9gEMQCCEBzf9j2Y9HFXjykmrlFwplYEOrbsD6V_9OUhXq-U1F7C1q2hfMV=
+I6OG1Qf6WVXxYCQkHfGJ-nERTnmrLqito9cloogp4utjPvPbt-cXHcBkJjEzjdzWaKBncZys1jJ=
+Q5uR7lNfGfb8xKmqDvJWgrIPSiWBXXaET0oioJbkvi9m_vLQQvaibsFirCPRf5-cn6YBYwQoSyZ=
+UNlw2mu_WmzYzSg-1wBYSQNSVHGuwaquAHLjNpqnliQF86KMIWJoPMoQ7lnWewSLDjBku-5p2le=
+QwymWk70zHzQtCv7_DOCHSD7ZaL3uf1HwyDQ9_9amg9thyrIoYhIPk2TnIWgqsD9N5ZcoyBBj91=
+nUUoC4EtvauhD5kNyUiCcwG6kc3h9MzsaOp_HYCOIBSqtqHEUxSf2e1_J0kkbmZzdBoS8DVUwkQ=
+r9ZvmyYKmYUO9bIXEw2xpL5ls_8fikdVIzcb0oQ=3D=3D/redirect?redirect=3Dhttps://v=
+ercel.com/domains?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email=
+&amp;utm_campaign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;in=
+f_ctx=3DEvTL_JRAAhBP603xLsv-nuNjDg_LNuhYILgVr-nDQO9DoUWhjPbawEM1TNQ5m5MUDx7=
+5GW-J46fWfubjXnXxdwo2gmhSawz1hFPEi_tEt7lcjW-N0hntNPTKVYmsITotLLN8o9T1iBEecp=
+6lFS476E22vCMAh4XPzDZBJ-96eom4Nsvtdsf2upumA6r-58W9dZb8bNFkrtlnThMrsrwhY-Wvl=
+rlyQF0gCPD9PVctYdeHKKewYJi2LnRtaQIV1WVF3sPw-Z_GVX-daIfsYayYJ9W0qgec01P5o7P3=
+DRBYb7yDe-UGDDyyRoCS3uWC8fqShaEdbbB4_BIJqwi2HSh9Jw%3D%3D" style=3D"display:=
+ inline-block; width: auto; background: #000000; color: #ffffff; font-famil=
+y: 'Geist', Arial, sans-serif; font-size: 16px; font-weight: 500; letter-sp=
+acing: 0px; line-height: 1.00; margin: 0; text-align: center; text-decorati=
+on: none; text-transform: none; padding: 16px 20px 16px 20px; mso-padding-a=
+lt: 0px; border-radius: 80px; mso-border-alt: none; box-sizing: border-box;=
+" target=3D"_blank" width=3D"231">Search available domains </a><!--[if mso]=
+></center></a:textbox></a:roundrect>
+</td>
+</tr>
+</table><![endif]--></div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-size:0px;padding:16px 24px 16px 24px;word-break:break-wor=
+d;text-align:center;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"none" style=
+=3D"border-top:solid 1px #80808033;font-size:0;display:inline-block;line-he=
+ight:0;" width=3D"100%">
+<tr>
+<td height=3D"0" style=3D"height:0;line-height:0;">=C2=A0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class=3D"social-container" style=3D"font-size:0px;padding:4px 24px 4px =
+24px;word-break:break-word;text-align:center;"><!--[if mso | IE]>
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
+le=3D"presentation" >
+<tr>
+<td><![endif]--><div style=3D"display:inline-block;">
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" ro=
+le=3D"presentation" style=3D"float:none;display:inline-table;">
+<tr>
+<td style=3D"padding:8px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
+n" style=3D"border-radius:0px;width:24px;">
+<tr>
+<td style=3D"padding:0px;font-size:0;height:24px;vertical-align:middle;widt=
+h:24px;"><a href=3D"https://tracking.inflection.io/02522a2b2726fb0a03bb19f2=
+d8d9524d/gAAAAABpsFhzMn7Q1PhIqaHgRD2vOAynQyjiXFPQyBf8hvlrRwlPHHj5kQW7YBwM1x=
+X7yRlOte5Ib8ZMycqTN2iQlI5pr_G-kwAm3nxqBIoaGGYkZZ-3td12p8sLrk1odqNZPJ9NymBLC=
+cM-k4ZEpnhSPexLcobh8KxuHySxxW5ZO5jDgXGr34iQowuHRZM8fp5PLH8-MAoALZqMgItww_IZ=
+mXGrjyxXjSjfORHq-YknnAxnKVaYLQ3CWfLJjr6YPgavdZezBPffdDPRhTKFrW-6u4-rtawhiBw=
+zJCFF2OlB8AuWYngarj-kdTBMErBtQ_mYjVMAuXMwNe3FKKJg2J19J0qlIupi67Wnt2xBsONqJq=
+4NrmRbD1aajcmEGOpylV6vt25Ir6VQqkBb0UyVSb-encjjHx1Wx6ymounnrE0IqYdvjOzQaB-iK=
+Sh-AUXSNxA7ueidqCVbnH86lTNhh7x822jwnLH633_-PYVY69U1xv0eaRnGlqJUr7LPGnhNiZCA=
+cIgKxWpq2wYrdX0bN4HC67-xueMeXbbAaDZyCg0eD0SG6PLI4tD1f-h9MACDebbMJc4pdXyN0d8=
+ZCgZW1TcNeA6H5AurJ4YdM2nOlS17EYTRMTcB-9GYpBh6yV6oEf0Nv8V9gYaqOegZrEOmvB-Zk3=
+24ldK2vJJMzrqsZynJQdd1SIgNlN-s5XtRFVDog9OrdFjuoKAnLB88zJhKuXBEhN5HLwagn_Gey=
+AdhFqEUm-q5QLyOhxe5hXZ1fsUAyUzp0g1hDWu5bIML56s3iNEgyxj6Uv_o9JNcS3ZEI-1xDq15=
+7pCiU6tYaRMowIDKdGNkqNhLveh-7_DGiBXZA9kuG4po-VrjhtNIfzsH8BCexikm34AL5a6EHT5=
+yUa9JT2lw1zbEHQkUv9kjSVc3w01zhH8yVbZ2IAI6wtMX95QUn5bycPNZTa-InWH8gqidZFpMQW=
+81Jgw0HMZeEuqeQmB--te2EvH3Mb7JaTlOI-_AZm73i1ExGt_B5u4-xfYclHyxaUXuD5gJYgWGF=
+zl6NugI0-ll5tIM2g=3D=3D/redirect?redirect=3Dhttps://x.com/vercel?utm_medium=
+=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;utm_campaign=3DDomains+=
+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DCeJDi9drj_1tM-qLHfY1=
+4ArAgzXfeYdoAo92v98ffs-rp4jOpF_fQgX3oKbSp_rkaTtPfB9aLpskIzekSEkB2s6kBv3pI4x=
+zN9Kmah_eF_jtDGQUCL9Vz3_w-6ScEwvpJ_PDqfAhFE1Qp97dwUiX7NAiMHzgb6PFklmqDVer1J=
+-ng0FfY-nKyuDiInxuqw8WWSrqM516KnkLv2m4NlFVGGtZrTH6wUz-LXAM77ijxPOk_nPEvhGvH=
+gZjQKmT5_Ij6ot3Di2vDwWeSfvfMZt1PHG5V2Gh_qmDSIifvJ6in1U84n4uBATn5MotyJnk-nR7=
+scoPG2c74LUs225KkNl8Eg%3D%3D" style=3D"text-decoration: none; color: #0070F=
+3;" target=3D"_blank"><img alt=3D"X" height=3D"24" src=3D"https://tracking.=
+inflection.io/02522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhz2SmION_a-9EM8F9H=
+ThEc8-maC8rnUVgVrP6Y-30Y5JiK_iCDdHTVcpDejJMswjJZg80vC3d8TNKKk_0L1Cc8t5eoTSm=
+mbuyya4LqrmcXrd5an99PBT_Nu6Xa6QfVHDn-CNTVPZPdrb1xJsIgDkypO1nYVoKdMwwy6TXwU8=
+VlReeI5xNacxDCyk04YtM3ai9EQ_vTUPI0Pq20bbn0CxS7wzDVmiDxZDH4y-wnJZxkIJsc4NuVu=
+t7VPZtmWZIOK6xpF6fMJR5zcTV4tXjDaYrRtYiSJ5zFKAOxdTj_CrRMPnTywOXmwUR9Rg--iypu=
+Qo__7m1TFQjk75EESMrYFlCMoo22f5JKplQbhPwpIPYDyoXlkt6nv-gbulX_6-KL-Isf1QWd3Wm=
+nOcADtbWm97u7gVXXV8LdKDaE0ApxsjjPGmmhdF8j2RG104l5OqdH4Wli4Srfor9cUjRsq5lNER=
+F7h8XL-wXVJOaILb76RF7mgdKDsunqdL2QV2v_nxnmyvmBf0OAkTK4-ibpBx8oxXX9qu7-BClwc=
+AX-v5yLDJPTJTL565WM1lvoSZGKquso6Z0XMJSJZTwfZeCD4U1AW5gLXcyBFEQ0Q_SxLwyAAXn9=
+CIV1IcrLM-KYcBkgx51jWdSVgmDUbY-Q4vNwd_iVMpiq05717DIGlqK-XSedGbEaBImUknqbYEC=
+2PzudCa41IqyAyVEn-_yTUSd9QoO92F7vsM3KJODyqOiiVjh8W0794ybZmiEnGpg4CnBA_6Vr4C=
+i-crz5yJRS3itEJfjFAwzg81vaQTXmF4Tol7TqkmKZCnTcrnmcZSCQdBtG_GmyXFDSL2cfZHZAP=
+2J0R5MFLCIb0hPB6EROPc5W5Wo02t6rcja3oHJZ1E5gW13fzJkG3MXTk2oVow4AHfwfrdDLub9_=
+80A6MCK3__0AxUnkpheutwUJ_RQSIDW_sePjrRFhV3CgQQ_doFMRWOkENxM8uV40-zXSJDlWXuV=
+cNK6cP6UgFbU=3D/redirect?redirect=3Dhttps://assets.vercel.com/image/upload/=
+v1732879213/email/logo-x.png" style=3D"border-radius:0px;display:block;" wi=
+dth=3D"24"/></a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table></div><!--[if mso | IE]>
+</td>
+</tr>
+</table><![endif]-->
+</td>
+</tr>
+<tr>
+<td class=3D"text-container" style=3D"font-size:0px;padding:10px 10px 15px =
+10px;word-break:break-word;text-align:center;"><div class=3D"links-454545">=
+<div class=3D"dark-mode-color-8C8C8C dark-mode-link-color-8C8C8C" style=3D"=
+font-family:'Geist', Arial, sans-serif;font-size:12px;font-weight:400;lette=
+r-spacing:0.1px;line-height:1.4;text-align:center;mso-line-height-alt:1.063=
+em;color:#454545;"><p style=3D"margin: 0 0 0px 0;"><span style=3D"font-fami=
+ly: Geist, Arial, sans-serif;"><a href=3D"https://tracking.inflection.io/02=
+522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhzkLU2rbIOgoPNXEhZ12in8GizsGcmuO82=
+f-TFJ9RrKgC1SjlOj-P7mxQsMx6u_n5Krri_UwpMuOrApq-1gAeKf2GkLvw8HpuZsz5s434Dhdf=
+cHJUPwF5nkzuqPtBg30Z-mCaueghOgrYmr7yLIKJQge4uN91sw-wY3Gt41mk0uzkt31qzDiSoVz=
+6Ry-1fC17tMW58yk264UguwRCnFEEcB4FOdpwg_HkPDhnEj-QytiWvzgwrNkkkQBlUldEsVMCdh=
+vIOrD70FP2UXKNSFKqNbWiO_UFywRwvBu9dcZrVTWRB-skRR4Fsl69pV7fHipuz_B5gkESU3lrY=
+nHVKmK5c-S2gkCM29PEYfwFLP76kFhSY7MxlMis1BF0uksnvzKmcD6vnHJnz_9GxHf3K1UVXmd_=
+ETP3eULJSqXIKI5SUqxbCLYbDEwueIWFYzY0F6pN4wlYSM3fgGNKWDgXTJf7dUCsmkRuWtINQS8=
+MBW8d-ISeV-se1CS6s60mHyKopdRU6mBRqbwiW82UpojSwTBEvZsPN3FAFKLG39V7NTPUFpo5DK=
+ctOWF7VAp-4zfkwcWS1JRttnfTs66ZnduoE8WG8v2zMrulX8pfn7z8iFY_Ell0lbGj28oD9cwBF=
+nKtsaVa0GMD9iHxIwP_kLxW_IY2srYq9AH6RsxdUhbjIRWUjOs_b1s8RGAG_JgXP3hVJ_Sh72k6=
+KsdvS38gxvd9U23z0XcOjV6LnOrVQqBvFhCHNil8a6r3lZtTG0kUC9YQVAT_zd_sJeMhJ63e3c_=
+UtxX7OxXmM4tKFzbqRwrtczHQdVXlZMLNI5QRDjChcR7jISQCaSr6xBTzPx6dFJdmstjcRdw2gs=
+bCRFE3zyisW2hV5QaNiP_JwdRxf72_4V7xGjn9K4LXzLwRuIMV8vZy1x2YPHLCui_XVGhODX-Mf=
+PsWOFNRhny6FmlX3xNLWxPGb298v7ffkXAhTwyJrscqU_rc5vgYx0EyhI6kGH2Yr-tQcn4r8MF2=
+JJnn550KHOL4rKulHnz-swesQa_MSnTUSm24YNA=3D=3D/redirect?redirect=3Dhttps://v=
+ercel.com/contact?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email=
+&amp;utm_campaign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;in=
+f_ctx=3DXL0FLxgg9xIyuianHQFNYaGGzKDVwRE07D6MqqnuHY4L0w3foLTRgT-kb6kXXed7PcI=
+eh-MyD_wkSDz2W-HW99C0tnAIkDQEQL6GkItAeDTWQOYr6BXM74Bp7Wt5HPjOpEzDQNSLdBg7QY=
+3_Y1MxuCNF00WjZ5Zdm1W2pC6vIJD9dgxuLVpIHZfsTkBg8NWzYe_0jW04q-9FmzITxa8wZTB52=
+VVB4mYfCJnXkE3VvGwBZB73cb_ZZS_NI4ejVUkNBujvkJKENpkEyokzZKXtYqxE_QhEyJYZikCA=
+0j2kS8leje--k_9MllxUQJst2MxMnzJkJttPyvKb6eYmPT3KUA%3D%3D" rel=3D"noopener" =
+style=3D"color: rgb(69, 69, 69); text-decoration: none;" target=3D"_blank">=
+Talk to a Vercel expert</a> =E2=86=92</span><br/><span style=3D"font-family=
+: Geist, Arial, sans-serif;"><a href=3D"https://tracking.inflection.io/0252=
+2a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhz7vJ5j7IqforOOG6APCXHTb2SO3b4zZMlSg=
+Ra7BAPLFiROEfSRxdUWqBxBBsq6omzZBGhvfhgTBIFlCxLvG1QHEPlETbZLOxbEB_E5-0dqA1aT=
+TXIIwVxF8S97d-5AfzCRzdCxd5pwe1BIsceep-6TX7-HeZhMho2cYdnaEMC99Nb-GUF2-Iru4tD=
+SqvwNR9uLjfFKMVX4IWa6fYYKKM26plaEluxuaYorTI8SJ5Jn28M1djnsLCFrrCdKBwwcTzYKMm=
+a1PaXvTobm8QNPQLvk6WPMPNCUJmWMYi6jw6YImfUUyQu5RyVKX1fmlUl32sLSKLtyxhDRT0D5F=
+LgU8C6-KuI6uXsXXbhbIfjId_UBjFZ_fkBx6jop9iooHysnJDIBHFH96C6-m7fVIZhHttyRXj0I=
+5rnKPsrW08SaIJ_Rr3oTs1C5NVold-P3bcSdeV04VhBten1C1COgSRax3feWU2aeADb0Pnugeci=
+2SWWeBK87B3TCWMDULXMSOx0Xdb_yBoZAdyLKJRvoxx6PA5oYGs1T6COrXOsRP0A1DwU40tPDyi=
+TThY9qtj-SeRzRqBk8TKc5l2CHZI1GRxU4F6hQFjjjAxoOMdsmcTz7TNtRvFN6L8JNqWNJH6MT-=
+LLhUxoa2HyWQ-1qCy_QwOyIlY7ygC1RrWPCEZcT1zG1g-ghBl7y362CXPcMRVcFtSuI-7mbLpah=
+qq4ICHCyq1MUzHszaQfayILI86-IG0-t-yeRTWXuEK4bhw0B5KUIoB7jVfFQd9ZAvGyrZVWjPjH=
+fZovIDTR1h12uQEUBXP_uiPqL1vGHvP2H-Grw51-WPpRtZsjdZDPOerSlYwwobwBnPKqNY-QCRg=
+63FmJLcuI3rySdqO_C2RKQxtFTsPZw-WXSWRrXkNHUC97N1Bvh34P76gpkORJz3bscrGoBp8iB4=
+HuQj4_BgsBockMQMKR92Jreu_oIlX9Q91fhbdpMtZDCCfbzQZrYaadspE7Rt5qcosvIMMeF73Eb=
+NjB7hLrQIKsGOj2yH9s8O8C1Uq-mewpSSOU7g=3D=3D/redirect?redirect=3Dhttps://ver=
+cel.com/docs?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;=
+utm_campaign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=
+=3DrRxT96schFb-n_7CKGWXyqNr3Vpg7m0V4uziHY1l1my-vykcv7lyxnuuWxarN9OY_1zRSgY-=
+D3ybKaw8B8rY9EeYoHC0wi0N_FmfSEslGYHpMWo_Z9HHngEAzx2wpI9k788731o3V9iPT2NnSNO=
+h7USbiXBuDfdnAvjkvYqR99mPM8BvPySNuiMULWHVzL_Xme-6ZBFhtcnOaQt6TJkq6Bi0ZrANBE=
+MHKfKlvsWkuLPxxFv6nzWN9bGrEnQZIlsEonloKOOvvkVicRWUCaz1jmLngt8ZUKejYRbQBRJR4=
+Lo3uwmXb0jqtLPoRB7XSXVZ23jDNUf0hKnIK8nLzdDSwA%3D%3D" rel=3D"noopener" style=
+=3D"color: rgb(69, 69, 69); text-decoration: none;" target=3D"_blank" title=
+=3D"https://vercel.com/docs">Docs</a> | <a href=3D"https://tracking.inflect=
+ion.io/02522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhzRwUD-GpghlKTJFH7yHq1MsD=
+0t_IXGFPnEf-6zTbQ0hIWrUd6U8YUd7Gl0DBeO8cL6RBRu6Oem6z9bVf18ot8O8xiBPtw0_pHeH=
+jT32e-57nrfC_RCYYzcjPA8zMfKR1JAacEa9dmkoCRr8XmVftaKI5ieKsjSQCYBmmtSA8k7Z_mr=
+f5PHu4IizL8q3w1ekM0HqivWewAQKvehfBokW4Frp6Tq0S5njVNJ_z0Oe5PB6i4P9qysGl2lRBL=
+N0vHhXt_KsaUx7l0URCFjs2lV9nFSjvd30cX4uNwCMlp0e7G62Kf3RRee_CCxVctYohAF8TlhQS=
+5x5L6wweQeied8MwvgHnPyYhcotqVM7wlJ3dI9OMpKmVlzow4IHbcqqXCpWK2rlfzaAND9XgRs-=
+977lJ7__SIUbsgvbzLPAyvzuDmks9L5ghP8mSHA0r_ks8rHZyEZLoWrqsgJbjHdN8aqxTW5iEF5=
+JNhoPZ1KsAPy2OaGLQKFYHSowFmREak4TH971wB_Ja-N_Ty4m_zcujL8z05IbIH6Vvs30GJ3xrf=
+jsaBjAaQaCVZosdDdjA-RUllEoy3ZgiZ1yw6OPrShdGnv9ClS6CeLyLutF8Z1SmlzyY59Aq75qy=
+lRHHDf_EU_URmD_2civXIfE1DvnkUOp-ViC8Q8ueyOwZUDfgAwJ3TeTh9ED4WovQYWxP-jON-cV=
+TxGORF-Dd5zSl9hqUEkBh3KOrHUDBNeiIafFFYAmVP41mxu7fw-blz-vzrC8x22DGBaMRMsXuwC=
+V_-UC4qjnRGnL9ihYqntvLjHeM9RPeGayyxnluF5OfoDgV8muyms7I6u0BK9N8SNz-CuSfcpysS=
+4dHYZOfUZzR2Zqfpk8DR9XMvagSXTEsxan7NL50MP15S4TcWboTHsDxStRFuuVFBtoH2m0GH60v=
+CZj7BTspQ-K4vBfnolw7pwTN24IgE1zsCNd666CW3Jtq33sVvpt-t5cj8l1NhTu2d3FCqZLwxrr=
+kyhVCmRTqsQ3nx0s5Xh3iamht6wgHmfAMmaobNc6YaTX12iA=3D=3D/redirect?redirect=3D=
+https://vercel.com/blog?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo=
+-email&amp;utm_campaign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&=
+amp;inf_ctx=3DSv15imOdY3svt2gtkM4oYm7RwUoeVyhI2CIFm0BhRKoNOMl6CzV4bfkqNOwWK=
+RqQiHjKxy0UveDaJOwaJmmDLW66O021c9GJk4UjkAf-6PDDAO8JSclWdxmfzmMHwMQ7WYvsSOz4=
+zO74vFR1Mt1CNzTnFw63Vl3Wr3sAl6tYF1drcuD8YM2Gef_40KVgGnwVCHDmcx892_dKQC8Nm6v=
+57Y7HWxZwCZlyo3X3m_lkdb7dlZ6Cdrjqtk-ED6RBJXE32FThMP5qE_Qv-npHSAhOv8m_e6ELJO=
+yCrAfwsqQYpyZli8mAK5c4EsZhZ8pJs-aXdyGb9eGFmeOuw83mZ83D0A%3D%3D" rel=3D"noop=
+ener" style=3D"color: rgb(69, 69, 69); text-decoration: none;" target=3D"_b=
+lank">Blog</a> | <a href=3D"https://tracking.inflection.io/02522a2b2726fb0a=
+03bb19f2d8d9524d/gAAAAABpsFhzkLU2rbIOgoPNXEhZ12in8GizsGcmuO82f-TFJ9RrKgC1Sj=
+lOj-P7mxQsMx6u_n5Krri_UwpMuOrApq-1gAeKf2GkLvw8HpuZsz5s434DhdfcHJUPwF5nkzuqP=
+tBg30Z-mCaueghOgrYmr7yLIKJQge4uN91sw-wY3Gt41mk0uzkt31qzDiSoVz6Ry-1fC17tMW58=
+yk264UguwRCnFEEcB4FOdpwg_HkPDhnEj-QytiWvzgwrNkkkQBlUldEsVMCdhvIOrD70FP2UXKN=
+SFKqNbWiO_UFywRwvBu9dcZrVTWRB-skRR4Fsl69pV7fHipuz_B5gkESU3lrYnHVKmK5c-S2gkC=
+M29PEYfwFLP76kFhSY7MxlMis1BF0uksnvzKmcD6vnHJnz_9GxHf3K1UVXmd_ETP3eULJSqXIKI=
+5SUqxbCLYbDEwueIWFYzY0F6pN4wlYSM3fgGNKWDgXTJf7dUCsmkRuWtINQS8MBW8d-ISeV-se1=
+CS6s60mHyKopdRU6mBRqbwiW82UpojSwTBEvZsPN3FAFKLG39V7NTPUFpo5DKctOWF7VAp-4zfk=
+wcWS1JRttnfTs66ZnduoE8WG8v2zMrulX8pfn7z8iFY_Ell0lbGj28oD9cwBFnKtsaVa0GMD9iH=
+xIwP_kLxW_IY2srYq9AH6RsxdUhbjIRWUjOs_b1s8RGAG_JgXP3hVJ_Sh72k6KsdvS38gxvd9U2=
+3z0XcOjV6LnOrVQqBvFhCHNil8a6r3lZtTG0kUC9YQVAT_zd_sJeMhJ63e3c_UtxX7OxXmM4tKF=
+zbqRwrtczHQdVXlZMLNI5QRDjChcR7jISQCaSr6xBTzPx6dFJdmstjcRdw2gsbCRFE3zyisW2hV=
+5QaNiP_JwdRxf72_4V7xGjn9K4LXzLwRuIMV8vZy1x2YPHLCui_XVGhODX-MfPsWOFNRhny6Fml=
+X3xNLWxPGb298v7ffkXAhTwyJrscqU_rc5vgYx0EyhI6kGH2Yr-tQcn4r8MF2JJnn550KHOL4rK=
+ulHnz-swesQa_MSnTUSm24YNA=3D=3D/redirect?redirect=3Dhttps://vercel.com/cont=
+act?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;utm_campa=
+ign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DXL0FLx=
+gg9xIyuianHQFNYaGGzKDVwRE07D6MqqnuHY4L0w3foLTRgT-kb6kXXed7PcIeh-MyD_wkSDz2W=
+-HW99C0tnAIkDQEQL6GkItAeDTWQOYr6BXM74Bp7Wt5HPjOpEzDQNSLdBg7QY3_Y1MxuCNF00Wj=
+Z5Zdm1W2pC6vIJD9dgxuLVpIHZfsTkBg8NWzYe_0jW04q-9FmzITxa8wZTB52VVB4mYfCJnXkE3=
+VvGwBZB73cb_ZZS_NI4ejVUkNBujvkJKENpkEyokzZKXtYqxE_QhEyJYZikCA0j2kS8leje--k_=
+9MllxUQJst2MxMnzJkJttPyvKb6eYmPT3KUA%3D%3D" rel=3D"noopener" style=3D"color=
+: rgb(69, 69, 69); text-decoration: none;" target=3D"_blank">Contact</a> | =
+<a href=3D"https://tracking.inflection.io/02522a2b2726fb0a03bb19f2d8d9524d/=
+gAAAAABpsFhzk9yL7H2TzBdDz05pW50vhwYUSI7F-Fwm8y3bMXVZ4f9DFEjYRYTOg9ltWp7PvEc=
+BYYx_cg4tPOLvN-ZuTB-4c1Ot_SFfbWVaowocJGQlQ3JKIJn0v0ueWtP0FdrSXPDSOU83swELQ2=
+oFu6LwiqpUlXVgGRD7lFT1Y7LcqP6e2HbJBslbgNokXg7nvYbE8VnQc4Hg5CZT5NkuqkapI-a0P=
+66J7C5CFKbj-wFa_1jUTXmDP4E6rXIxKovr5uPi4kWTiXKnTJKPNosdT2nu4e6mJzoWKIVsge_s=
+sFi-yWVJsOK2HIoDYk4v-J5-MqQICOQkAzLitjdi8J9jKmHZY1e8ruRenfQQprYSf7tOM7cdnSl=
+xlJAp00-a4PR40EVHHC_nuN1arwPglr6uJTT7M5was77-3yQFh5vn_xYLfhLgNKqM8N54nq6-ge=
+OcQ2c_0NkstdxSTQ6vaNp14C8OBr1hS0L7AI-_EnsvCceBoXfUtdya_gU-uifNY_Syexn121pid=
+a4OGUNh7KycndSlSOgrOO5dWwV9ir548uQrcKJkrD7vHuKAUJ1GXH_RIFy8u9bkAtOcHtb5Qr0r=
+F1CRuC9B89VTk4UB0ETpcGhF6E1Uw4ZhOek_zAWXitpDQbTzZG2xb0IC14AfX0i1AlBZeBdnIm-=
+4s7WyxWBHZa3LuYIKZLyrLSsqPJ4qzgR_DCdg1UsckA46O3X7v0DJyHn6f84I6TaR-bEPgzAeCA=
+-mERgpv6moWaqKUPYNAtCq1R6yk-xLfDBkKHUq70ZbpRjpBhkOQ3zA0rRY9i8XB7C3J2_RQ4MCb=
+2dKbR5kWMxKcBLzYLhXjD2M7NwqVdwaRqH08qSK7tzAfXUIu8wiqg4KAx5E6MeAkfhrI2vMeytC=
+K5QGMNvrWyvRkBuI8FrF98bGxrf2AeXVZDEQ0eJE-Fhm4EAFIE9IpM0hFV5MXjY_F0avi9tpOJb=
+HIOmkSpw5m9wHQ08k-0zN7KHk7gS1bREllAQ_V_-pCB9dI2jJUWIKbaxTjgAol_bLlW_-V8JbRv=
+oiwbcLPCbgzy1m4ktgNhWJRp3BliQ=3D/redirect?redirect=3Dhttps://community.verc=
+el.com?utm_medium=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;utm_ca=
+mpaign=3DDomains+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DHhg=
+KYWMOcTl8FHp0mXt4fmvId3sg0WFXzKrjetq7lG8HfHEysPJ_y3TURfHOXeA9XgePOuRBKPxBW7=
+F5t1wVIiuNxAK6Kzq-qRz7tEbcV5XLn2a9z0m05WXahiVLJ4CxpE4VHLtR_AUJTdhBiZgqA5wYA=
+aFjDb5XO0VCKSiyqir_9GmgrdXNpDsbuW1cbLkM1n6RQoZkj3V1KzBVpzVHYG7-Ti9slUXqHMst=
+-EG2c1jZoYZutMkRsRZUK3vUkGk53IaVs0ka7QgoAjVJ8ZdNa8D0gGSTU_6Nw39Ah4LKeOteIgi=
+FZmXK64KxExijcHA0dq3LOFkh60X4pC3CdpQ7Dg%3D%3D" rel=3D"noopener" style=3D"co=
+lor: rgb(69, 69, 69); text-decoration: none;" target=3D"_blank">Community</=
+a> | <a href=3D"https://tracking.inflection.io/02522a2b2726fb0a03bb19f2d8d9=
+524d/gAAAAABpsFhzUqkACpDR1728gQMRU8qlLSOPzqQUCnHcTYDcSmM9b2aBoV10-32CUToil1=
+gEyUcdeyX_BM8MUIzq4Pmglv6TS2G8sMoaahvCYcGoPro5XOoouGHfGixGICBbbHwh7be8xju1e=
+y0c3cMnIT0iCng9PLryFY12-km2tsg8EU4E1myx7Yn7G4KkGeZyjJSGKML9OWkE_bFtmjz-91us=
+ozz5bBmbjeqMwni4_IUPVNiRKdbnhLJXmIvOWc9WhZfc1VLOLQqrDytaCNyshyuD0GoxNjT1hcm=
+YcMX9ubxpUpM8BIYkRdN19z372EIci5fD3NWalgK5Xt-U5SqDX9zTFCOcoxfN-FjV-I10SHAwcq=
+-hzhnTeUzuxUdP4l53WanavDbImNpsBqzIWubwDzgxgd-lcC_GBp-FldtCmPBs_WPQljQz4xGEq=
+tSGPx2IW22tq_8C_mi-35mqJysvdMpW7Dpd-y4xZCrCHfyBHy-N_w4nZ9PJ_378FbewZHqECsLi=
+2j1vimAP07sZQGS2wsIZo5rQT0speDsSqNv3beIVqAKQk94Q9_gy16Yz_U9hEokygjsq-1g00gD=
+hlle-vWfhshCNxclaTrccfGIJT1lpVaYtzKLcdlfuy-WEJVXrKohqY2HlV0pxSM-G-iq_c2Zi4r=
+M3OxDmOCmEkxWT91EqmpbddXrs7x0pnzvAEhklPXMBdjjPoB8TpQPURjYegwa2_bAXMRloUxx2M=
+hAVWcsfk2a5tQmJjoQFjLiCWdnxDDIRL2ty3XJYWX58laHro94Sr40ivewCjeqH_rwN-R57U9Rv=
+YdywNfZgeSBpX4jFFTFyICEBESm40vjnQDTynInkNKcdeicin7-7S0GsSH8Vihnyb1UPq6zPkxD=
+SAvH4r4fum91Q7lLlTnlkDSezfGPzIzggKtWp3U-nH1vUdTqvub-xnf2_jYiBT_bfooDYIJscHt=
+oTSx0LbbXwX-c1TwmzZzOWoNv4XERmEn0ExLJPOBNdrT7st8xQvrkc7Uy4TKtijlYSxW-z7OGAK=
+2XmSnScM6w9Bw=3D=3D/redirect?redirect=3Dhttps://vercel.com/careers?utm_medi=
+um=3Demail&amp;utm_source=3Dmarch-com-promo-email&amp;utm_campaign=3DDomain=
+s+Deal&amp;utm_content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DZA8t8LfduvhVpOdwRx=
+uWQ9A6tmrgxTiIAZyCbqxQ0lUo6ehzM1egY42Nlt4AA_mjb2pTGFKYoRgwN4mI0lCCeYtyXoOsx=
+hawqo5yYnnLmIgY_bXq0wwvIVzyTwICVGjg7E00twbicuk7PEk0WxDGv69p_4vOevhLgvK91yPg=
+U_OuNilvUB6mWLy9SJsMKRNFsRHkQVLAkQ5FFTB76BYOnRin4nS8D-u7Y5HD9F7mXRkJ5zF5ACQ=
+CPIHcTuYBb_Vd7nLDcP89GbSd0Fdh2N_dJIpM-lTVxLB3_JsNMS_vvLUZBBizNsSg5X02gMDzqm=
+BO8ejf97cOZ2Wt65OjA5GIwg%3D%3D" rel=3D"noopener" style=3D"color: rgb(69, 69=
+, 69); text-decoration: none;" target=3D"_blank">Careers</a></span><br/><sp=
+an style=3D"font-family: Geist, Arial, sans-serif;">440 N Barranca Ave #413=
+3 Covina, CA 91723</span><br/><span style=3D"font-family: Geist, Arial, san=
+s-serif;">Copyright =C2=A9 2026 Vercel Inc. All rights reserved<a href=3D"h=
+ttps://tracking.inflection.io/02522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhz=
+cIwwlyVCTWiIer0MU2NBnf-QOnGcsVaYok-QScglYM9QyJDIfMkBEglCVAqXNg8b6vs-KmWJ1xO=
+JXcdNODYUoOIldkKQDQ5HaJ2bDF8AKkZ1y7PKRhBYdW_rormeNdarqA2VI4L1w-JHX8i_BrCP6D=
+FMFVF70Z3PPflB2TQHv2LPABjk_exyYNn2a9O31pVfej1UyRrjKWfNRL6Etx_FrtfmOxUEiEuIN=
+lasuVtI74d_t3YZkLvfny8J4-2X2a-2MkY_MQkUgl1M7zFugRsh2LQtYHAjf41yK6C4R9aNV_DH=
+T9OVZwhEFE_XqKuU4V-YosV1LwrPppunRmMyguB8zCsujhFcCw3DiuBfYfvT_Uh8E8LbiDn4CoT=
+-1Zo8COhiC57Pj0piTzedp8KaaVR8g6xhIQF580jAm9lg06zr5P0X8fmNY7Q8qqZWqvK_Rmk98L=
+WXJel9v9FpaOBvqQEYUChpkHIYXWDc9JHP4lezsrcp7DZh44BVDyvCn1VbAtFckCfFm4BlxYSG6=
+EYJX85dBYApgQSbyvtk15YO7t1Nk2U7S73nmf1OETaMQiguXfJXFEmg-BaztFcYvLIiG7YcyRtY=
+aTrXSHYq0p3yKYBTC-BJQVaAmH5MOrXbu9LyhM7pqFVpAoJNqRalL_lDCVx-n9GlAGSbw64TGfW=
+jkTvQbew_iw0Wnh3RHzd05tayAoXrFp_LTxQzy702flHx-NN5gaq33w1nJBEiD_pfhuN_EYzRqA=
+ajaQ0bWDIHkN7fk7Hh0k1Gc_tY_lBdumWJNI2a7eoH8xEosCY2RRU5RHM_A0mWil7AqbYfsJ9TJ=
+TSaNzScwiLVqJvteuPqBhlB-sSk9ngStuKmyQUL3Fyz3Bt1JTrf2SrFCadJgrD49Ky6xlAY0xbr=
+7kUcT3emtHckCQ1vCjAP4h9c0qgsfan1Z7fFecDLBs-ShJRMpky9Bq8tufd89Ke_DZpmUbrfRI7=
+eNskykFvP2hFJFwELJV9q7rVSXsZe8zH2iJG7d3hqdnMG_0gMbyiHovkFPRL991XVkjfwGrIxmG=
+4GWEQNGmPkRG6winU=3D/redirect?redirect=3Dhttps://vercel.com?utm_medium=3Dem=
+ail&amp;utm_source=3DNoClick&amp;utm_campaign=3DDomains+Deal&amp;utm_conten=
+t=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DRsTicN1zSvx0I6jwqToduOldqdkqmT1MHhKYRWz=
+kzqiTY4xglTdQk7oWmTh3haZY45x2FMNVI1dwZjMph9GWfrx-O8HDg-vg3dMda80HHxuoqP6bB_=
+-Q643_k67zOo8WSVLIySwDiVn9xnvWSoVtm50kQrKmSAYDa-DCYtu1V7Q31rIE2YFFvMwJTXJYp=
+B7OOlI1R1rmPidJgRni1Mo-uCW-3MpowtcunzZt4Ofr9xWC0BQzsjF3RelJeLV4WwA5MXN7iE46=
+JqHZUTDWjD2iPc0izav1JWT5GS1JAp205GcqSXAF4wpdJ8FsXbVk6Xh4D52TJJsTUnkbat_b8d5=
+VkQ%3D%3D" rel=3D"noopener" style=3D"color: rgb(69, 69, 69); text-decoratio=
+n: none;" target=3D"_blank">.</a></span><br/><span style=3D"font-family: Ge=
+ist, Arial, sans-serif;">View our <a href=3D"https://tracking.inflection.io=
+/02522a2b2726fb0a03bb19f2d8d9524d/gAAAAABpsFhzF0Ju8gHTVnQj0nd2eIpkNS5vhPrlu=
+zEptBeLdbyZufoL9wQG0-wxSRN2gjpFROPkB68hVaAilPLo7zhPotLA_i5QWprQV9SHIQqlwCS2=
+-c7U-4p1741QjiE46TCbFUovP9KUmuryexwzZSr05cJNSmfLMtc5sxb3HTPUNT1j7HbcYH1fuwQ=
+dtoOlkU0sa37bgZVa2RFlmAueODisF0fcbfJUzKUku5AHYQv_qTZjVm-pCGK5dYfUta20tL4Qed=
+sBjXwdDDeFmUtKPrHEziaMidvYh8YzHsvDT-Jgn2h2w4wl2cXz2WIvirNuWi4ai6kd3J_aLGiuq=
+35yp953LNHe_b_t_DKK2AhMtFSWA8c_88yBDsYw7PuVIRqVXqWxdJhZdkM8T5uNHjcBsP-fv9S5=
+byfWG5uCujoakJr5c9Oh-WxDJpUD22oOeg-E4uoQsdKf-SczQp7zbG7pyoMlaFqQVgGo0aMaDmn=
+y78R-N594ISinLgYKHbIyB2b2517NPXCuoPHmCJCEnrcavxbt12-oYA8FQjxwAj576wwd0KlU4c=
+0XZ3vKtrt1Eyzjqa9_BOEzU4bLS5ausXdbLLZMbfGSzNe4hsdCCgbawqbbvAQxG2IUhPCA0iOJg=
+1ujNexrDZPqtGH-q-TBtLRDD9nTX1XqI9omjla5L-Dww1V6iDjjJRb6wyBFil071gPTwivvvLWa=
+e1p9Gb8oApnbOJ8SbtJxzlPDXp7OyjQ1h_c0PuL5ECM-YFjzvo6wuT2ETY0XH3bhmMAKEOTMU9I=
+KIrE9rJGI8JM5TX38gL3vMUYcxXHzI-rkWhwY5m4IFPS5vPEaS-pkkENuqf2WlMbHnPmFicOdGa=
+3aAdY4SqXyXP4o7qGjCr0a7GCaPUlT6jBSkwx9h_Ebq1952XakNlUAQBVzPhTi8eL_HfaJJiEhk=
+yqk989bNft_TTOwkFW5VqCePDswUTi4zSmSPEW257hEtjyhs7XcXbnAfVNwB7UHcj4jm4QYoKfx=
+cyM4_H54vsdXrWZt7os0VtNkUXRgA35JJJBH3jEgXMS0IMzwhR5XQthzal1oFxU=3D/redirect=
+?redirect=3Dhttps://vercel.com/legal/privacy-policy?utm_medium=3Demail&amp;=
+utm_source=3Dmarch-com-promo-email&amp;utm_campaign=3DDomains+Deal&amp;utm_=
+content=3D1&amp;inf_ver=3D2&amp;inf_ctx=3DHEvmfdkVR_hMEZshSBJen0o5SrkOIWgAA=
+aYllIIDHhwxxsXFkdrpnNVhJwnmWMx8oUM__krToiuVAO-5BwnbnVDjYj6GP9-R7mKgPCV8Kpbj=
+bsKIVWeIIwA-_v5YOHo5_C8pmCj0rFRU3iegeRBBdeHubheztoRmGWLZcqL1bI7SJr89AeusKEg=
+Y2ZImJFZbady0dsDB21Yl3XCRyeo0LRmQkVoL_-c6VYdJcXtN6J8DVbWt_t_0FJ7HYavVk5gLQL=
+g0e6ElTko4r1Akr9J8teLPWKQrTdko87Is2Dw3CI19wXkkfLmI12ValtfJYJFHCuAiceV2Z1jpI=
+_xZIfHPVQ%3D%3D" rel=3D"noopener" style=3D"color: rgb(69, 69, 69); text-dec=
+oration: none;" target=3D"_blank">Privacy Policy</a> or <a href=3D"https://=
+subscriptions.inflection.io?token=3DeyJlbWFpbCI6ICJzdG9uZWZ1bGwuc3RtQGdtYWl=
+sLmNvbSIsICJkZXN0aW5hdGlvbl91cmwiOiAiaHR0cHM6Ly90cmFja2luZy5pbmZsZWN0aW9uLm=
+lvLzAyNTIyYTJiMjcyNmZiMGEwM2JiMTlmMmQ4ZDk1MjRkL2dBQUFBQUJwc0ZoemFHZzYxUXQ0V=
+UFnOG1fenlzc2RNbXpQbXdhd0ZKLWN0a2Z5WHo5Y0RtQWNTV2R6UHZBYXhHN2FNeUVxeHJVNDdJ=
+ckkySWZhd3J2Q2JwcUVqSzBybHRpQ2lVWHdNbjFwcXlLdDFFTjM0dGxoWDB6UUJxRGdfal9BLXB=
+5TGNGWWIycFFOT0FsNnkyUnF2NUNLLTFuMW9ZR1hXb0xJeEFyajhwR240eXJ6OVM5dEI1R1piRU=
+U4dThjdHc2cE0xUl9ZZkR1dDhBUmRZekpXa0lPRkRwQmR6REJucWkxbDNYWlVaX0hsdWl2bzhQb=
+noxU01tUVJZRVY3d2FRQWtnRHFldEl6R2c1dGlvT01aelZEQktFRGhiTTlrREpHa1FSZW41elNh=
+cVJQX0FQQldsQmE2VTBBcmpNZ1dxODQ0QWtSSHh4OE1QcVd0d2VoMzJuM1dLbzNnM2VObjY4YjQ=
+yMS0tNUVXU0RBQ2pnd010V1BQc2xjN0pnUUdWME5COWQyMkowOGRwQ2xsenhPNWUxOTBiOHpBRj=
+laaWIwZXY3RzV5QzgxMFZMRVNkck9rVGVqWXJvems5X0ZKQUd4c2Z1OTYyYm1xWHRXN0FDVkpUe=
+UVCT05ZM2o1TUVvOGlYcjhkYm1vM2hKYTJVbHN3Z2Q2V1lzSHhXOHRud1lZRDVkb0QxS0g0M2ZS=
+UDVZbGhMTUdKNnJXbFM1b0sxbnZWS2lleVhjQWQ2TG8wNDhnRDlUOFdxc1VEcVdybmd0UnRFdmt=
+VZXNrUWo3ZE5ZcDQ5YUhsa3hiSld0d3g2aS0tZ3BvTUNHVjkzbHZlLXpYSF82U0pRQnN5cHQ2TU=
+pOWjJURmw3eGRsMGhtZ0RfMGtTa3lZSUpYal8xY0I4TDRjbVFISngxaldXTm5PZkExX2MyRTRHT=
+ENMczM1bDF0R19RbXRHOHRFWko0Q0poNDNqb2tCRnlVNFQtcHdPQ2lyajlib0RsWVNLekpyanVV=
+aU1iVlZGdHc2VWdVMkdyemJ4Sk0zYWJxSFQwelJ6RU9zZW0wY3dWNjN5MjRrWDh2bFI1S09nOUV=
+jOElqbkZGVnR3VlR0S1lkUHkwRVpBVEszTU9vUGR4c01Qd1M5UGpCQUZDaDFqZHdBWld0RWZMX0=
+1XMDJpLV9tTkpGTnUySGxnMnFSYXdBTGVjaDJVUURmUHR2TEVNUzc3UUJ6eVVWTWx2WFV3dlZ5a=
+mctWFhsbW1mZ0kyTU9LcGpWSlQ0V3BVU3dYODV5QTRBVzdMbTZNck5UN01VeUtZeUlJeC9yZWRp=
+cmVjdD9yZWRpcmVjdD1odHRwczovL2FwcC5pbmZsZWN0aW9uLmlvL3Vuc3Vic2NyaWJlZCJ9" r=
+el=3D"noopener" style=3D"color: rgb(69, 69, 69); text-decoration: none;" ta=
+rget=3D"_blank">unsubscribe</a>.=C2=A0</span></p></div></div>
+</td>
+</tr>
+</table></div><!--[if mso | IE]>
+</td>
+</tr>
+</table><![endif]-->
+</td>
+</tr>
+</table></div><!--[if mso | IE]>
+</td>
+</tr>
+</table><![endif]--></div>
+</td>
+</tr>
+</table></div>
+<img height=3D"0px" src=3D"https://tracking.inflection.io/02522a2b2726fb0a0=
+3bb19f2d8d9524d/gAAAAABpsFhzKzICX1I4BmhI7bbQ6OX2cfM7HaaraKLchClFTHNNPFXsWgc=
+_YOnFF4YTgTGTFzncGG-3h1TzsbxiEHGKEmzTLdlySI4wQrzDJij224VtO7qBMa_-Skk3hGuC53=
+FHlJu_MjCNaqeRYN0qNzyHrWAnNArUctBs5OyMY7HZ0T0BESCGdghrAUSUb0UeecC1K-h4KY--Y=
+FYG9Mml7yepUz-B7dcch-eEtWIxgdAhXH8BSgYzNxnWTdcWAg12GdkH0JSmKAuziL16B2MSGkjv=
+kYox_qaUPM1sxTSdB8IHRN1MM0FjPtMP4274UQExFuggPsdU98uAPEN1Iv0Xbi2-wmiSKO_QqY8=
+XRJFElrX5YnTTDzm10IjQ-micvFq7zsKSGiVkjTJU5r0Po-nkE2XxjFfFFnSO4pGAZIAGd5U1DZ=
+XpLOuWNQwyDyS3rBL8K9Djjnyjx5pKfD4TFmZPXhJaKocXysbRbOytH2zdAoZLIS2ulwDHXdK7S=
+-rPmA4haLsV6xhq5zTy6-Sew557SQMumVFLYt3BUtEkK5-LN9xy85FeWAYJHM6GUE5Telx0B3PB=
+AhPTvqkLhSdU9z5Qfj5oNS-ACvqp37hF1cP2O8PVg3NmlkxOiOBUqfysXiy5ROed1pEXTaW8Nwl=
+ZZh8MLaCj2xfDMNVOJL3eji1XjLJtSrpx4jQE1-Ed4feC0vxOXwOTikb4iFh_-8H_6vTJa2mSIw=
+c0ADT-laIm2Yk8lEkqObRJb2nqf8r5zFlpCO-3CDtlEvp71AteUAp3HDpqNMsADoypSmK7UCKFB=
+__jLEZNpUzbg-_7aIghJqrSBq9HM-7FBYQf8wm99PO7B4sLsDnijRo1fSYQCitwuR5-jspZ8MhW=
+ASooxRlLB15Ga9asolCRgbD1iCvrP5DcfGSROLo9-ZVLzWX0tm8sA8wyGpcTd4dlYDQya_Di29j=
+Qmvu4SJW8ftWX/redirect?redirect=3Dhttps://tracking.inflection.io/beacon" wi=
+dth=3D"0px"/></body></html>

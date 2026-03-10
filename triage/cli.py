@@ -2,7 +2,7 @@ import os
 import typer
 from dotenv import load_dotenv
 from typing import Optional
-
+import triage
 from triage.email.imap_reader import IMAPReader
 from triage.email.parser import EmailParser
 from triage.core.pipeline import ClassificationPipeline
@@ -113,7 +113,7 @@ def run(
                 hash_cache.store(email_input, result.label)
         else:
             typer.echo(
-                typer.style("[SEM CLASSIFICAÇÃO]", fg=typer.colors.RED)
+                typer.style("[UNCLASSIFIED]", fg=typer.colors.RED)
                 + f" {email_input.subject[:60]!r}"
             )
 
@@ -138,6 +138,63 @@ def check_rules(
         if rule.body_patterns:
             typer.echo(f"    body_patterns:    {rule.body_patterns}")
         typer.echo()
+
+
+@app.command()
+def demo(
+    file: str = typer.Argument(..., help="Path to .txt file with e-mail."),
+    skip_llm: bool = typer.Option(
+        False, "--skip-llm", help="Skip the LLM layer."),
+):
+    """Classify an email from a text file."""
+    from pathlib import Path
+
+    path = Path(triage.__file__).parent / file
+    if not path.exists():
+        typer.secho(f"File not found: {file}", fg=typer.colors.RED)
+        raise typer.Exit(1)
+
+    raw = path.read_bytes()
+
+    typer.echo("⏳ Loading pipeline...")
+    pipeline = build_pipeline(skip_llm=skip_llm)
+    parser = EmailParser()
+
+    parsed = parser.parse(raw)
+    email_input = EmailInput(
+        subject=parsed.subject,
+        sender=parsed.sender,
+        body=parsed.body,
+    )
+
+    typer.echo(f"\n📧 Sender : {email_input.sender}")
+    typer.echo(f"📋 Subject   : {email_input.subject}")
+    typer.echo("📝 Body:")
+    typer.echo("-" * 50)
+
+    for line in email_input.body.splitlines()[:5]:
+        typer.echo(f"  {line[:80]}")
+    if len(email_input.body.splitlines()) > 5:
+        typer.echo("  ... (continue)")
+    typer.echo("-" * 50)
+    typer.echo("")
+    result = pipeline.run(email_input)
+
+    if result:
+        source_colors = {
+            "cache":     typer.colors.CYAN,
+            "embedding": typer.colors.BLUE,
+            "heuristic": typer.colors.YELLOW,
+            "llm":       typer.colors.MAGENTA,
+        }
+        color = source_colors.get(result.source, typer.colors.WHITE)
+        source_tag = typer.style(
+            f"[{result.source.upper()}]", fg=color, bold=True)
+        typer.echo(f"{source_tag} → {result.label} ({result.confidence:.0%})")
+        if result.metadata.get("reason"):
+            typer.echo(f"💬 Reason: {result.metadata['reason']}")
+    else:
+        typer.secho("[UNCLASSIFIED]", fg=typer.colors.RED)
 
 
 if __name__ == "__main__":

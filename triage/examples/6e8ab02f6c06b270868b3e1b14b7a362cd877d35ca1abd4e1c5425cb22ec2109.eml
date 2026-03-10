@@ -1,0 +1,1798 @@
+Delivered-To: stonefull.stm@gmail.com
+Received: by 2002:a05:6359:14cb:b0:27c:6aa1:5404 with SMTP id lz11csp2300272rwb;
+        Tue, 10 Mar 2026 07:48:04 -0700 (PDT)
+X-Received: by 2002:ad4:5dca:0:b0:899:ebc0:5ae6 with SMTP id 6a1803df08f44-89a30a29bf7mr236012906d6.13.1773154083832;
+        Tue, 10 Mar 2026 07:48:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773154083; cv=none;
+        d=google.com; s=arc-20240605;
+        b=DOPSzVpUj2tVAnounO94nyZ/7kc9wZn5AbkIWpI08xoOeZxqMx5b8WegDkM0RD3fio
+         eAQyPYtJM9LB7vYyR0p6tGZ503B2Z5gh2jeJ7M71a9v/Ylmml04lmXsTDw819iwZmjuh
+         W/bm1DDmzTRw0RG3btYSG3XIsW8g3HDXQQ7hxw2coxidjQEU8CqhpiOy0rJIFrcRpyZA
+         BqaTVF0WT9cT3IUirXvtpGI8aW2eaaSSQQXNwCD21Q0Hm/4BdfocucBPKmiJUk3z93Sh
+         e2nHFAdZ+icRLqlvnCWFNJZkOzJ/5YlGj6d+xUzU8MAB/WaWeFe1C9pjExf0J3EkAttH
+         c1Tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=feedback-id:bounces-to:mime-version:subject:message-id:to:from:date
+         :dkim-signature:dkim-signature;
+        bh=Lyt81Qh765Wr4qsolmJw5gYhcd/4pdJHTywP7ipOmeU=;
+        fh=QcapxEOJ3sChxN1FsCCdTIgk4JXyl6ltSIJ/yg+XlGE=;
+        b=kHVhJsaCnS/cxXolBJHsoakx0UMJO7bLtNAeniMusZcwNkrnLbd/cHypBLL1KlE21W
+         OqXE4gs3+O4lWewObKYG3FBlH765MmwWKb39StM+w6/QtCYWTC20ENgUnzW8F2LUs8ZS
+         GnaQUB4oJJhfs65agSG0zLuIG/zemvVmhucLmMjPYKa1w1GqXDhwfixCDYddzOni93la
+         mN99cpihc+xNVfpD4siJkbYSx8TIRkjYvgEd3MItRjWDxsYLdhNkQmz6qDRNjJ5ZOLo/
+         viGithUGl+uf608A9gmbjgXJJHrrSeFyfZcxT7B5Z7s9TWku0GJaz0d5osHDexbZ7/hj
+         Fcsw==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@amazon.com.br header.s=rorldt2pp6jvumpbg27snmxkwm2oiqhl header.b=rzuU1r7m;
+       dkim=pass header.i=@amazonses.com header.s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw header.b=AGu7REUH;
+       spf=pass (google.com: domain of 2026031014480340b4bee50b84439296aee2214440p0na-c3bybpfgim06ee@bounces.amazon.com.br designates 54.240.13.134 as permitted sender) smtp.mailfrom=2026031014480340b4bee50b84439296aee2214440p0na-C3BYBPFGIM06EE@bounces.amazon.com.br;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=amazon.com.br
+Return-Path: <2026031014480340b4bee50b84439296aee2214440p0na-C3BYBPFGIM06EE@bounces.amazon.com.br>
+Received: from a13-134.smtp-out.amazonses.com (a13-134.smtp-out.amazonses.com. [54.240.13.134])
+        by mx.google.com with ESMTPS id 6a1803df08f44-89a57d5506esi28653066d6.656.2026.03.10.07.48.03
+        for <stonefull.stm@gmail.com>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Mar 2026 07:48:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 2026031014480340b4bee50b84439296aee2214440p0na-c3bybpfgim06ee@bounces.amazon.com.br designates 54.240.13.134 as permitted sender) client-ip=54.240.13.134;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@amazon.com.br header.s=rorldt2pp6jvumpbg27snmxkwm2oiqhl header.b=rzuU1r7m;
+       dkim=pass header.i=@amazonses.com header.s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw header.b=AGu7REUH;
+       spf=pass (google.com: domain of 2026031014480340b4bee50b84439296aee2214440p0na-c3bybpfgim06ee@bounces.amazon.com.br designates 54.240.13.134 as permitted sender) smtp.mailfrom=2026031014480340b4bee50b84439296aee2214440p0na-C3BYBPFGIM06EE@bounces.amazon.com.br;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=amazon.com.br
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=rorldt2pp6jvumpbg27snmxkwm2oiqhl; d=amazon.com.br; t=1773154083;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=bW+Nzgw1+JVVMRhN8lRrVf0OVPofyGSnjQzLhow7noQ=;
+	b=rzuU1r7m9bEhBSVvjrqhFLJ2Vz/JiqpT8ODLZBTv0mXnR5RKBWGHd6aNRCt4KkJU
+	X7bYwXO27k5qeA7/7GLm/syej9U2l1DzdVs+sBh1TK75shg35jyyWvLh5mnQlDywR+g
+	ew/w7Gm2+w87gKf6k4OfUwz3hKRbv+DsqsIEulnk=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=6gbrjpgwjskckoa6a5zn6fwqkn67xbtw; d=amazonses.com; t=1773154083;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Feedback-ID;
+	bh=bW+Nzgw1+JVVMRhN8lRrVf0OVPofyGSnjQzLhow7noQ=;
+	b=AGu7REUHhroKofcUbgDd/WBZYsRY7IvFeE5nL3ScHPMZ88m0GLMCrz60Ndq48pjO
+	CYia0UP/OEkPA57BiYNB5Ho7gJ2dGK4yelX6I8HHl+uZl3TdiZl07bXMTeeysHB93nn
+	ericstDSiNwG+gbbMeMuFonfR7dSGNYTg7kNlrC0=
+Date: Tue, 10 Mar 2026 14:48:03 +0000
+From: "Amazon.com.br" <order-update@amazon.com.br>
+To: stonefull.stm@gmail.com
+Message-ID: <0100019cd83822a3-937078f5-b12d-4eda-842d-6f1f9aebe782-000000@email.amazonses.com>
+Subject: =?UTF-8?B?VGVudGF0aXZhIGRlIGVudHJlZ2E6IDIg4oCcQ3I=?=
+ =?UTF-8?B?ZW1lIEhpZHJhdGFudGUgQ29ycG9yYWwuLi7igJ0=?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_7959711_795676645.1773154083477"
+X-AMAZON-MAIL-RELAY-TYPE: notification
+Bounces-to: 2026031014480340b4bee50b84439296aee2214440p0na-C3BYBPFGIM06EE@bounces.amazon.com.br
+X-AMAZON-METADATA: CA=C3BYBPFGIM06EE-CU=A3S0CSQAAX2VIH
+X-Original-MessageID: <urn.rtn.msg.2026031014480340b4bee50b84439296aee2214440p0na@1773154083479.>
+Feedback-ID: 1289406690::1.us-east-1.ZHcGJK6s+x+i9lRHKog4RW3tECwWIf1xzTYCZyUaiec=:AmazonSES
+X-SES-Outgoing: 2026.03.10-54.240.13.134
+
+------=_Part_7959711_795676645.1773154083477
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+ =20
+
+
+    Houve uma tentativa de entrega
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Houve uma tentativa de entrega hoje =C3=A0s 11:43 AM
+
+
+
+Carlos - Santarem, PA
+
+Pedido n=C2=BA
+702-0054922-9314603
+
+Rastrear pacote
+https://www.amazon.com.br/progress-tracker/package?_encoding=3DUTF8&orderId=
+=3D702-0054922-9314603&packageIndex=3D0&shipmentId=3DP4Mn6GCMd&vt=3DNOTIFIC=
+ATIONS&ref_=3Dp_btn_fed_track_package
+
+* Creme Hidratante Corporal para Pele Seca e Sens=C3=ADvel Cetaphil 453g - =
+Hidrata=C3=A7=C3=A3o 48h
+  Quantidade: 2
+  84.5 BRL
+
+
+ Adicione ou atualize as instru=C3=A7=C3=B5es de entrega
+https://www.amazon.com.br/ma/deliveryProfilePage?ingressPointType=3DNOTIFIC=
+ATIONS&addressId=3Dlkrlltnonjp&ref_=3DE_304, caso tenha alguma informa=C3=
+=A7=C3=A3o que possa ajudar os motoristas a realizar entregas neste endere=
+=C3=A7o.
+
+
+
+=C2=A92026 Amazon.com, Inc. ou suas afiliadas Todos os direitos reservados =
+Amazon.com, Amazon.com.br, a logo de Amazon.com s=C3=A3o marcas comerciais =
+registradas de Amazon.com, Inc. ou suas afiliadas. Amazon Servi=C3=A7os de =
+Varejo do Brasil Ltda. | CNPJ 15.436.940/0001-03 Av. Juscelino Kubitschek, =
+2041, Torre E, 18=C2=B0 andar - S=C3=A3o Paulo CEP: 04543-011
+
+Amazon.com.br
+------=_Part_7959711_795676645.1773154083477
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html><html lang=3D"pt" dir=3D"auto" xmlns=3D"http://www.w3.org/19=
+99/xhtml" xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-=
+microsoft-com:office:office"><head><title></title><!--[if !mso]><!--><meta =
+http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge"><!--<![endif]--><meta =
+http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"><meta na=
+me=3D"viewport" content=3D"width=3Ddevice-width,initial-scale=3D1"><style t=
+ype=3D"text/css">#outlook a{padding:0}body{margin:0;padding:0;-webkit-text-=
+size-adjust:100%;-ms-text-size-adjust:100%}table,td{border-collapse:collaps=
+e;mso-table-lspace:0pt;mso-table-rspace:0pt}img{border:0;height:auto;line-h=
+eight:100%;outline:0;text-decoration:none;-ms-interpolation-mode:bicubic}p{=
+display:block;margin:13px 0}</style><!--[if mso]>
+    <noscript>
+    <xml>
+    <o:OfficeDocumentSettings>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    </noscript>
+    <![endif]--><!--[if lte mso 11]>
+    <style type=3D"text/css">.mj-outlook-group-fix{width:100%!important}</s=
+tyle>
+    <![endif]--><style type=3D"text/css">@media only screen and (min-width:=
+600px){.mj-column-per-100{width:100%!important;max-width:100%}.mj-column-px=
+-584{width:584px!important;max-width:584px}.mj-column-px-144{width:144px!im=
+portant;max-width:144px}.mj-column-px-NaN{width:NaNNaN%!important;max-width=
+:NaNNaN%}.mj-column-px-128{width:128px!important;max-width:128px}.mj-column=
+-per-25{width:25%!important;max-width:25%}.mj-column-per-75{width:75%!impor=
+tant;max-width:75%}.mj-column-per-50{width:50%!important;max-width:50%}}</s=
+tyle><style media=3D"screen and (min-width:600px)">.moz-text-html .mj-colum=
+n-per-100 { width:100% !important; max-width: 100%; }
+.moz-text-html .mj-column-px-584 { width:584px !important; max-width: 584px=
+; }
+.moz-text-html .mj-column-px-144 { width:144px !important; max-width: 144px=
+; }
+.moz-text-html .mj-column-px-NaN { width:NaNNaN% !important; max-width: NaN=
+NaN%; }
+.moz-text-html .mj-column-px-128 { width:128px !important; max-width: 128px=
+; }
+.moz-text-html .mj-column-per-25 { width:25% !important; max-width: 25%; }
+.moz-text-html .mj-column-per-75 { width:75% !important; max-width: 75%; }
+.moz-text-html .mj-column-per-50 { width:50% !important; max-width: 50%; }<=
+/style><style type=3D"text/css">
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+
+                   =20
+               =20
+            @media (prefers-color-scheme:dark){.rio-header-16,.rio-header-1=
+6 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-header-17,.rio-header=
+-17 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-header-18,.rio-header=
+-18 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-236{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-15{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-15{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-text-237{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-238{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-239{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-240{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-241{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-242{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-243{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-244{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-245{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-246{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-247{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-248{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-249{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-250{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-251{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-19,.rio-header=
+-19 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-252{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-253{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-254{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-255{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-256{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-257{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-258{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-259{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-260{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-261{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-262{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-263{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-264{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-265{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-266{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-20,.rio-header=
+-20 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-267{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-268{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-269{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-270{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-271{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-272{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-273{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-274{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-275{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-276{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-277{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-278{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-21,.rio-header=
+-21 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-279{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-280{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-281{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-282{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-283{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-284{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-285{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-286{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-287{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-288{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-289{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-290{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-22,.rio-header=
+-22 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-291{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-292{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-293{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-294{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-295{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-296{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-297{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-298{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-299{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-23,.rio-header=
+-23 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-300{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-301{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-302{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-303{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-304{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-305{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-306{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-307{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-308{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-24,.rio-header=
+-24 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-309{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-310{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-311{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-312{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-313{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-314{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-25,.rio-header=
+-25 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-315{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-316{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-317{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-318{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-319{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-320{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-26,.rio-header=
+-26 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-header-27,.rio-header=
+-27 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-321{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-16{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-16{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-text-322{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-323{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-324{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-325{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-326{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-327{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-328{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-17{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-17{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-button-18{
+          color: #565959 !important;
+          background: #FEFEFE !important;
+          border-color: #D5D9D9 !important;
+          }.rio-button-cta-secondary{
+          background: #FEFEFE !important;
+          }}[data-ogsc] .rio-button-18{
+        color: #565959 !important;
+        background: #FEFEFE !important;
+        border-color: #D5D9D9 !important;
+        }[data-ogsc] .rio-button-cta-secondary{
+        background: #FEFEFE !important;
+        }@media only screen and (min-width:600px){.rio-asin-image-9kRZTzT3m=
+ERG7Q1QJdQsZF .productImageTd{height:120px!important}.rio-asin-image-9kRZTz=
+T3mERG7Q1QJdQsZF .productImage{max-height:120px!important;max-width:120px!i=
+mportant}}@media only screen and (min-width:600px){.rio-asin-image-jwwqaRcd=
+eEhbwzyHfvwqb9 .productImageTd{height:120px!important}.rio-asin-image-jwwqa=
+RcdeEhbwzyHfvwqb9 .productImage{max-height:120px!important;max-width:120px!=
+important}}@media only screen and (min-width:600px){.rio-asin-image-x3quPEZ=
+iLGdmJTVsHUL5GV .productImageTd{height:122px!important}.rio-asin-image-x3qu=
+PEZiLGdmJTVsHUL5GV .productImage{max-height:122px!important;max-width:122px=
+!important}}@media (prefers-color-scheme:dark){.rio-text-329{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-330{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-331{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-332{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-333{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-334{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-335{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-336{
+            color: #FFFFFF;
+            }}@media only screen and (min-width:600px){.rio-asin-image-e75c=
+GJgLAXsjqdQ8pevmj3 .productImageTd{height:122px!important}.rio-asin-image-e=
+75cGJgLAXsjqdQ8pevmj3 .productImage{max-height:122px!important;max-width:12=
+2px!important}}@media (prefers-color-scheme:dark){.rio-text-337{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-338{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-339{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-340{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-341{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-342{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-343{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-344{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-345{
+            color: #2162A1;
+            }}@media (prefers-color-scheme:dark){.rio-text-346{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-347{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-348{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-349{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-350{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-351{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-352{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-353{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-354{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-355{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-356{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-357{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-358{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-359{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-360{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-361{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-362{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-363{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-364{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-19{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-19{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-button-20{
+          color: #565959 !important;
+          background: #FEFEFE !important;
+          border-color: #D5D9D9 !important;
+          }.rio-button-cta-secondary{
+          background: #FEFEFE !important;
+          }}[data-ogsc] .rio-button-20{
+        color: #565959 !important;
+        background: #FEFEFE !important;
+        border-color: #D5D9D9 !important;
+        }[data-ogsc] .rio-button-cta-secondary{
+        background: #FEFEFE !important;
+        }@media only screen and (min-width:600px){.rio-asin-image-dMeoWawHK=
+yvT7cVVaGG3jB .productImageTd{height:120px!important}.rio-asin-image-dMeoWa=
+wHKyvT7cVVaGG3jB .productImage{max-height:120px!important;max-width:120px!i=
+mportant}}@media only screen and (min-width:600px){.rio-asin-image-4RkENFn1=
+PbsN7pTXxLJUYj .productImageTd{height:120px!important}.rio-asin-image-4RkEN=
+Fn1PbsN7pTXxLJUYj .productImage{max-height:120px!important;max-width:120px!=
+important}}@media only screen and (min-width:600px){.rio-asin-image-gMSojMY=
+txtDBMhteymLnNr .productImageTd{height:122px!important}.rio-asin-image-gMSo=
+jMYtxtDBMhteymLnNr .productImage{max-height:122px!important;max-width:122px=
+!important}}@media (prefers-color-scheme:dark){.rio-text-365{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-366{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-367{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-368{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-369{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-370{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-371{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-372{
+            color: #FFFFFF;
+            }}@media only screen and (min-width:600px){.rio-asin-image-mSj8=
+9gBHUcEraUnfvc5ZUm .productImageTd{height:122px!important}.rio-asin-image-m=
+Sj89gBHUcEraUnfvc5ZUm .productImage{max-height:122px!important;max-width:12=
+2px!important}}@media (prefers-color-scheme:dark){.rio-text-373{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-374{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-375{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-376{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-377{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-378{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-379{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-380{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-381{
+            color: #2162A1;
+            }}@media (prefers-color-scheme:dark){.rio-text-382{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-383{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-384{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-385{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-386{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-387{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-388{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-389{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-390{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-391{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-392{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-393{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-394{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-395{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-396{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-397{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-398{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-399{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-400{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-21{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-21{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-button-22{
+          color: #565959 !important;
+          background: #FEFEFE !important;
+          border-color: #D5D9D9 !important;
+          }.rio-button-cta-secondary{
+          background: #FEFEFE !important;
+          }}[data-ogsc] .rio-button-22{
+        color: #565959 !important;
+        background: #FEFEFE !important;
+        border-color: #D5D9D9 !important;
+        }[data-ogsc] .rio-button-cta-secondary{
+        background: #FEFEFE !important;
+        }@media only screen and (min-width:600px){.rio-asin-image-7auB9Fr3H=
+uxc7Acc5z8eCW .productImageTd{height:120px!important}.rio-asin-image-7auB9F=
+r3Huxc7Acc5z8eCW .productImage{max-height:120px!important;max-width:120px!i=
+mportant}}@media only screen and (min-width:600px){.rio-asin-image-pNQbzHQQ=
+qPHWYdP9NVnT9e .productImageTd{height:120px!important}.rio-asin-image-pNQbz=
+HQQqPHWYdP9NVnT9e .productImage{max-height:120px!important;max-width:120px!=
+important}}@media only screen and (min-width:600px){.rio-asin-image-bVnwhgh=
+RFBCQxyLRQCST5f .productImageTd{height:122px!important}.rio-asin-image-bVnw=
+hghRFBCQxyLRQCST5f .productImage{max-height:122px!important;max-width:122px=
+!important}}@media (prefers-color-scheme:dark){.rio-text-401{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-402{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-403{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-404{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-405{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-406{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-407{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-408{
+            color: #FFFFFF;
+            }}@media only screen and (min-width:600px){.rio-asin-image-je6B=
+hZLBLsGmZ9pfMe8AKU .productImageTd{height:122px!important}.rio-asin-image-j=
+e6BhZLBLsGmZ9pfMe8AKU .productImage{max-height:122px!important;max-width:12=
+2px!important}}@media (prefers-color-scheme:dark){.rio-text-409{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-410{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-411{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-412{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-413{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-414{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-415{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-416{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-417{
+            color: #2162A1;
+            }}@media (prefers-color-scheme:dark){.rio-text-418{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-419{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-420{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-421{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-422{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-423{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-424{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-425{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-426{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-427{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-428{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-429{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-430{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-431{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-432{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-433{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-434{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-435{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-436{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-23{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-23{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-button-24{
+          color: #565959 !important;
+          background: #FEFEFE !important;
+          border-color: #D5D9D9 !important;
+          }.rio-button-cta-secondary{
+          background: #FEFEFE !important;
+          }}[data-ogsc] .rio-button-24{
+        color: #565959 !important;
+        background: #FEFEFE !important;
+        border-color: #D5D9D9 !important;
+        }[data-ogsc] .rio-button-cta-secondary{
+        background: #FEFEFE !important;
+        }@media only screen and (min-width:600px){.rio-asin-image-3C1AA61tP=
+swTkLQoue9NKG .productImageTd{height:120px!important}.rio-asin-image-3C1AA6=
+1tPswTkLQoue9NKG .productImage{max-height:120px!important;max-width:120px!i=
+mportant}}@media only screen and (min-width:600px){.rio-asin-image-j7vAek1d=
+QnhusqVcQkUJZf .productImageTd{height:120px!important}.rio-asin-image-j7vAe=
+k1dQnhusqVcQkUJZf .productImage{max-height:120px!important;max-width:120px!=
+important}}@media only screen and (min-width:600px){.rio-asin-image-1K3kFMq=
+UDvnxrnQfWgcGBR .productImageTd{height:122px!important}.rio-asin-image-1K3k=
+FMqUDvnxrnQfWgcGBR .productImage{max-height:122px!important;max-width:122px=
+!important}}@media (prefers-color-scheme:dark){.rio-text-437{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-438{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-439{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-440{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-441{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-442{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-443{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-444{
+            color: #FFFFFF;
+            }}@media only screen and (min-width:600px){.rio-asin-image-k1Q1=
+uJzgxQLCSwCbQLfMb5 .productImageTd{height:122px!important}.rio-asin-image-k=
+1Q1uJzgxQLCSwCbQLfMb5 .productImage{max-height:122px!important;max-width:12=
+2px!important}}@media (prefers-color-scheme:dark){.rio-text-445{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-446{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-447{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-448{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-449{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-450{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-451{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-452{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-453{
+            color: #2162A1;
+            }}@media (prefers-color-scheme:dark){.rio-text-454{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-455{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-456{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-457{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-458{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-459{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-460{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-461{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-462{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-463{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-464{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-465{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-28,.rio-header=
+-28 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-button-25{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-25{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-header-29,.rio-header-29 *=
+{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-text-466{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-button-26{
+          color: #565959 !important;
+          background: #FEFEFE !important;
+          border-color: #D5D9D9 !important;
+          }.rio-button-cta-secondary{
+          background: #FEFEFE !important;
+          }}[data-ogsc] .rio-button-26{
+        color: #565959 !important;
+        background: #FEFEFE !important;
+        border-color: #D5D9D9 !important;
+        }[data-ogsc] .rio-button-cta-secondary{
+        background: #FEFEFE !important;
+        }@media (prefers-color-scheme:dark){.rio-button-27{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-27{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media (prefers-color-scheme:dark){.rio-text-467{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-468{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-469{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-text-470{
+            color: #FFFFFF;
+            }}@media (prefers-color-scheme:dark){.rio-header-30,.rio-header=
+-30 *{
+            color: #FFFFFF !important;
+            }}@media (prefers-color-scheme:dark){.rio-button-28{
+          color: #0F1111 !important;
+          background: #FFD916 !important;
+          border-color: #FCD200 !important;
+          }.rio-button-cta-primary{
+          background: #FFD916 !important;
+          }}[data-ogsc] .rio-button-28{
+        color: #0F1111 !important;
+        background: #FFD916 !important;
+        border-color: #FCD200 !important;
+        }[data-ogsc] .rio-button-cta-primary{
+        background: #FFD916 !important;
+        }@media only screen and (max-width:599px){table.mj-full-width-mobil=
+e{width:100%!important}td.mj-full-width-mobile{width:auto!important}}
+         .amazon-logo {
+            background-color: #FFFFFF!important;
+        }
+       =20
+        .amazon-navbar-content{
+            font-family:Ember,'Amazon Ember',Arial,sans-serif;
+            font-size: 14px !important;
+            font-weight:700 !important;
+            background-color: #FFFFFF!important;
+        }
+        .amazon-logo.full{padding-left:0!important;padding-right:0!importan=
+t}.amazon-logo.zeroBorder{border:0;border-collapse:collapse;border-spacing:=
+0}.amazon-logo .full{padding-left:0!important;padding-right:0!important}.am=
+azon-logo .zeroBorder{border:0;border-collapse:collapse;border-spacing:0}.a=
+mazon-logo .light-img{background-color:#fff;background-image:linear-gradien=
+t(#fff,#fff)}@media (prefers-color-scheme:light){.amazon-logo .light-img{di=
+splay:block!important}.amazon-logo .dark-img{display:none!important}
+            .amazon-navbar-content {
+                font-family:Ember,'Amazon Ember',Arial,sans-serif;
+                background-color: #FFFFFF!important;
+                color:  #0F1111!important;
+            }
+             }@media (prefers-color-scheme:dark){.amazon-logo{background-co=
+lor:#181a1a!important}=20
+            .amazon-navbar-content {
+                background-color: #161D26 !important;
+                color:#FFFFFF!important;
+            }
+             .amazon-logo .light-img{display:none!important}.amazon-logo .d=
+ark-img{display:block!important}}[data-ogsc] .amazon-logo .content{backgrou=
+nd-color:#181a1a!important}[data-ogsc] .amazon-logo .light-img{display:none=
+!important}[data-ogsc] .amazon-logo .dark-img{display:block!important}@medi=
+a (prefers-color-scheme:dark){.rio-card,.rio-card-text,.rio-card-text>table=
+,.rio-card>table{background-color:#181a1a!important}}[data-ogsc] .rio-card,=
+[data-ogsc] .rio-card-text,[data-ogsc] .rio-card-text>table,[data-ogsc] .ri=
+o-card>table{background-color:#181a1a!important}.rio-card-text p+p{margin-t=
+op:1.2em}.rio-header strong{color:#067d62}@media (prefers-color-scheme:dark=
+){.rio-header *{
+            color: #FFFFFF !important;
+            }.rio-header a{color:#6ed6e6!important}.rio-header strong{color=
+:#13bd96!important}}
+        [data-ogsc] .rio-header,
+        [data-ogsc] .rio-header * {
+          color: #FFFFFF !important;
+        }
+        [data-ogsc] .rio-header a,[data-ogsc] .rio-header a>*{color:#6ed6e6=
+!important}[data-ogsc] .rio-header strong{color:#13bd96!important}@media (p=
+refers-color-scheme:dark){.rio-table-grid-td-bg{background:#252626!importan=
+t}}[data-ogsc] .rio-table-grid-td-bg{background:#252626!important}.rio-text=
+ strong{color:#067d62}.rio-text img:not([data-emoji]){width:100%;height:aut=
+o}@media (prefers-color-scheme:dark){.rio-text *{
+            color: #FFFFFF !important;
+            }.rio-text a,.rio-text a>*{color:#6ed6e6!important}.rio-text st=
+rong{color:#13bd96!important}}[data-ogsc] .rio-text *{
+          color: #FFFFFF !important;
+          }[data-ogsc] .rio-text a,[data-ogsc] .rio-text a>*{color:#6ed6e6!=
+important}[data-ogsc] .rio-text strong{color:#13bd96!important}@media (pref=
+ers-color-scheme:dark){.rio-button *{
+          color: #0F1111 !important;
+          }}[data-ogsc] .rio-button *{
+        color: #0F1111 !important;
+        }
+        .alert-message a {
+            color: #007185 !important;
+            text-decoration: none !important;
+        }
+        @media (prefers-color-scheme:dark){
+            .alert-message a {
+                color: #6ED6E6 !important;
+            }
+            }
+        [data-ogsc] .alert-message a {
+            color: #6ED6E6 !important;
+        }
+        .rio-asin-image .productImage{mix-blend-mode:multiply}u+.body .rio-=
+asin-image .productImage{mix-blend-mode:initial!important}@media (prefers-c=
+olor-scheme:dark){.rio-asin-image .productImageTd{background-image:linear-g=
+radient(#fff,#fff)!important}.rio-asin-image .productImage{mix-blend-mode:i=
+nitial!important}}[data-ogsc] .rio-asin-image .productImageTd{background-im=
+age:linear-gradient(#fff,#fff)!important}[data-ogsc] .rio-asin-image .produ=
+ctImage{mix-blend-mode:initial!important}@media only screen and (min-width:=
+600px){u+.body .rio-asin-image .productImage{mix-blend-mode:multiply!import=
+ant}}@media (prefers-color-scheme:dark){.asin-container{background:#252626!=
+important}}[data-ogsc] .asin-container{background:#252626!important}.rio-as=
+in-container-image img{mix-blend-mode:multiply;object-fit:contain}@media (p=
+refers-color-scheme:dark){.rio-asin-container-image img{mix-blend-mode:init=
+ial!important}}u+.body .rio-asin-container-image img{mix-blend-mode:initial=
+!important}@media only screen and (min-width:600px){u+.body .rio-asin-conta=
+iner-image img{mix-blend-mode:multiply!important}}[data-ogsc] .rio-asin-con=
+tainer-image img{mix-blend-mode:initial!important}
+      @media (prefers-color-scheme: dark) {
+          .productHvePrimeDayPrice {
+              color: #FFFFFF !important;
+          }
+          .priceBadge {
+              color: #FF8C8C !important;
+          },
+          .priceDiscount {
+              background-color: #FF8C8C !important;
+          },
+          .productListPrice {
+              color: #FFFFFF !important;
+          }
+      }
+      [data-ogsc]  .productListPrice {
+          color: #FFFFFF !important;
+      }
+      [data-ogsc] .productHvePrimeDayPrice {
+          color: #FFFFFF !important;
+      }
+      [data-ogsc] .priceBadge {
+          color: #FF8C8C !important;
+      }=20
+      [data-ogsc] .priceDiscount {
+          background-color: #FF8C8C !important;
+      }=20
+     =20
+        @media (prefers-color-scheme: dark) {
+            .productHveDiscount {
+                color: #FF8C8C !important;
+            }
+            .productHvePrice {
+                color: #FFFFFF !important;
+            }
+        }
+        [data-ogsc]  .productHveDiscount {
+            color: #FF8C8C !important;
+        }
+        [data-ogsc] .productHvePrice {
+            color: #FFFFFF !important;
+        }
+       =20
+        .footer-text, .footer-card p, .footer-card li {
+            color: #494D4D;
+        }
+        .footer-card p{margin-top:20px}
+        .footer-card a {
+            color: #007185 !important;
+            text-decoration: none !important;
+        }
+        @media (prefers-color-scheme:dark){
+            .footer-card {
+                background-color: #303333 !important;
+            }
+           =20
+            .footer-card a {
+                color: #6ED6E6 !important;
+            }
+           =20
+            .footer-text, .footer-card p, .footer-card li {
+                color: #C8CCCC !important;
+            }
+            .lightFooterImg{display:none!important}.darkFooterImg{display:b=
+lock!important}}[data-ogsb] .footer-card{background-color:#303333!important=
+}
+        [data-ogsc] .footer-card a {
+            color: #6ED6E6 !important;
+        }
+        [data-ogsc] .footer-card li,[data-ogsc] .footer-card p,[data-ogsc] =
+.footer-text{color:#c8cccc!important}[data-ogsc] .lightFooterImg{display:no=
+ne!important}[data-ogsc] .darkFooterImg{display:block!important}</style><st=
+yle type=3D"text/css">@font-face{font-family:Ember;font-weight:700;src:loca=
+l("Ember"),url(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_=
+Bd._CB1515450239_.WOFF) format("woff");mso-generic-font-family:swiss;mso-fo=
+nt-alt:"Arial"}@font-face{font-family:Ember;font-weight:600;src:local("Embe=
+r"),url(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_Bd._CB1=
+515450239_.WOFF) format("woff");mso-generic-font-family:swiss;mso-font-alt:=
+"Arial"}@font-face{font-family:Ember;font-weight:500;src:local("Ember"),url=
+(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_Md._CB15154502=
+39_.WOFF) format("woff");mso-generic-font-family:swiss;mso-font-alt:"Arial"=
+}@font-face{font-family:Ember;font-weight:400;font-style:normal;src:local("=
+Ember"),url(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_Rg.=
+_CB1515450239_.WOFF) format("woff");mso-generic-font-family:swiss;mso-font-=
+alt:"Arial"}@font-face{font-family:Ember;font-weight:200;src:local("Ember")=
+,url(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_Lt._CB1515=
+450239_.WOFF) format("woff");mso-generic-font-family:swiss;mso-font-alt:"Ar=
+ial"}@font-face{font-family:"Amazon Ember";font-weight:700;src:local("Amazo=
+n Ember"),url(https://m.media-amazon.com/images/G/01/outbound/AmazonEmber_B=
+d._CB1515450239_.WOFF) format("woff");mso-generic-font-family:swiss;mso-fon=
+t-alt:"Arial"}@font-face{font-family:"Amazon Ember";font-weight:600;src:loc=
+al("Amazon Ember"),url(https://m.media-amazon.com/images/G/01/outbound/Amaz=
+onEmber_Bd._CB1515450239_.WOFF) format("woff");mso-generic-font-family:swis=
+s;mso-font-alt:"Arial"}@font-face{font-family:"Amazon Ember";font-weight:50=
+0;src:local("Amazon Ember"),url(https://m.media-amazon.com/images/G/01/outb=
+ound/AmazonEmber_Md._CB1515450239_.WOFF) format("woff");mso-generic-font-fa=
+mily:swiss;mso-font-alt:"Arial"}@font-face{font-family:"Amazon Ember";font-=
+style:normal;font-weight:400;src:local("Amazon Ember"),url(https://m.media-=
+amazon.com/images/G/01/outbound/AmazonEmber_Rg._CB1515450239_.WOFF) format(=
+"woff");mso-generic-font-family:swiss;mso-font-alt:"Arial"}@font-face{font-=
+family:"Amazon Ember";font-weight:200;src:local("Amazon Ember"),url(https:/=
+/m.media-amazon.com/images/G/01/outbound/AmazonEmber_Lt._CB1515450239_.WOFF=
+) format("woff");mso-generic-font-family:swiss;mso-font-alt:"Arial"}*{font-=
+family:Ember,'Amazon Ember',Arial,sans-serif;border-spacing:0;margin:0;padd=
+ing:0}ol,ul{margin-left:32px!important}[data-ogsc] :root{--body-bg:#181A1A;=
+--body-color:#ffffff}.rootContent{background:#fff!important}.fonts,.sans,h1=
+,h2,h3,h4,h5,li,p,table,td,th{color:#0f1111}a{color:#007185;text-decoration=
+:none}@media screen and (max-width:599px){.mobile-only{display:initial!impo=
+rtant}.desktop-only{display:none!important;mso-hide:all!important}}@media s=
+creen and (min-width:600px){.mobile-only{display:none!important;mso-hide:al=
+l!important}}@media (prefers-color-scheme:light){:root{--body-bg:#ffffff;--=
+body-color:#000000}}@media (prefers-color-scheme:dark){:root{--body-bg:#181=
+A1A;--body-color:#ffffff}body{background-color:#181a1a!important}.fonts,.sa=
+ns,h1,h2,h3,h4,h5,li,p,table,td,th{color:#fff}a{color:#6ed6e6}.rootContent,=
+.rootContent>table{background:#181a1a!important}}[data-ogsc] .fonts,[data-o=
+gsc] .sans,[data-ogsc] h1,[data-ogsc] h2,[data-ogsc] h3,[data-ogsc] h4,[dat=
+a-ogsc] h5,[data-ogsc] li,[data-ogsc] p{color:#fff}[data-ogsc] a{color:#6ed=
+6e6}[data-ogsc] .rootContent,[data-ogsc] .rootContent>table{background:#181=
+a1a!important}body{background-color:var(--body-bg)!important;color:var(--bo=
+dy-color)!important;margin:0!important;padding:0}body>img{position:absolute=
+}table{border-spacing:0}h3,h4,h5,p,table th{font-weight:400;margin:0;paddin=
+g:0}td{padding:0}img{border:0}a,span,td{word-break:break-word!important}.bu=
+tton{background-color:#ffd814;color:#0f1111!important;border-radius:24px;pa=
+dding:1px 16px;display:inline-block;box-shadow:1px 2px 4px rgba(153,153,153=
+,.2);font-size:13px;line-height:29px;white-space:nowrap;text-decoration:non=
+e;margin-top:4px}.box-shadow a{box-shadow:1px 2px 4px rgba(153,153,153,.2)}=
+a,body,table,td{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}.ap=
+pleBody a,.appleFooter a{color:#007185!important;text-decoration:none}a[x-a=
+pple-data-detectors]{color:#007185!important;font-family:inherit!important;=
+font-size:inherit!important;font-weight:inherit!important;line-height:inher=
+it!important}u+#body a{color:#007185!important;font-family:inherit!importan=
+t;font-size:inherit!important;font-weight:inherit!important;line-height:inh=
+erit!important}#MessageViewBody a{color:#007185!important;font-family:inher=
+it!important;font-size:inherit!important;font-weight:inherit!important;line=
+-height:inherit!important}</style><meta content=3D"text/html; charset=3DUTF=
+-8" http-equiv=3D"Content-Type"><meta content=3D"telephone=3Dno" name=3D"fo=
+rmat-detection"><meta content=3D"width=3Ddevice-width,initial-scale=3D1;use=
+r-scalable=3Dno;" name=3D"viewport"><meta content=3D"IE=3D9; IE=3D8; IE=3D7=
+; IE=3DEDGE" http-equiv=3D"X-UA-Compatible"><meta name=3D"x-apple-disable-m=
+essage-reformatting"><meta content=3D"light dark" name=3D"color-scheme"><me=
+ta content=3D"light dark" name=3D"supported-color-schemes"><!--
+             =20
+             =20
+             =20
+              --><style type=3D"text/css">.productListPrice{color:#565959}.=
+productDiscount{color:#cc0c39}.productPrice{color:#0f1111}@media (prefers-c=
+olor-scheme:dark){.productListPrice{color:#fff!important}.productDiscount{c=
+olor:#ff8c8c!important}.productPrice{color:#fff!important}}[data-ogsc] .pro=
+ductListPrice{color:#fff!important}[data-ogsc] .productDiscount{color:#ff8c=
+8c!important}[data-ogsc] .productPrice{color:#fff!important}</style><style =
+type=3D"text/css">.dealBadge{background-color:#cc0c39;color:#fff}.dealText{=
+color:#cc0c39}@media (prefers-color-scheme:dark){.dealBadge{background-colo=
+r:#ff8c8c!important;color:#000!important}.dealText{color:#ff8c8c!important}=
+}[data-ogsc] .dealBadge{background-color:#ff8c8c!important;color:#000!impor=
+tant}[data-ogsc] .dealText{color:#ff8c8c!important}</style><!--[if gte mso =
+9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG />
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <style>
+        body, h1, h2, h3, h4, table, th, td, p, li, a, .sans, .fonts {
+            font-family: Helvetica, Arial, sans-serif !important;
+        }
+        [data-ogsc] .rootContent, [data-ogsc] .rootContent > table{
+          background: #181A1A !important;
+        }
+    </style>
+    <![endif]--></head><body class=3D"body" style=3D"word-spacing:normal;">=
+<img width=3D"1" height=3D"1" src=3D"https://www.amazon.com.br/gp/r.html?C=
+=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50b8=
+4439296aee2214440p0na&R=3DCYCD3BGVE8JQ&T=3DO&U=3Dhttps%3A%2F%2Fimages-na.ss=
+l-images-amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&H=3DQKF04TDZIGJDLO=
+ROSL4CT2ZBFS4A&ref_=3Dpe_170276260_1289406690_opens" alt=3D"" /><div style=
+=3D"display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px=
+;max-width:0px;opacity:0;overflow:hidden;">Tentativa de entrega: 2 =E2=80=
+=9CCreme Hidratante Corporal...=E2=80=9D&#847; &zwnj; &nbsp; &#8199; &shy;&=
+#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &=
+zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &=
+nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &=
+#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; =
+&shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#=
+847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &z=
+wnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &n=
+bsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#=
+8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &=
+shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#8=
+47; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zw=
+nj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nb=
+sp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8=
+199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &s=
+hy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#84=
+7; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwn=
+j; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbs=
+p; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#81=
+99; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &sh=
+y;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847=
+; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj=
+; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp=
+; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#819=
+9; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy=
+;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847;=
+ &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj;=
+ &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp;=
+ &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199=
+; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;=
+&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; =
+&zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; =
+&nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; =
+&#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199;=
+ &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&=
+#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &=
+zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &=
+nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &=
+#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; =
+&shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#=
+847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &z=
+wnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &n=
+bsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#=
+8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &=
+shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#8=
+47; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zw=
+nj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nb=
+sp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8=
+199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &s=
+hy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#84=
+7; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwn=
+j; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbs=
+p; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#81=
+99; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &sh=
+y;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847=
+; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj=
+; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp=
+; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#819=
+9; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy=
+;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847;=
+ &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj;=
+ &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp;=
+ &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199=
+; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;=
+&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; =
+&zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; =
+&nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; =
+&#8199; &shy;&#847; &zwnj; &nbsp; &#8199; &shy;&#847; &zwnj; &nbsp; &#8199;=
+ &shy;&#847; &zwnj; &nbsp; &#8199; &shy;</div><div class=3D"body" lang=3D"p=
+t" dir=3D"auto"> <!--[if mso | IE]><table align=3D"center" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" class=3D"rootContent-outlook moduleId-bran=
+dIdentity-outlook" role=3D"presentation" style=3D"width:600px;" width=3D"60=
+0" bgcolor=3D"#ffffff" ><tr><td style=3D"line-height:0px;font-size:0px;mso-=
+line-height-rule:exactly;"><![endif]--><div class=3D"rootContent moduleId-b=
+randIdentity" style=3D"background:#ffffff;background-color:#ffffff;margin:0=
+px auto;max-width:600px;"><table align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"background:#ffffff;=
+background-color:#ffffff;width:100%;"><tbody><tr><td style=3D"direction:ltr=
+;font-size:0px;padding:0px 0px 4px 0px;text-align:left;"><!--[if mso | IE]>=
+<table role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0"><![endif]--> <!--[if mso | IE]><tr><td align=3D"left" class=3D"" width=
+=3D"600px" ><![endif]-->              <mj-raw>    </mj-raw><table border=3D=
+"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%=
+" style=3D"width:100%"><tr><td width=3D"100%" align=3D"center" valign=3D"mi=
+ddle" style=3D"text-align:center;width:100%;padding:8px 0;background-color:=
+#232F3E;background:linear-gradient(to right, #232F3E, #232F3E);font-size:14=
+px;font-weight:bold;line-height:20px;font-familiy:Ember,'Amazon Ember',Aria=
+l,sans-serif;"><!--[if mso | IE]><table width=3D"600" border=3D"0" cellpadd=
+ing=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"width:600px"><tr=
+><td width=3D"600" align=3D"center" valign=3D"middle" style=3D"width:600px;=
+ mso-line-height-rule:exactly; background-color: #232F3E; background: linea=
+r-gradient(to right, #232F3E, #232F3E);"><![endif]--><div role=3D"list" sty=
+le=3D"width:100%;">   <span role=3D"listitem" style=3D"display:inline-block=
+;">&#xA0;&#xA0;&#xA0;<a href=3D"https://www.amazon.com.br/gp/r.html?C=3D3AB=
+HB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50b8443929=
+6aee2214440p0na&R=3D2U0B5E2YJT6T8&T=3DC&U=3Dhttps%3A%2F%2Fwww.amazon.com.br=
+%2Fgp%2Fcss%2Forder-history%3Fref_%3Dpe_170276260_1289406690_TLH_00_01_BT_0=
+0_fed_yo_default&H=3DXNDB3BYTBXABCYQ4F94KB2DGN9KA&ref_=3Dpe_170276260_12894=
+06690_TLH_00_01_BT_00_fed_yo_default" target=3D"_blank" style=3D"color:#FFF=
+FFF;text-decoration:none;white-space:nowrap;">Seus pedidos</a>&#xA0;&#xA0;&=
+#xA0;</span>    <span role=3D"listitem" style=3D"display:inline-block;">&#x=
+A0;&#xA0;&#xA0;<a href=3D"https://www.amazon.com.br/gp/r.html?C=3D3ABHB61XV=
+S6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50b84439296aee22=
+14440p0na&R=3D1O5LTKZCZGSXU&T=3DC&U=3Dhttps%3A%2F%2Fwww.amazon.com.br%2Fyou=
+r-account%3Fref_%3Dpe_170276260_1289406690_TLH_00_02_BT_00_fed_ya_default&H=
+=3DQF1LJGM4BJFZLCA6RSBFTTOOWV8A&ref_=3Dpe_170276260_1289406690_TLH_00_02_BT=
+_00_fed_ya_default" target=3D"_blank" style=3D"color:#FFFFFF;text-decoratio=
+n:none;white-space:nowrap;">Sua conta</a>&#xA0;&#xA0;&#xA0;</span>    <span=
+ role=3D"listitem" style=3D"display:inline-block;">&#xA0;&#xA0;&#xA0;<a hre=
+f=3D"https://www.amazon.com.br/gp/r.html?C=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE=
+&M=3Durn:rtn:msg:2026031014480340b4bee50b84439296aee2214440p0na&R=3DD1Y1D4O=
+8083H&T=3DC&U=3Dhttps%3A%2F%2Fwww.amazon.com.br%2Fgp%2Fbuyagain%3Fref_%3Dpe=
+_170276260_1289406690_TLH_00_03_BT_00_fed_bia_default&H=3DACALUDMLLARA9CWOA=
+2M0XFTQJ7KA&ref_=3Dpe_170276260_1289406690_TLH_00_03_BT_00_fed_bia_default"=
+ target=3D"_blank" style=3D"color:#FFFFFF;text-decoration:none;white-space:=
+nowrap;">Comprar novamente</a>&#xA0;&#xA0;&#xA0;</span></div><!--[if mso | =
+IE]></td></tr></table><![endif]--></td></tr><tr></tr></table><!--[if mso | =
+IE]></td></tr><![endif]--> <!--[if mso | IE]></table><![endif]--></td></tr>=
+</tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--> <!--=
+[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0" class=3D"rootContent-outlook moduleId-stepTracker-outlook" role=
+=3D"presentation" style=3D"width:600px;" width=3D"600" bgcolor=3D"#ffffff" =
+><tr><td style=3D"line-height:0px;font-size:0px;mso-line-height-rule:exactl=
+y;"><![endif]--><div class=3D"rootContent moduleId-stepTracker" style=3D"ba=
+ckground:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;"=
+><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" r=
+ole=3D"presentation" style=3D"background:#ffffff;background-color:#ffffff;w=
+idth:100%;"><tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:4px=
+ 8px 4px 8px;text-align:left;"><!--[if mso | IE]><table role=3D"presentatio=
+n" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><![endif]--> <!--[if ms=
+o | IE]><tr><td align=3D"left" class=3D"" width=3D"600px" ><![endif]-->    =
+    <!--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0" class=3D"rio-card-outlook" role=3D"presentation" style=
+=3D"width:584px;" width=3D"584" bgcolor=3D"#ffffff" ><tr><td style=3D"line-=
+height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div cl=
+ass=3D"rio-card" style=3D"background:#ffffff;background-color:#ffffff;margi=
+n:0px auto;border-radius:4px;max-width:584px;"><table align=3D"center" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D=
+"background:#ffffff;background-color:#ffffff;width:100%;border-radius:4px;"=
+><tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:4px 8px 4px 8p=
+x;text-align:left;"><!--[if mso | IE]><table role=3D"presentation" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td align=3D"left" class=3D"=
+" width=3D"584px" ><![endif]-->  <!--[if mso | IE]><table align=3D"center" =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"" role=3D"present=
+ation" style=3D"width:568px;" width=3D"568" ><tr><td style=3D"line-height:0=
+px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div style=3D"m=
+argin:0px auto;max-width:568px;"><table align=3D"center" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"width:100%;">=
+<tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:0;text-align:le=
+ft;"><!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0"><tr><td align=3D"left" class=3D"" style=3D"" ><![=
+endif]--><div style=3D"font-family:Ember,'Amazon Ember',Arial,sans-serif;fo=
+nt-size:15px;line-height:1;text-align:center;color:#000000;"><h2 style=3D"m=
+argin:0;padding:0;font-family:Ember,'Amazon Ember',Arial,sans-serif;font-we=
+ight:700;font-size:18px;line-height:22px;color:#0F1111;" class=3D"rio-heade=
+r rio-header-25"><div style=3D"padding-bottom:0px">Houve uma tentativa de e=
+ntrega</div></h2></div><!--[if mso | IE]></td></tr></table><![endif]--></td=
+></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--=
+> <!--[if mso | IE]></td></tr><tr><td align=3D"left" class=3D"" width=3D"58=
+4px" ><![endif]-->  <!--[if mso | IE]></td></tr></table><![endif]--></td></=
+tr></tbody></table></div><!--[if mso | IE]></td></tr></table></td></tr><![e=
+ndif]-->  <!--[if mso | IE]></table><![endif]--></td></tr></tbody></table><=
+/div><!--[if mso | IE]></td></tr></table><![endif]--> <!--[if mso | IE]><ta=
+ble align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=
+=3D"rootContent-outlook moduleId-divider-outlook" role=3D"presentation" sty=
+le=3D"width:600px;" width=3D"600" bgcolor=3D"#ffffff" ><tr><td style=3D"lin=
+e-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div =
+class=3D"rootContent moduleId-divider" style=3D"background:#ffffff;backgrou=
+nd-color:#ffffff;margin:0px auto;max-width:600px;"><table align=3D"center" =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" styl=
+e=3D"background:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><t=
+d style=3D"direction:ltr;font-size:0px;padding:4px 8px 4px 8px;text-align:l=
+eft;"><!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpaddi=
+ng=3D"0" cellspacing=3D"0"><![endif]--><!--[if mso | IE]><tr><td align=3D"l=
+eft" class=3D"" width=3D"600px" ><table align=3D"center" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" class=3D"rio-card-outlook" role=3D"presentat=
+ion" style=3D"width:584px;" width=3D"584" ><tr><td style=3D"line-height:0px=
+;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div class=3D"rio=
+-card" style=3D"margin:0px auto;border-radius:4px;max-width:584px;"><table =
+align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"p=
+resentation" style=3D"width:100%;border-radius:4px;"><tbody><tr><td style=
+=3D"direction:ltr;font-size:0px;padding:0px 8px 0px 8px;text-align:left;"><=
+!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0"><tr><td align=3D"left" class=3D"" width=3D"584px" ><![e=
+ndif]--><p style=3D"border-top:solid 1px #BBBFBF;font-size:1px;margin:0px a=
+uto;width:100%;"></p><!--[if mso | IE]><table align=3D"left" border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" style=3D"border-top:solid 1px #BBBFBF;fo=
+nt-size:1px;margin:0px auto;width:568px;" role=3D"presentation" width=3D"56=
+8px" ><tr><td style=3D"height:0;line-height:0;"> &nbsp;
+</td></tr></table></td></tr></table><![endif]--></td></tr></tbody></table><=
+/div><!--[if mso | IE]></td></tr></table></td></tr><![endif]--><!--[if mso =
+| IE]></table><![endif]--></td></tr></tbody></table></div><!--[if mso | IE]=
+></td></tr></table><![endif]--> <!--[if mso | IE]><table align=3D"center" b=
+order=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"rootContent-outloo=
+k moduleId-rexMultiOrderCard-outlook" role=3D"presentation" style=3D"width:=
+600px;" width=3D"600" bgcolor=3D"#ffffff" ><tr><td style=3D"line-height:0px=
+;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div class=3D"roo=
+tContent moduleId-rexMultiOrderCard" style=3D"background:#ffffff;background=
+-color:#ffffff;margin:0px auto;max-width:600px;"><table align=3D"center" bo=
+rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
+=3D"background:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><td=
+ style=3D"direction:ltr;font-size:0px;padding:4px 8px 4px 8px;text-align:le=
+ft;"><!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0"><![endif]--> <!--[if mso | IE]><tr><td align=3D"l=
+eft" class=3D"rex-multi-order-card-outlook rex-multi-order-card-v1-outlook"=
+ width=3D"600px" ><table align=3D"center" border=3D"0" cellpadding=3D"0" ce=
+llspacing=3D"0" class=3D"rio-card-outlook" role=3D"presentation" style=3D"w=
+idth:584px;" width=3D"584" bgcolor=3D"#ffffff" ><tr><td style=3D"line-heigh=
+t:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div class=
+=3D"rio-card" style=3D"background:#ffffff;background-color:#ffffff;margin:0=
+px auto;border-radius:4px;max-width:584px;"><table align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"b=
+ackground:#ffffff;background-color:#ffffff;width:100%;border-radius:4px;"><=
+tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:4px 8px 4px 8px;=
+text-align:left;"><!--[if mso | IE]><table role=3D"presentation" border=3D"=
+0" cellpadding=3D"0" cellspacing=3D"0"><![endif]-->        <!--[if mso | IE=
+]><tr><td align=3D"left" class=3D"" width=3D"584px" ><table align=3D"center=
+" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"" role=3D"prese=
+ntation" style=3D"width:568px;" width=3D"568" ><tr><td style=3D"line-height=
+:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div style=3D=
+"margin:0px auto;max-width:568px;"><table align=3D"center" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"width:100%;=
+"><tbody><tr><td style=3D"direction:ltr;font-size:0px;padding:0;text-align:=
+left;"><!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpadd=
+ing=3D"0" cellspacing=3D"0"><tr><td align=3D"left" class=3D"" style=3D"vert=
+ical-align:top;width:568px;" ><![endif]--><div class=3D"mj-column-per-100 m=
+j-outlook-group-fix" style=3D"font-size:0px;text-align:left;direction:ltr;d=
+isplay:inline-block;vertical-align:top;width:100%;"><table border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbod=
+y><tr><td style=3D"vertical-align:top;padding:0;"><table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody>=
+<tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break:break-wo=
+rd;"><!--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" class=3D"" role=3D"presentation" style=3D"width:568px;=
+" width=3D"568" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-he=
+ight-rule:exactly;"><![endif]--><div style=3D"margin:0px auto;max-width:568=
+px;"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" role=3D"presentation" style=3D"width:100%;"><tbody><tr><td style=3D"dire=
+ction:ltr;font-size:0px;padding:0;text-align:left;"><!--[if mso | IE]><tabl=
+e role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><t=
+r><td align=3D"left" class=3D"" style=3D"vertical-align:top;width:568px;" >=
+<![endif]--><div class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"=
+font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-a=
+lign:top;width:100%;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" role=3D"presentation" width=3D"100%"><tbody><tr><td style=3D"vertical-al=
+ign:top;padding:0;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ role=3D"presentation" width=3D"100%"><tbody><tr><td align=3D"left" style=
+=3D"font-size:0px;padding:0;word-break:break-word;"><div style=3D"font-fami=
+ly:Ember,'Amazon Ember',Arial,sans-serif;font-size:18px;font-weight:700;lin=
+e-height:22px;text-align:left;color:#0F1111;"><span class=3D"rio-text rio-t=
+ext-430">Houve uma tentativa de entrega hoje =C3=A0s 11:43 AM</span></div><=
+/td></tr><tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break=
+:break-word;"><div style=3D"font-family:Ember,'Amazon Ember',Arial,sans-ser=
+if;font-size:15px;font-weight:400;line-height:21px;text-align:left;color:#0=
+F1111;"><span class=3D"rio-text rio-text-432">Infelizmente, tivemos um prob=
+lema ao entregar seu pedido. <b>Vamos tentar novamente.</b></span></div></t=
+d></tr><tr><td align=3D"left" class=3D"rio-spacer" style=3D"font-size:0px;p=
+adding:0;word-break:break-word;"><div aria-hidden=3D"true" style=3D"height:=
+12px;line-height:12px">&nbsp;</div></td></tr><tr><td align=3D"left" class=
+=3D"rio-spacer" style=3D"font-size:0px;padding:0;word-break:break-word;"><d=
+iv aria-hidden=3D"true" style=3D"height:4px;line-height:4px">&nbsp;</div></=
+td></tr><tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break:=
+break-word;"><div style=3D"font-family:Ember,'Amazon Ember',Arial,sans-seri=
+f;font-size:15px;font-weight:400;line-height:21px;text-align:left;color:#0F=
+1111;"><span class=3D"rio-text rio-text-433"><b>Carlos - Santarem, PA</b></=
+span></div></td></tr><tr><td align=3D"left" style=3D"font-size:0px;padding:=
+0;word-break:break-word;"><div style=3D"font-family:Ember,'Amazon Ember',Ar=
+ial,sans-serif;font-size:15px;font-weight:400;line-height:21px;text-align:l=
+eft;color:#0F1111;"><span class=3D"rio-text rio-text-436"><span>Pedido n=C2=
+=BA</span> <span>=E2=80=AB702-0054922-9314603</span></span></div></td></tr>=
+<tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break:break-wo=
+rd;"><!--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" class=3D"" role=3D"presentation" style=3D"width:568px;=
+" width=3D"568" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-he=
+ight-rule:exactly;"><![endif]--><div style=3D"margin:0px auto;max-width:568=
+px;"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" role=3D"presentation" style=3D"width:100%;"><tbody><tr><td style=3D"dire=
+ction:ltr;font-size:0px;padding:0;text-align:left;"><!--[if mso | IE]><tabl=
+e role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><t=
+r><td align=3D"left" class=3D"" style=3D"vertical-align:top;width:568px;" >=
+<![endif]--><div class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"=
+font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-a=
+lign:top;width:100%;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" role=3D"presentation" width=3D"100%"><tbody><tr><td style=3D"vertical-al=
+ign:top;padding:0;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ role=3D"presentation" width=3D"100%"><tbody><mj-raw>  </mj-raw><tr><td ali=
+gn=3D"left" class=3D"rio-spacer" style=3D"font-size:0px;padding:0;word-brea=
+k:break-word;"><div aria-hidden=3D"true" style=3D"height:12px;line-height:1=
+2px">&nbsp;</div></td></tr><tr><td align=3D"left" style=3D"font-size:0px;pa=
+dding:0;word-break:break-word;"><table cellpadding=3D"0" cellspacing=3D"0" =
+border=3D"0" role=3D"presentation"><tr><td class=3D"rio-button-cta-primary"=
+ style=3D"text-align:center;border-radius:24px;mso-padding-alt:6px 16px;mso=
+-border-alt:1px solid #FCD200;background:#FFD916;"><a target=3D"_blank" cla=
+ss=3D"rio-button rio-button-primary rio-button-23" href=3D"https://www.amaz=
+on.com.br/gp/r.html?C=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026=
+031014480340b4bee50b84439296aee2214440p0na&R=3D3K7HTIQV0EN63&T=3DC&U=3Dhttp=
+s%3A%2F%2Fwww.amazon.com.br%2Fprogress-tracker%2Fpackage%3F_encoding%3DUTF8=
+%26orderId%3D702-0054922-9314603%26packageIndex%3D0%26shipmentId%3DP4Mn6GCM=
+d%26vt%3DNOTIFICATIONS%26ref_%3Dpe_170276260_1289406690_p_btn_fed_track_pac=
+kage&H=3D25N2JYDXHWQF5PHWAF16HAPAKCEA&ref_=3Dpe_170276260_1289406690_p_btn_=
+fed_track_package" style=3D"border:1px solid #FCD200;background:#FFD916;mso=
+-border-alt:none;font-family:Ember,'Amazon Ember',Arial,sans-serif;color:#0=
+F1111;text-decoration:none;border-radius:24px;padding:6px 16px;mso-padding-=
+alt:0;display:inline-block;box-shadow:1px 2px 4px rgba(153, 153, 153, 0.2);=
+font-size:13px;line-height:18px;white-space:nowrap;text-shadow:0 0 0.1px tr=
+ansparent;"><span style=3D"text-decoration: none;">Rastrear pacote</span></=
+a></td></tr></table></td></tr></tbody></table></td></tr></tbody></table></d=
+iv><!--[if mso | IE]></td></tr></table><![endif]--></td></tr></tbody></tabl=
+e></div><!--[if mso | IE]></td></tr></table><![endif]--></td></tr>  <tr><td=
+ align=3D"left" style=3D"font-size:0px;padding:0;word-break:break-word;"><!=
+--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" class=3D"" role=3D"presentation" style=3D"width:568px;" width=
+=3D"568" ><tr><td style=3D"line-height:0px;font-size:0px;mso-line-height-ru=
+le:exactly;"><![endif]--><div style=3D"margin:0px auto;max-width:568px;"><t=
+able align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation" style=3D"width:100%;"><tbody><tr><td style=3D"direction:l=
+tr;font-size:0px;padding:0;text-align:left;"><!--[if mso | IE]><table role=
+=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"left" class=3D"" style=3D"vertical-align:top;width:568px;" ><![end=
+if]--><div class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"font-s=
+ize:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:t=
+op;width:100%;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" rol=
+e=3D"presentation" width=3D"100%"><tbody><tr><td style=3D"vertical-align:to=
+p;padding:0;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation" width=3D"100%"><tbody><tr><td align=3D"left" class=3D"rio=
+-spacer" style=3D"font-size:0px;padding:0;word-break:break-word;"><div aria=
+-hidden=3D"true" style=3D"height:12px;line-height:12px">&nbsp;</div></td></=
+tr><tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break:break=
+-word;"><!--[if mso | IE]><table align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" class=3D"" role=3D"presentation" style=3D"width:56=
+8px;" width=3D"568" ><tr><td style=3D"line-height:0px;font-size:0px;mso-lin=
+e-height-rule:exactly;"><![endif]--><div style=3D"margin:0px auto;max-width=
+:568px;"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"width:100%;"><tbody><tr><td style=3D"=
+direction:ltr;font-size:0px;padding:0;text-align:left;"><!--[if mso | IE]><=
+table role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0=
+"><tr><td align=3D"left" class=3D"" style=3D"width:568px;" ><![endif]--><di=
+v class=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"font-size:0;lin=
+e-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;">=
+<!--[if mso | IE]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" r=
+ole=3D"presentation" ><tr><td style=3D"align:left;vertical-align:top;width:=
+142px;" ><![endif]--><div class=3D"mj-column-per-25 mj-outlook-group-fix" s=
+tyle=3D"font-size:0px;text-align:left;direction:ltr;display:inline-block;ve=
+rtical-align:top;width:25%;"><table border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><td style=3D"vert=
+ical-align:top;padding:0;padding-right:8px;padding-left:0;"><table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"1=
+00%"><tbody>       <!-- TODO fallback can be removed after at least 2week b=
+ake time and validating that all emails are getting the link from productIm=
+ageConnection https://issues.amazon.com/issues/TxN-996 -->  <mj-raw>  </mj-=
+raw><tr><td align=3D"left" class=3D"rio-asin-image" style=3D"font-size:0px;=
+padding:0;word-break:break-word;"><table style=3D"width: 100%; border-radiu=
+s: 4px;" class=3D"rio-asin-image-k1Q1uJzgxQLCSwCbQLfMb5" border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody>=
+<tr><td class=3D"productImageTd" style=3D"background-image:linear-gradient(=
+rgba(15, 17, 17, 0.03), rgba(15, 17, 17, 0.03));border-radius:4px;position:=
+relative;width:100%;height:64px;vertical-align:middle;text-align:center;pad=
+ding:8px;"><a target=3D"_blank" href=3D"https://www.amazon.com.br/gp/r.html=
+?C=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50=
+b84439296aee2214440p0na&R=3D2WE4YVPONTRSO&T=3DC&U=3Dhttps%3A%2F%2Fwww.amazo=
+n.com.br%2Fdp%2FB079VXJK79%3Fref_%3Dpe_170276260_1289406690_i_fed_asin_titl=
+e&H=3DQKMBG9SBPK9LAXZ4F9APLG0H1I8A&ref_=3Dpe_170276260_1289406690_i_fed_asi=
+n_title" style=3D"background-color:transparent;display:inline-block;"><img =
+style=3D"width:100%;height:auto;max-height:64px;max-width:64px;margin:auto;=
+display:block;" class=3D"productImage" width=3D"122" src=3D"https://m.media=
+-amazon.com/images/I/71l4OrWPpLL._SS90_.jpg" alt=3D"Creme Hidratante Corpor=
+al para Pele Seca e Sens=C3=ADvel Cetaphil 453g - Hidrata=C3=A7=C3=A3o 48h"=
+></a></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody>=
+</table></div><!--[if mso | IE]></td><td style=3D"align:left;vertical-align=
+:top;width:426px;" ><![endif]--><div class=3D"mj-column-per-75 mj-outlook-g=
+roup-fix" style=3D"font-size:0px;text-align:left;direction:ltr;display:inli=
+ne-block;vertical-align:top;width:75%;"><table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><td st=
+yle=3D"vertical-align:top;padding:0;"><table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody><mj-raw>  </=
+mj-raw><tr><td align=3D"left" style=3D"font-size:0px;padding:0;word-break:b=
+reak-word;"><div style=3D"font-family:Ember,'Amazon Ember',Arial,sans-serif=
+;font-size:15px;font-weight:400;line-height:21px;text-align:left;color:#0F1=
+111;"><span class=3D"rio-text rio-text-445"><a href=3D"https://www.amazon.c=
+om.br/gp/r.html?C=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:20260310=
+14480340b4bee50b84439296aee2214440p0na&R=3DZVFGUET8BP5Z&T=3DC&U=3Dhttps%3A%=
+2F%2Fwww.amazon.com.br%2Fdp%2FB079VXJK79%3Fref_%3Dpe_170276260_1289406690_t=
+_fed_asin_title&H=3DODBA4UBVPBCQARXSHOE7PUHDMDMA&ref_=3Dpe_170276260_128940=
+6690_t_fed_asin_title" target=3D"_blank" style=3D"color: #0F1111;">Creme Hi=
+dratante Corporal para Pe...</a></span></div></td></tr>   <tr><td align=3D"=
+left" class=3D"rio-spacer" style=3D"font-size:0px;padding:0;word-break:brea=
+k-word;"><div aria-hidden=3D"true" style=3D"height:4px;line-height:4px">&nb=
+sp;</div></td></tr><tr><td align=3D"left" style=3D"font-size:0px;padding:0;=
+word-break:break-word;"><div style=3D"font-family:Ember,'Amazon Ember',Aria=
+l,sans-serif;font-size:13px;font-weight:400;line-height:18px;text-align:lef=
+t;color:#565959;"><span class=3D"rio-text rio-text-449">Quantidade: 2</span=
+></div></td></tr>  <tr><td align=3D"left" class=3D"rio-spacer" style=3D"fon=
+t-size:0px;padding:0;word-break:break-word;"><div aria-hidden=3D"true" styl=
+e=3D"height:4px;line-height:4px">&nbsp;</div></td></tr><tr><td align=3D"lef=
+t" style=3D"font-size:0px;padding:0;word-break:break-word;"><div style=3D"f=
+ont-family:Ember,'Amazon Ember',Arial,sans-serif;font-size:18px;font-weight=
+:400;line-height:22px;text-align:left;color:#0F1111;"><span class=3D"rio-te=
+xt rio-text-452"><mj-raw></mj-raw>  <span role=3D"region" aria-label=3D"{am=
+ount=3D84.5, currencyCode=3D{smallestAmount=3D0.01, code=3DBRL}, label=3Dnu=
+ll, pricingIncrement=3Dnull}" style=3D"font-size: 18px; font-weight: 400; v=
+ertical-align: baseline;"><!-- MSO-specific style for Outlook --><!--[if ms=
+o]><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" ><tr> <td style=
+=3D"font-size: 18px; vertical-align: top; padding: 0;"><sup style=3D"positi=
+on: relative; top: 2px;">R$</sup></td> <td style=3D"font-size: 18px; font-w=
+eight: 400; vertical-align: middle; padding: 0;"><span style=3D"display: in=
+line-block;">84</span></td>  <td style=3D"font-size: 18px; vertical-align: =
+top; padding: 0;"><sup style=3D"position: relative; top: 2px;">50</sup></td=
+></tr></table><![endif]--><!-- Non-MSO rendering for other email clients --=
+><!--[if !mso]><!--><sup style=3D"font-size: 10px; position: relative; top:=
+ 2px;">R$</sup>84<sup style=3D"font-size: 10px; position: relative; top: 2p=
+x;">50</sup><!--<![endif]--> </span><mj-raw></mj-raw></span></div></td></tr=
+></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]></td></t=
+r></table><![endif]--></div><!--[if mso | IE]></td></tr></table><![endif]--=
+></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![end=
+if]--></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso=
+ | IE]></td></tr></table><![endif]--></td></tr></tbody></table></div><!--[i=
+f mso | IE]></td></tr></table><![endif]--></td></tr></tbody></table></td></=
+tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--></=
+td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]=
+--></td></tr><tr><td align=3D"left" class=3D"rio-spacer" style=3D"font-size=
+:0px;padding:0;word-break:break-word;"><div aria-hidden=3D"true" style=3D"h=
+eight:12px;line-height:12px">&nbsp;</div></td></tr><tr><td align=3D"left" s=
+tyle=3D"font-size:0px;padding:0;word-break:break-word;"><!--[if mso | IE]><=
+table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cla=
+ss=3D"" role=3D"presentation" style=3D"width:568px;" width=3D"568" ><tr><td=
+ style=3D"line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![e=
+ndif]--><div style=3D"margin:0px auto;max-width:568px;"><table align=3D"cen=
+ter" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"=
+ style=3D"width:100%;"><tbody><tr><td style=3D"direction:ltr;font-size:0px;=
+padding:0;text-align:left;"><!--[if mso | IE]><table role=3D"presentation" =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td align=3D"left" cla=
+ss=3D"" style=3D"vertical-align:top;width:568px;" ><![endif]--><div class=
+=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"font-size:0px;text-ali=
+gn:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">=
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
+n" width=3D"100%"><tbody><tr><td style=3D"vertical-align:top;padding:0;"><t=
+able border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"=
+ width=3D"100%"><tbody><tr><td align=3D"left" class=3D"rio-spacer" style=3D=
+"font-size:0px;padding:0;word-break:break-word;"><div aria-hidden=3D"true" =
+style=3D"height:12px;line-height:12px">&nbsp;</div></td></tr></tbody></tabl=
+e></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![en=
+dif]--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table>=
+<![endif]--></td></tr><tr><td align=3D"left" style=3D"font-size:0px;padding=
+:0;word-break:break-word;"><!--[if mso | IE]><table align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"" role=3D"presentation"=
+ style=3D"width:568px;" width=3D"568" ><tr><td style=3D"line-height:0px;fon=
+t-size:0px;mso-line-height-rule:exactly;"><![endif]--><div style=3D"margin:=
+0px auto;max-width:568px;"><table align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"width:100%;"><tbody=
+><tr><td style=3D"direction:ltr;font-size:0px;padding:0;text-align:left;"><=
+!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0"><tr><td align=3D"left" class=3D"" style=3D"vertical-ali=
+gn:top;width:568px;" ><![endif]--><div class=3D"mj-column-per-100 mj-outloo=
+k-group-fix" style=3D"font-size:0px;text-align:left;direction:ltr;display:i=
+nline-block;vertical-align:top;width:100%;"><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><t=
+d style=3D"vertical-align:top;padding:0;"><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><t=
+d align=3D"left" style=3D"font-size:0px;padding:0;word-break:break-word;"><=
+style type=3D"text/css">.alert-message a {
+            color: #007185 !important;
+            text-decoration: none !important;
+        }
+        @media (prefers-color-scheme:dark){
+            .alert-message a {
+                color: #6ED6E6 !important;
+            }
+            }
+        [data-ogsc] .alert-message a {
+            color: #6ED6E6 !important;
+        }</style><table class=3D"alert-message" style=3D"width:100%" cellpa=
+dding=3D"0" cellspacing=3D"0" border=3D"0" role=3D"presentation"><tr><td st=
+yle=3D"border-radius: 8px;
+              background-color: #F0F2F2;
+              padding: 12px 8px;
+              align-self: stretch;
+              gap: 8px;
+              align-items: flex-start;
+              display: flex;"><table role=3D"presentation"><tr><td style=3D=
+"padding-right: 8px;"><img src=3D"https://m.media-amazon.com/images/G/01/So=
+nar/infoIcon.png" alt=3D"info icon" width=3D"18" height=3D"18"></td><td sty=
+le=3D"font-weight: 400;font-size: 15px;line-height: 20px;font-familty:Ember=
+,'Amazon Ember',Arial,sans-serif; color: #000000;"><a href=3D"https://www.a=
+mazon.com.br/gp/r.html?C=3D3ABHB61XVS6R6&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2=
+026031014480340b4bee50b84439296aee2214440p0na&R=3D3K7ZLL1FW9LGS&T=3DC&U=3Dh=
+ttps%3A%2F%2Fwww.amazon.com.br%2Fma%2FdeliveryProfilePage%3FingressPointTyp=
+e%3DNOTIFICATIONS%26addressId%3Dlkrlltnonjp%26ref_%3Dpe_170276260_128940669=
+0_E_304&H=3DHS6SFXDHYUFQA9WNQ9DOWQUALCEA&ref_=3Dpe_170276260_1289406690_E_3=
+04" target=3D"_blank">Adicione ou atualize as instru=C3=A7=C3=B5es de entre=
+ga</a>, caso tenha alguma informa=C3=A7=C3=A3o que possa ajudar os motorist=
+as a realizar entregas neste endere=C3=A7o.</td></tr></table></td></tr></ta=
+ble></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso |=
+ IE]></td></tr></table><![endif]--></td></tr></tbody></table></div><!--[if =
+mso | IE]></td></tr></table><![endif]--></td></tr></tbody></table></td></tr=
+></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--></td=
+></tr></tbody></table></div><!--[if mso | IE]></td></tr></table></td></tr><=
+![endif]--> <!--[if mso | IE]></table><![endif]--></td></tr></tbody></table=
+></div><!--[if mso | IE]></td></tr></table></td></tr><![endif]-->  <!--[if =
+mso | IE]></table><![endif]--></td></tr></tbody></table></div><!--[if mso |=
+ IE]></td></tr></table><![endif]--> <!--[if mso | IE]><table align=3D"cente=
+r" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"rootContent-ou=
+tlook moduleId-marketingSlot-outlook" role=3D"presentation" style=3D"width:=
+600px;" width=3D"600" bgcolor=3D"#ffffff" ><tr><td style=3D"line-height:0px=
+;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div class=3D"roo=
+tContent moduleId-marketingSlot" style=3D"background:#ffffff;background-col=
+or:#ffffff;margin:0px auto;max-width:600px;"><table align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"b=
+ackground:#ffffff;background-color:#ffffff;width:100%;"><tbody><tr><td styl=
+e=3D"direction:ltr;font-size:0px;padding:4px 8px 4px 8px;text-align:left;">=
+<!--[if mso | IE]><table role=3D"presentation" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0"><![endif]-->        <!--[if mso | IE]></table><![endif=
+]--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![=
+endif]--> <!--[if mso | IE]><table align=3D"center" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" class=3D"rootContent-outlook moduleId-transaction=
+alFooter-outlook" role=3D"presentation" style=3D"width:600px;" width=3D"600=
+" bgcolor=3D"#ffffff" ><tr><td style=3D"line-height:0px;font-size:0px;mso-l=
+ine-height-rule:exactly;"><![endif]--><div class=3D"rootContent moduleId-tr=
+ansactionalFooter" style=3D"background:#ffffff;background-color:#ffffff;mar=
+gin:0px auto;max-width:600px;"><table align=3D"center" border=3D"0" cellpad=
+ding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"background:#fff=
+fff;background-color:#ffffff;width:100%;"><tbody><tr><td style=3D"direction=
+:ltr;font-size:0px;padding:4px 0px 0px 0px;text-align:left;"><!--[if mso | =
+IE]><table role=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0"><![endif]--> <!--[if mso | IE]><tr><td align=3D"left" class=3D"sonar=
+-footer-outlook sonar-footer-v1-outlook" width=3D"600px" ><![endif]--><styl=
+e type=3D"text/css">.footer-text, .footer-card p, .footer-card li {
+            color: #494D4D;
+        }
+        .footer-card p{margin-top:20px}
+        .footer-card a {
+            color: #007185 !important;
+            text-decoration: none !important;
+        }
+        @media (prefers-color-scheme:dark){
+            .footer-card {
+                background-color: #303333 !important;
+            }
+           =20
+            .footer-card a {
+                color: #6ED6E6 !important;
+            }
+           =20
+            .footer-text, .footer-card p, .footer-card li {
+                color: #C8CCCC !important;
+            }
+            .lightFooterImg{display:none!important}.darkFooterImg{display:b=
+lock!important}}[data-ogsb] .footer-card{background-color:#303333!important=
+}
+        [data-ogsc] .footer-card a {
+            color: #6ED6E6 !important;
+        }
+        [data-ogsc] .footer-card li,[data-ogsc] .footer-card p,[data-ogsc] =
+.footer-text{color:#c8cccc!important}[data-ogsc] .lightFooterImg{display:no=
+ne!important}[data-ogsc] .darkFooterImg{display:block!important}</style><ta=
+ble class=3D"footer-card" data-sonar-role=3D"footer" width=3D"100%" cellspa=
+cing=3D"0" cellpadding=3D"0" border=3D"0" role=3D"presentation" style=3D"ba=
+ckground-color:#F0F2F2;width:100%;"><tr><td width=3D"100%" align=3D"left" s=
+tyle=3D"width:100%;padding-bottom:4px;text-align:left"><table width=3D"100%=
+" cellspacing=3D"0" cellpadding=3D"0" border=3D"0" role=3D"presentation" st=
+yle=3D"width:100%;"><tr><td class=3D"footer-text" style=3D"width:100%;paddi=
+ng:0 16px 16px 16px;font-family:Ember,'Amazon Ember',Arial,sans-serif;font-=
+size:14px;line-height:20px;color:#494D4D;"><div style=3D"margin-top:20px;">=
+=C2=A92026 Amazon.com, Inc. ou suas afiliadas Todos os direitos reservados
+Amazon.com, Amazon.com.br, a logo de Amazon.com s=C3=A3o marcas comerciais =
+registradas de Amazon.com, Inc. ou suas afiliadas. Amazon Servi=C3=A7os de =
+Varejo do Brasil Ltda. | CNPJ 15.436.940/0001-03 Av. Juscelino Kubitschek, =
+2041, Torre E, 18=C2=B0 andar - S=C3=A3o Paulo CEP: 04543-011</div> </td></=
+tr></table><a href=3D"https://www.amazon.com.br/gp/r.html?C=3D3ABHB61XVS6R6=
+&K=3D7BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50b84439296aee221444=
+0p0na&R=3D1Y4BLRCDPLTZO&T=3DC&U=3Dhttps%3A%2F%2Fwww.amazon.com.br%3Fref_%3D=
+pe_170276260_1289406690_TF_05_04_LNK_08&H=3DOJNOJWYBTCHOAQQB9ANWX61YENCA&re=
+f_=3Dpe_170276260_1289406690_TF_05_04_LNK_08" target=3D"_blank"><img src=3D=
+"https://m.media-amazon.com/images/G/01/outbound/OutboundTemplates/Smile_Lo=
+go_Light._BG240,242,242_.png" alt=3D"Amazon.com.br" height=3D"43" width=3D"=
+86" align=3D"left" class=3D"lightFooterImg" style=3D"display:block;"> <!--[=
+if !mso]><! --><img src=3D"https://m.media-amazon.com/images/G/01/outbound/=
+OutboundTemplates/Smile_Logo_Dark.png" alt=3D"Amazon.com.br" height=3D"43" =
+width=3D"86" align=3D"left" class=3D"darkFooterImg" style=3D"display:none;"=
+><!--<![endif]--></a></td></tr></table><!--[if mso | IE]></td></tr><![endif=
+]--> <!--[if mso | IE]></table><![endif]--></td></tr></tbody></table></div>=
+<!--[if mso | IE]></td></tr></table><![endif]--></div><img width=3D"1" heig=
+ht=3D"1" src=3D"https://www.amazon.com.br/gp/r.html?C=3D3ABHB61XVS6R6&K=3D7=
+BXFZIZRIQDE&M=3Durn:rtn:msg:2026031014480340b4bee50b84439296aee2214440p0na&=
+R=3DAEL87E6F035B&T=3DE&U=3Dhttps%3A%2F%2Fimages-na.ssl-images-amazon.com%2F=
+images%2FG%2F01%2Fnav%2Ftransp.gif&H=3DIBPJIP9TEXDMA3VIEQZSXBXYNZEA&ref_=3D=
+pe_170276260_1289406690_open" alt=3D"" /></body></html>
+------=_Part_7959711_795676645.1773154083477--
