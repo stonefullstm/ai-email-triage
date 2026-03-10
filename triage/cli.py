@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import typer
 from dotenv import load_dotenv
 from typing import Optional
@@ -46,6 +47,103 @@ def build_reader(mailbox: str) -> IMAPReader:
     )
 
 
+def get_source_color(source):
+    """Returns ANSI color for the font."""
+    source_colors = {
+        "cache":     typer.colors.CYAN,
+        "embedding": typer.colors.BLUE,
+        "heuristic": typer.colors.YELLOW,
+        "llm":       typer.colors.MAGENTA,
+    }
+    return source_colors.get(source, typer.colors.WHITE)
+
+
+def process_single_email(path: Path, pipeline, parser):
+    """Processes a single e-mail file."""
+    typer.echo(f"\n📧 Processing: {path.name}")
+
+    raw = path.read_bytes()
+    parsed = parser.parse(raw)
+    email_input = EmailInput(
+        subject=parsed.subject,
+        sender=parsed.sender,
+        body=parsed.body,
+    )
+
+    typer.echo(f"  📧 Sender: {email_input.sender}")
+    typer.echo(f"  📋 Subject: {email_input.subject}")
+    typer.echo("  📝 Body (first lines):")
+    for line in email_input.body.splitlines()[:3]:
+        typer.echo(f"    {line[:70]}")
+    typer.echo("")
+
+    result = pipeline.run(email_input)
+    print_result(result)
+
+    if result and result.confidence >= 0.90:
+        hash_cache.store(email_input, result.label)
+
+
+def process_email_folder(folder: Path, pipeline, parser):
+    """Processes all .eml/.txt files in a folder."""
+    email_files = list(folder.glob("*.eml")) + list(folder.glob("*.txt"))
+
+    if not email_files:
+        typer.secho(
+            "❌ No .eml or .txt file found in the folder.", fg=typer.colors.RED)
+        return
+
+    typer.echo(
+        f"📁 Processing {len(email_files)} e-mail(s) in '{folder.name}':\n")
+
+    stats = {}
+
+    for path in email_files:
+        raw = path.read_bytes()
+        parsed = parser.parse(raw)
+        email_input = EmailInput(
+            subject=parsed.subject,
+            sender=parsed.sender,
+            body=parsed.body,
+        )
+
+        result = pipeline.run(email_input)
+        stats.setdefault(result.label if result else "sem_classificacao", 0)
+        stats[result.label if result else "sem_classificacao"] += 1
+
+        short_subject = email_input.subject[:50]
+        if result:
+            source_tag = typer.style(
+                f"[{result.source.upper()}]",
+                fg=get_source_color(result.source)
+            )
+            typer.echo(f"{source_tag} {short_subject} → {result.label}")
+        else:
+            typer.echo(typer.style(
+                    "[UNCLASSIFIED]",
+                    fg=typer.colors.RED) + f" {short_subject}")
+
+        if result and result.confidence >= 0.90:
+            hash_cache.store(email_input, result.label)
+
+    typer.echo("\n📊 Summary:")
+    for label, count in sorted(stats.items()):
+        typer.echo(f"  {label}: {count}")
+
+
+def print_result(result):
+    """Prints classification result."""
+    if result:
+        color = get_source_color(result.source)
+        source_tag = typer.style(
+            f"[{result.source.upper()}]", fg=color, bold=True)
+        typer.echo(f"{source_tag} → {result.label} ({result.confidence:.0%})")
+        if result.metadata.get("reason"):
+            typer.echo(f"💬 Reason: {result.metadata['reason']}")
+    else:
+        typer.secho("[UNCLASSIFIED]", fg=typer.colors.RED)
+
+
 @app.command()
 def run(
     limit: int = typer.Option(
@@ -84,13 +182,6 @@ def run(
 
     typer.echo(f"📬 {len(raw_emails)} e-mail(s) found.\n")
 
-    source_colors = {
-        "cache": typer.colors.CYAN,
-        "embedding": typer.colors.BLUE,
-        "heuristic": typer.colors.YELLOW,
-        "llm": typer.colors.MAGENTA,
-    }
-
     for raw in raw_emails:
         parsed = parser.parse(raw)
         email_input = EmailInput(
@@ -102,7 +193,7 @@ def run(
         result = pipeline.run(email_input)
 
         if result:
-            color = source_colors.get(result.source, typer.colors.WHITE)
+            color = get_source_color(result.source)
             source_tag = typer.style(
                 f"[{result.source.upper()}]", fg=color, bold=True)
             typer.echo(
@@ -142,59 +233,26 @@ def check_rules(
 
 @app.command()
 def demo(
-    file: str = typer.Argument(..., help="Path to .txt file with e-mail."),
-    skip_llm: bool = typer.Option(
-        False, "--skip-llm", help="Skip the LLM layer."),
+    path: str = typer.Argument(
+        ..., help="File .eml/.txt or folder with various e-mails."),
+    skip_llm: bool = typer.Option(False, "--skip-llm"),
 ):
-    """Classify an email from a text file."""
+    """Classify an e-mail or all e-mails in a folder."""
     from pathlib import Path
 
-    path = Path(triage.__file__).parent / file
-    if not path.exists():
-        typer.secho(f"File not found: {file}", fg=typer.colors.RED)
-        raise typer.Exit(1)
-
-    raw = path.read_bytes()
-
-    typer.echo("⏳ Loading pipeline...")
+    base_path = Path(triage.__file__).parent / path
     pipeline = build_pipeline(skip_llm=skip_llm)
     parser = EmailParser()
 
-    parsed = parser.parse(raw)
-    email_input = EmailInput(
-        subject=parsed.subject,
-        sender=parsed.sender,
-        body=parsed.body,
-    )
-
-    typer.echo(f"\n📧 Sender : {email_input.sender}")
-    typer.echo(f"📋 Subject   : {email_input.subject}")
-    typer.echo("📝 Body:")
-    typer.echo("-" * 50)
-
-    for line in email_input.body.splitlines()[:5]:
-        typer.echo(f"  {line[:80]}")
-    if len(email_input.body.splitlines()) > 5:
-        typer.echo("  ... (continue)")
-    typer.echo("-" * 50)
-    typer.echo("")
-    result = pipeline.run(email_input)
-
-    if result:
-        source_colors = {
-            "cache":     typer.colors.CYAN,
-            "embedding": typer.colors.BLUE,
-            "heuristic": typer.colors.YELLOW,
-            "llm":       typer.colors.MAGENTA,
-        }
-        color = source_colors.get(result.source, typer.colors.WHITE)
-        source_tag = typer.style(
-            f"[{result.source.upper()}]", fg=color, bold=True)
-        typer.echo(f"{source_tag} → {result.label} ({result.confidence:.0%})")
-        if result.metadata.get("reason"):
-            typer.echo(f"💬 Reason: {result.metadata['reason']}")
+    if base_path.is_file():
+        # Single file
+        process_single_email(base_path, pipeline, parser)
+    elif base_path.is_dir():
+        # Folder with multiple e-mails
+        process_email_folder(base_path, pipeline, parser)
     else:
-        typer.secho("[UNCLASSIFIED]", fg=typer.colors.RED)
+        typer.secho(f"❌ Path not found: {base_path}", fg=typer.colors.RED)
+        raise typer.Exit(1)
 
 
 if __name__ == "__main__":
