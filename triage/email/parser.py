@@ -1,6 +1,7 @@
 import email
-from email.header import decode_header
+from email.header import decode_header, make_header
 from email.utils import parsedate_to_datetime
+import re
 
 from .models import EmailMessage
 
@@ -16,6 +17,7 @@ class EmailParser:
 
         subject = self._decode_header(msg.get("Subject"))
         sender = msg.get("From")
+        sender = re.sub(r"\[([^\]]+)\]\(mailto:[^\)]+\)", r"\1", sender)
         to = msg.get("To")
         date = self._parse_date(msg.get("Date"))
         body = self._extract_body(msg)
@@ -29,22 +31,19 @@ class EmailParser:
         )
 
     def _decode_header(self, value):
-
         if not value:
             return ""
 
-        decoded_parts = decode_header(value)
+        try:
+            decoded = str(make_header(decode_header(value)))
+            try:
+                decoded = decoded.encode("latin1").decode("utf-8")
+            except Exception:
+                pass
 
-        parts = []
-
-        for part, encoding in decoded_parts:
-
-            if isinstance(part, bytes):
-                parts.append(part.decode(encoding or "utf-8", errors="ignore"))
-            else:
-                parts.append(part)
-
-        return "".join(parts)
+            return decoded
+        except Exception:
+            return value
 
     def _parse_date(self, value):
 
@@ -65,23 +64,30 @@ class EmailParser:
                 content_type = part.get_content_type()
                 disposition = str(part.get("Content-Disposition"))
 
-                if (
-                    content_type == "text/plain"
-                    and "attachment" not in disposition
-                ):
+                if (content_type == "text/plain"
+                        and "attachment" not in disposition):
 
                     payload = part.get_payload(decode=True)
 
                     if payload:
-                        return payload.decode(
-                            errors="ignore"
-                        )
+                        return self._decode_payload(payload)
 
         else:
 
             payload = msg.get_payload(decode=True)
 
             if payload:
-                return payload.decode(errors="ignore")
+                return self._decode_payload(payload)
 
         return ""
+
+    def _decode_payload(self, payload: bytes) -> str:
+        # Tentativas mais comuns
+        for enc in ("utf-8", "latin-1", "iso-8859-1", "windows-1252"):
+            try:
+                return payload.decode(enc)
+            except Exception:
+                continue
+
+        # fallback
+        return payload.decode("utf-8", errors="replace")
