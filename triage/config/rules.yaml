@@ -1,28 +1,35 @@
 rules:
-  - label: financeiro
+  - label: REVIEW_RECOMMENDED
     confidence: 0.90
-    senders:
-      - banco@itau.com.br
-      - noreply@nubank.com.br
     subject_patterns:
-      - fatura
-      - boleto
-      - pagamento
-      - extrato
+      - security
+      - vulnerability
+      - alert
+      - warning
 
-  - label: spam
+  - label: FYI_IGNORE
     confidence: 0.95
     subject_patterns:
       - ganhe
       - grátis
-      - clique aqui
+      - promoção
+      - cashback
     body_patterns:
       - unsubscribe
       - descadastre-se
 
-  - label: notificacao
+  - label: REFERENCE_ONLY
     confidence: 0.88
-    senders:
-      - notifications@github.com
     subject_patterns:
-      - "\\[GitHub\\]"
+      - transferencia
+      - transferência
+      - receipt
+      - invoice
+      - nota fiscal
+  
+  - label: ACTION_REQUIRED
+    confidence: 0.85
+    subject_patterns:
+      - confirm
+      - verify
+      - action required

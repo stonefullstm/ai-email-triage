@@ -22,8 +22,9 @@ app = typer.Typer(
     help="AI E-mail Triage — layered e-mail classification with LLM fallback")
 
 MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
-LABELS = ["financeiro", "spam", "notificacao", "pessoal"]
-
+# LABELS = ["financeiro", "spam", "notificacao", "pessoal"]
+LABELS = [
+    "ACTION_REQUIRED", "REVIEW_RECOMMENDED", "FYI_IGNORE", "REFERENCE_ONLY"]
 hash_cache = HashCacheLayer()
 
 
@@ -58,17 +59,26 @@ def get_source_color(source):
     return source_colors.get(source, typer.colors.WHITE)
 
 
-def process_single_email(path: Path, pipeline, parser):
-    """Processes a single e-mail file."""
-    typer.echo(f"\n📧 Processing: {path.name}")
-
-    raw = path.read_bytes()
+def parse_bytes_to_email_input(parser: EmailParser, raw: bytes) -> EmailInput:
+    """Converts raw bytes to EmailInput."""
     parsed = parser.parse(raw)
-    email_input = EmailInput(
+    return EmailInput(
         subject=parsed.subject,
         sender=parsed.sender,
         body=parsed.body,
     )
+
+
+def parse_path_to_email_input(parser: EmailParser, path: Path) -> EmailInput:
+    """Reads file and converts to EmailInput."""
+    raw = path.read_bytes()
+    return parse_bytes_to_email_input(parser, raw)
+
+
+def process_single_email(path: Path, pipeline, parser):
+    """Processes a single e-mail file."""
+    typer.echo(f"\n📧 Processing: {path.name}")
+    email_input = parse_path_to_email_input(parser, path)
 
     typer.echo(f"  📧 Sender: {email_input.sender}")
     typer.echo(f"  📋 Subject: {email_input.subject}")
@@ -99,13 +109,7 @@ def process_email_folder(folder: Path, pipeline, parser):
     stats = {}
 
     for path in email_files:
-        raw = path.read_bytes()
-        parsed = parser.parse(raw)
-        email_input = EmailInput(
-            subject=parsed.subject,
-            sender=parsed.sender,
-            body=parsed.body,
-        )
+        email_input = parse_path_to_email_input(parser, path)
 
         result = pipeline.run(email_input)
         stats.setdefault(result.label if result else "sem_classificacao", 0)
@@ -183,12 +187,7 @@ def run(
     typer.echo(f"📬 {len(raw_emails)} e-mail(s) found.\n")
 
     for raw in raw_emails:
-        parsed = parser.parse(raw)
-        email_input = EmailInput(
-            subject=parsed.subject,
-            sender=parsed.sender,
-            body=parsed.body,
-        )
+        email_input = parse_bytes_to_email_input(parser, raw)
 
         result = pipeline.run(email_input)
 

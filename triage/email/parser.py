@@ -1,7 +1,7 @@
 import email
 from email.header import decode_header, make_header
 from email.utils import parsedate_to_datetime
-import re
+# import re
 
 from .models import EmailMessage
 
@@ -17,7 +17,7 @@ class EmailParser:
 
         subject = self._decode_header(msg.get("Subject"))
         sender = msg.get("From")
-        sender = re.sub(r"\[([^\]]+)\]\(mailto:[^\)]+\)", r"\1", sender)
+        # sender = re.sub(r"\[([^\]]+)\]\(mailto:[^\)]+\)", r"\1", sender)
         to = msg.get("To")
         date = self._parse_date(msg.get("Date"))
         body = self._extract_body(msg)
