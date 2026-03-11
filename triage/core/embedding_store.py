@@ -7,7 +7,7 @@ from triage.core.base import EmailInput
 DB_PATH = Path(__file__).parent.parent / "database" / "triagedb.db"
 
 
-class ExampleStore:
+class EmbeddingStore:
     def __init__(self, db_path: Path = DB_PATH):
         self.db_path = db_path
         self.db_path.parent.mkdir(exist_ok=True)

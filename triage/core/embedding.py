@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Optional
 from triage.core.base import ClassifierLayer, ClassificationResult, EmailInput
+from triage.core.embedding_store import EmbeddingStore
 
 
 def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
@@ -16,12 +17,14 @@ class EmbeddingLayer(ClassifierLayer):
         """
         self.encoder = encoder
         self.top_k = top_k
-        self._examples: list[tuple[np.ndarray, str]] = []  # (vetor, label)
+        self.store = EmbeddingStore()
+        self._examples = self.store.load_all()
 
     def add_example(self, email: EmailInput, label: str) -> None:
         """Adds an annotated example to the reference database."""
         vector = self._encode(email)
         self._examples.append((vector, label))
+        self.store.add(email, label, vector)
 
     def classify(self, email: EmailInput) -> Optional[ClassificationResult]:
         if not self._examples:
