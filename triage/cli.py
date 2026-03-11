@@ -303,7 +303,7 @@ def review(
         else:
             typer.echo("\n  🤖 Suggestion: none")
 
-        # monta as opções dinamicamente a partir dos LABELS
+        # Dynamically build options from LABELS
         options_str = "/".join(LABELS) + "/SKIP"
         default = result.label if result else None
         default_str = f" ({default})" if default else ""
@@ -317,7 +317,7 @@ def review(
             skipped += 1
             continue
 
-        # salva no cache e no banco de exemplos
+        # Save on cache and examples database
         hash_cache.store(email_input, label_input)
         vector = embedder.encode(
             f"{email_input.subject} {email_input.sender} {email_input.body}"
