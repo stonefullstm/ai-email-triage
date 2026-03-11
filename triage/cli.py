@@ -10,6 +10,7 @@ from triage.core.pipeline import ClassificationPipeline
 from triage.core.base import EmailInput
 from triage.core.hash_cache import HashCacheLayer
 from triage.core.embedding import EmbeddingLayer
+from triage.core.embedding_store import EmbeddingStore
 from triage.core.heuristics import HeuristicLayer
 from triage.core.llm_fallback import LLMFallbackLayer
 from triage.core.rules_loader import load_rules
@@ -252,6 +253,86 @@ def demo(
     else:
         typer.secho(f"❌ Path not found: {base_path}", fg=typer.colors.RED)
         raise typer.Exit(1)
+
+
+@app.command()
+def review(
+    days: int = typer.Option(
+        1, "--days", "-d", help="Search e-mails from last N days."),
+    limit: int = typer.Option(
+        20, "--limit", "-l", help="Maximum number of e-mails to process."),
+    mailbox: str = typer.Option("INBOX", "--mailbox", "-m"),
+    skip_llm: bool = typer.Option(False, "--skip-llm"),
+):
+    """Reviews recent e-mails and annotates examples
+       for the embedding database."""
+
+    pipeline = build_pipeline(skip_llm=skip_llm)
+    parser = EmailParser()
+    store = EmbeddingStore()
+    embedder = Embedder()
+
+    reader = build_reader(mailbox)
+    reader.connect()
+    raw_emails = reader.fetch_unseen(days=days, limit=limit)
+
+    if not raw_emails:
+        typer.secho("✅ Nenhum e-mail encontrado.", fg=typer.colors.GREEN)
+        raise typer.Exit()
+
+    saved = 0
+    skipped = 0
+
+    for i, raw in enumerate(raw_emails, 1):
+        email_input = parse_bytes_to_email_input(parser, raw)
+        result = pipeline.run(email_input)
+
+        typer.echo(f"\n{'─' * 60}")
+        typer.echo(f"[{i}/{len(raw_emails)}]")
+        typer.echo(f"  📧 Sender : {email_input.sender}")
+        typer.echo(f"  📋 Subject: {email_input.subject}")
+        typer.echo(f"  📝 Body   : {email_input.body[:120].strip()!r}")
+
+        if result:
+            color = get_source_color(result.source)
+            suggestion = typer.style(result.label, fg=color, bold=True)
+            typer.echo(
+                f"\n  🤖 Suggestion: {suggestion}"
+                f" ({result.source}, {result.confidence:.0%})"
+            )
+        else:
+            typer.echo("\n  🤖 Suggestion: none")
+
+        # monta as opções dinamicamente a partir dos LABELS
+        options_str = "/".join(LABELS) + "/SKIP"
+        default = result.label if result else None
+        default_str = f" ({default})" if default else ""
+
+        label_input = typer.prompt(
+            f"\n  Label [{options_str}]{default_str}",
+            default=default or "SKIP",
+        ).strip().upper()
+        if label_input == "SKIP" or label_input not in LABELS:
+            typer.secho("  ⏭  Skipped.", fg=typer.colors.BRIGHT_BLACK)
+            skipped += 1
+            continue
+
+        # salva no cache e no banco de exemplos
+        hash_cache.store(email_input, label_input)
+        vector = embedder.encode(
+            f"{email_input.subject} {email_input.sender} {email_input.body}"
+        )
+        store.add(email_input, label_input, vector)
+
+        typer.secho(f"  ✅ Saved like '{label_input}'.", fg=typer.colors.GREEN)
+        saved += 1
+
+    typer.echo(f"\n{'─' * 60}")
+    typer.secho(
+        f"\n📚 Review done: {saved} saved(s), {skipped} skipped(s). "
+        f"Total in database: {store.count()}",
+        fg=typer.colors.GREEN,
+    )
 
 
 if __name__ == "__main__":

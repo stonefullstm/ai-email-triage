@@ -1,7 +1,9 @@
 import email
 from email.header import decode_header, make_header
 from email.utils import parsedate_to_datetime
+
 # import re
+
 
 from .models import EmailMessage
 
@@ -31,19 +33,26 @@ class EmailParser:
         )
 
     def _decode_header(self, value):
+
         if not value:
             return ""
-
         try:
-            decoded = str(make_header(decode_header(value)))
+            subject = str(make_header(decode_header(value)))
+        except (LookupError, UnicodeDecodeError, ValueError):
             try:
-                decoded = decoded.encode("latin1").decode("utf-8")
+                decoded = decode_header(value)[0]
+                part, encoding = decoded
+                if isinstance(part, bytes):
+                    enc = encoding or "utf-8"
+                    if enc == "unknown-8bit":
+                        enc = "latin-1"
+                    subject = part.decode(enc, errors="replace")
+                else:
+                    subject = part
             except Exception:
-                pass
-
-            return decoded
-        except Exception:
-            return value
+                subject = value.encode(
+                    "latin-1", errors="ignore").decode("latin-1")
+        return subject
 
     def _parse_date(self, value):
 
@@ -64,30 +73,19 @@ class EmailParser:
                 content_type = part.get_content_type()
                 disposition = str(part.get("Content-Disposition"))
 
-                if (content_type == "text/plain"
-                        and "attachment" not in disposition):
+                if (content_type == "text/plain" and "attachment"
+                        not in disposition):
 
                     payload = part.get_payload(decode=True)
 
                     if payload:
-                        return self._decode_payload(payload)
+                        return payload.decode("utf-8", errors="replace")
 
         else:
 
             payload = msg.get_payload(decode=True)
 
             if payload:
-                return self._decode_payload(payload)
+                return payload.decode("utf-8", errors="replace")
 
         return ""
-
-    def _decode_payload(self, payload: bytes) -> str:
-        # Tentativas mais comuns
-        for enc in ("utf-8", "latin-1", "iso-8859-1", "windows-1252"):
-            try:
-                return payload.decode(enc)
-            except Exception:
-                continue
-
-        # fallback
-        return payload.decode("utf-8", errors="replace")

@@ -26,6 +26,8 @@ rules:
       - receipt
       - invoice
       - nota fiscal
+      - conta digital
+      - fatura
   
   - label: ACTION_REQUIRED
     confidence: 0.85
