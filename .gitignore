@@ -176,4 +176,9 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+# Other documentation
+CHECKLIST_IMPLEMENTACAO.md
+IMPLEMENTACAO_EXEMPLOS.md
+RECOMENDACOES_CLI.md
+SUMARIO_EXECUTIVO.md
 # End of https://www.toptal.com/developers/gitignore/api/python

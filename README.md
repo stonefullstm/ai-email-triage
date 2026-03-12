@@ -17,8 +17,7 @@ This project implements a **multi-stage classification pipeline** that progressi
 
 1. Heuristics (rules and keyword signals)
 2. Semantic similarity using embeddings
-3. Scoring and confidence evaluation
-4. LLM fallback when the system is uncertain
+3. LLM fallback when the system is uncertain
 
 This architecture allows most emails to be classified **locally and quickly**, with LLM usage only when necessary.
 
@@ -29,7 +28,7 @@ This architecture allows most emails to be classified **locally and quickly**, w
 The system follows a modular pipeline:
 
 ```
-IMAP → Email Parser → Heuristics → Embeddings → Scoring → LLM (fallback)
+IMAP → Email Parser → Heuristics → Embeddings → LLM (fallback)
 ```
 
 ### Modules
@@ -81,11 +80,7 @@ Fast rule-based checks detect common patterns such as:
 
 If heuristics are inconclusive, the system generates embeddings and compares the message against category examples.
 
-### 5. Scoring
-
-Signals from heuristics and embeddings are combined to produce a confidence score.
-
-### 6. LLM fallback
+### 5. LLM fallback
 
 If confidence is too low, the message is sent to an LLM classifier.
 
@@ -139,7 +134,6 @@ Current focus:
 * email ingestion
 * rule-based classification
 * semantic similarity
-* scoring engine
 
 ---
 
