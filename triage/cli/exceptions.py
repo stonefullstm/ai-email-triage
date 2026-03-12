@@ -1,6 +1,3 @@
-"""Custom exceptions for the triage CLI."""
-
-
 class TriageCliException(Exception):
     """Base exception for CLI errors."""
 
