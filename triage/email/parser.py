@@ -23,13 +23,15 @@ class EmailParser:
         to = msg.get("To")
         date = self._parse_date(msg.get("Date"))
         body = self._extract_body(msg)
+        message_id = msg.get("Message-ID", "").strip()
 
         return EmailMessage(
             subject=subject or "",
             sender=sender or "",
             to=to,
             date=date,
-            body=body
+            body=body,
+            message_id=message_id,
         )
 
     def _decode_header(self, value):

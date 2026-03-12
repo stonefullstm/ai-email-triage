@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent.parent / "triagedb.db"
+DB_PATH = Path(__file__).parent.parent / "database" / "triagedb.db"
 
 
 class ProcessedStore:

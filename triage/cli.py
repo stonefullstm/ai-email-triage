@@ -12,6 +12,8 @@ from triage.core.hash_cache import HashCacheLayer
 from triage.core.embedding import EmbeddingLayer
 from triage.data.embedding_store import EmbeddingStore
 from triage.data.classification_store import ClassificationStore
+from triage.data.processed_store import ProcessedStore
+
 from triage.core.heuristics import HeuristicLayer
 from triage.core.llm_fallback import LLMFallbackLayer
 from triage.core.rules_loader import load_rules
@@ -29,6 +31,7 @@ LABELS = [
     "ACTION_REQUIRED", "REVIEW_RECOMMENDED", "FYI_IGNORE", "REFERENCE_ONLY"]
 hash_cache = HashCacheLayer()
 classification_store = ClassificationStore()
+processed_store = ProcessedStore()
 
 
 def build_pipeline(skip_llm: bool = False) -> ClassificationPipeline:
@@ -187,11 +190,33 @@ def run(
         typer.echo("✅ No unread e-mails found.")
         raise typer.Exit()
 
-    typer.echo(f"📬 {len(raw_emails)} e-mail(s) found.\n")
-
+    new_emails = []
+    skipped = 0
     for raw in raw_emails:
-        email_input = parse_bytes_to_email_input(parser, raw)
+        parsed = parser.parse(raw)
+        if processed_store.is_processed(parsed.message_id):
+            skipped += 1
+            continue
+        new_emails.append(parsed)
 
+    if skipped:
+        typer.echo(
+            f"⏭  {skipped} e-mail(s) já processado(s) anteriormente, "
+            f"ignorado(s).")
+
+    if not new_emails:
+        typer.secho(
+            "✅ Nenhum e-mail novo para processar.", fg=typer.colors.GREEN)
+        raise typer.Exit()
+
+    typer.echo(f"📬 {len(new_emails)} e-mail(s) found.\n")
+
+    for parsed in new_emails:
+        email_input = EmailInput(
+            subject=parsed.subject,
+            sender=parsed.sender,
+            body=parsed.body,
+        )
         result = pipeline.run(email_input)
 
         if result:
@@ -202,6 +227,8 @@ def run(
                 email_input.subject,
                 email_input.sender
             )
+            processed_store.mark(
+                parsed.message_id, result.label, result.source)
             color = get_source_color(result.source)
             source_tag = typer.style(
                 f"[{result.source.upper()}]", fg=color, bold=True)
