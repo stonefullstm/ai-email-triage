@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Optional
 from triage.core.base import ClassifierLayer, ClassificationResult, EmailInput
-from triage.core.embedding_store import EmbeddingStore
+from triage.data.embedding_store import EmbeddingStore
 
 
 def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:

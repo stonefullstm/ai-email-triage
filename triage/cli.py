@@ -10,7 +10,8 @@ from triage.core.pipeline import ClassificationPipeline
 from triage.core.base import EmailInput
 from triage.core.hash_cache import HashCacheLayer
 from triage.core.embedding import EmbeddingLayer
-from triage.core.embedding_store import EmbeddingStore
+from triage.data.embedding_store import EmbeddingStore
+from triage.data.classification_store import ClassificationStore
 from triage.core.heuristics import HeuristicLayer
 from triage.core.llm_fallback import LLMFallbackLayer
 from triage.core.rules_loader import load_rules
@@ -27,6 +28,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
 LABELS = [
     "ACTION_REQUIRED", "REVIEW_RECOMMENDED", "FYI_IGNORE", "REFERENCE_ONLY"]
 hash_cache = HashCacheLayer()
+classification_store = ClassificationStore()
 
 
 def build_pipeline(skip_llm: bool = False) -> ClassificationPipeline:
@@ -193,6 +195,13 @@ def run(
         result = pipeline.run(email_input)
 
         if result:
+            classification_store.add(
+                result.label,
+                result.source,
+                result.confidence,
+                email_input.subject,
+                email_input.sender
+            )
             color = get_source_color(result.source)
             source_tag = typer.style(
                 f"[{result.source.upper()}]", fg=color, bold=True)
