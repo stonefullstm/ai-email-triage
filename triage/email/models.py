@@ -10,3 +10,4 @@ class EmailMessage:
     to: Optional[str]
     date: Optional[datetime]
     body: str
+    message_id: str = ""
