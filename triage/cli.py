@@ -316,11 +316,27 @@ def review(
         typer.secho("✅ Nenhum e-mail encontrado.", fg=typer.colors.GREEN)
         raise typer.Exit()
 
+    new_emails = []
+    skipped = 0
+    for raw in raw_emails:
+        parsed = parser.parse(raw)
+        if processed_store.is_processed(parsed.message_id):
+            skipped += 1
+            continue
+        new_emails.append(parsed)
+
+    if skipped:
+        typer.echo(f"⏭  {skipped} já processado(s), ignorado(s).")
+
     saved = 0
     skipped = 0
 
-    for i, raw in enumerate(raw_emails, 1):
-        email_input = parse_bytes_to_email_input(parser, raw)
+    for i, parsed in enumerate(new_emails, 1):
+        email_input = EmailInput(
+            subject=parsed.subject,
+            sender=parsed.sender,
+            body=parsed.body,
+        )
         result = pipeline.run(email_input)
 
         typer.echo(f"\n{'─' * 60}")
@@ -359,6 +375,7 @@ def review(
             f"{email_input.subject} {email_input.sender} {email_input.body}"
         )
         store.add(email_input, label_input, vector)
+        processed_store.mark(parsed.message_id, label_input, "REVIEW")
 
         typer.secho(f"  ✅ Saved like '{label_input}'.", fg=typer.colors.GREEN)
         saved += 1
