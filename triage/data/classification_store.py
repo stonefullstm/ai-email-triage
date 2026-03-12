@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-DB_PATH = Path(__file__).parent / "database" / "triagedb.db"
+DB_PATH = Path(__file__).parent.parent / "database" / "triagedb.db"
 
 
 class ClassificationStore:
