@@ -1,173 +1,125 @@
-![Python](https://img.shields.io/badge/python-3.10+-blue)
+![Python](https://img.shields.io/badge/python-3.12+-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-# AI E-mail Triage
+# AI Triage
 
-AI-powered email triage system that automatically classifies and prioritizes incoming emails using a hybrid approach combining heuristics, semantic embeddings, and LLM-based classification.
+AI Triage is an open-source tool that classifies emails using a layered AI pipeline designed to be fast, explainable, and cost-efficient.
 
-The goal of this project is to reduce the need for expensive LLM calls by resolving most classifications using fast local logic.
+Instead of sending every email to a large language model, AI Triage uses a cascading architecture:
+```text
+hash cache → heuristics → embeddings → LLM fallback
+```
+Cheap and deterministic methods are used first. The LLM is only invoked when necessary.
 
----
+This makes the system:
 
-## Overview
+- ⚡ fast
 
-Managing email inboxes efficiently is difficult when messages include support requests, partnership proposals, automated notifications, and general communication.
+- 💸 low-cost
 
-This project implements a **multi-stage classification pipeline** that progressively applies:
+- 🔍 explainable
 
-1. Heuristics (rules and keyword signals)
-2. Semantic similarity using embeddings
-3. LLM fallback when the system is uncertain
-
-This architecture allows most emails to be classified **locally and quickly**, with LLM usage only when necessary.
-
+- 🔒 privacy-friendly
 ---
 
 ## Architecture
 
-The system follows a modular pipeline:
+The classification engine is built as a modular pipeline where each stage is responsible for a specific type of analysis.
 
+```text
+Email
+  │
+  ▼
+HashCacheLayer
+  │
+  ▼
+HeuristicLayer
+  │
+  ▼
+EmbeddingLayer
+  │
+  ▼
+LLMFallbackLayer
+  │
+  ▼
+ClassificationResult
 ```
-IMAP → Email Parser → Heuristics → Embeddings → LLM (fallback)
-```
+### Pipeline Stages
 
-### Modules
+#### Hash Cache
 
-```
+- Avoids reprocessing the same email
+
+- Uses content hash for deduplication
+
+#### Heuristics
+
+- Regex patterns
+
+- Sender matching
+
+- Fast deterministic rules defined in rules.yaml
+
+#### Embeddings
+
+- Semantic similarity using sentence-transformers
+
+- Compares email vectors against labeled examples
+
+- Majority vote classification
+
+#### LLM Fallback
+
+- Final fallback when confidence is low
+
+- Uses an LLM through Ollama
+
+- Returns structured JSON output
+---
+## Project Structure
+
+```text
 triage/
+├── cli/           # CLI interface (Typer)
 │
-├── core
-│   ├── engine.py        # classification pipeline
-│   ├── heuristics.py    # rule-based signals
-│   ├── scoring.py       # confidence evaluation
-│   └── categories.py    # category definitions
+├── config/        # Application configuration
+│   ├── app_config.py
+│   └── rules.yaml
 │
-├── email
-│   └── imap_reader.py   # IMAP email ingestion
+├── core/          # Classification engine
+│   ├── pipeline.py
+│   ├── heuristics.py
+│   ├── embedding.py
+│   ├── llm_fallback.py
+│   ├── hash_cache.py
+│   └── rules_loader.py
 │
-├── embeddings
-│   └── model.py         # semantic embedding model
+├── data/          # Persistent storage
+│   ├── classification_store.py
+│   ├── embedding_store.py
+│   └── processed_store.py
 │
-└── llm
-    └── classifier.py    # LLM-based fallback classifier
+├── email/         # Email ingestion and parsing
+│   ├── imap_reader.py
+│   ├── parser.py
+│   └── models.py
+│
+├── embedder/      # Sentence-transformer wrapper
+│   └── model.py
+│
+├── llm/           # LLM integration
+│   └── ollama_client.py
+│
+├── tools/         # Utility scripts
+│   └── export_eml.py
+│
+└── examples/      # Sample emails for testing
 ```
-
 ---
-
-## How It Works
-
-### 1. Email ingestion
-
-Emails are fetched from an IMAP server.
-
-### 2. Parsing
-
-The system extracts:
-
-* subject
-* sender
-* message body
-
-### 3. Heuristic signals
-
-Fast rule-based checks detect common patterns such as:
-
-* partnership requests
-* automated notifications
-* marketing emails
-
-### 4. Semantic similarity
-
-If heuristics are inconclusive, the system generates embeddings and compares the message against category examples.
-
-### 5. LLM fallback
-
-If confidence is too low, the message is sent to an LLM classifier.
-
----
-
 ## Installation
 
 Clone the repository:
-
 ```bash
 git clone git@github.com:stonefullstm/ai-email-triage.git
 cd ai-email-triage
 ```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Example Usage
-
-Example workflow:
-
-```python
-from triage.core.engine import TriageEngine
-from triage.email.imap_reader import IMAPReader
-
-reader = IMAPReader(host, username, password)
-reader.connect()
-
-emails = reader.fetch_unseen()
-
-engine = TriageEngine()
-
-for email in emails:
-    result = engine.classify(email)
-    print(result.category)
-```
-
----
-
-## Project Status
-
-🚧 **Work in progress**
-
-Current focus:
-
-* email ingestion
-* rule-based classification
-* semantic similarity
-
----
-
-## Roadmap
-
-Planned improvements:
-
-* [ ] Email parser improvements
-* [ ] Embedding-based similarity search
-* [ ] Configurable rule system
-* [ ] CLI interface
-* [ ] Gmail API integration
-* [ ] Web dashboard
-
----
-
-## Design Goals
-
-* Minimize LLM usage
-* Fast local classification
-* Modular architecture
-* Easy to extend with new categories
-* Provider-agnostic LLM integration
-
----
-
-## Contributing
-
-Contributions are welcome.
-
-Feel free to open issues, suggest improvements, or submit pull requests.
-
----
-
-## License
-
-MIT License
