@@ -1,6 +1,6 @@
 import os
 from dataclasses import dataclass
-# from typing import Optional
+from typing import Optional
 from triage.cli.exceptions import ConfigError
 
 
@@ -54,15 +54,17 @@ class LLMConfig:
 
     @classmethod
     def from_env(cls) -> "LLMConfig":
-        """Load LLM configuration from environment variables."""
+        """Load LLM configuration from environment variables and rules.yaml."""
+        from pathlib import Path
+        from triage.core.rules_loader import load_rules
+
+        rules_path = Path(__file__).parent / "rules.yaml"
+        rules = load_rules(rules_path)
+        # Extract unique labels from rules, sorted for consistency
+        labels = sorted(set(rule.label for rule in rules))
         return cls(
             model_name=os.getenv("MODEL_NAME", "qwen2.5:7b"),
-            labels=[
-                "ACTION_REQUIRED",
-                "REVIEW_RECOMMENDED",
-                "FYI_IGNORE",
-                "REFERENCE_ONLY",
-            ],
+            labels=labels,
         )
 
 
@@ -70,15 +72,24 @@ class LLMConfig:
 class AppConfig:
     """Main application configuration."""
 
-    imap: IMAPConfig
     llm: LLMConfig
+    imap: Optional[IMAPConfig] = None
     debug: bool = False
 
     @classmethod
     def from_env(cls) -> "AppConfig":
         """Load complete configuration from environment variables."""
         return cls(
-            imap=IMAPConfig.from_env(),
             llm=LLMConfig.from_env(),
+            imap=IMAPConfig.from_env(),
+            debug=os.getenv("DEBUG", "").lower() == "true",
+        )
+
+    @classmethod
+    def llm_from_env(cls) -> "AppConfig":
+        """Load only LLM configuration (no IMAP required)."""
+        return cls(
+            llm=LLMConfig.from_env(),
+            imap=None,
             debug=os.getenv("DEBUG", "").lower() == "true",
         )

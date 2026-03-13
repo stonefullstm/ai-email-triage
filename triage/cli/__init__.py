@@ -1,6 +1,4 @@
 """CLI interface for AI E-mail Triage system."""
-
-import os
 import logging
 from pathlib import Path
 from typing import Optional, Annotated
@@ -27,7 +25,6 @@ from triage.core.rules_loader import load_rules
 from triage.embedder.model import Embedder
 from triage.llm.ollama_client import OllamaClient
 from triage.cli.exceptions import TriageCliException
-# from triage.config.app_config import AppConfig
 
 load_dotenv()
 
@@ -117,30 +114,29 @@ def handle_cli_errors(func):
     return wrapper
 
 
-MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
-LABELS = ["ACTION_REQUIRED", "REVIEW_RECOMMENDED",
-          "FYI_IGNORE", "REFERENCE_ONLY"]
 hash_cache = HashCacheLayer()
 classification_store = ClassificationStore()
 processed_store = ProcessedStore()
 
 
-def build_pipeline(skip_llm: bool = False) -> ClassificationPipeline:
+def build_pipeline(
+        config: AppConfig, skip_llm: bool = False) -> ClassificationPipeline:
     layers = [
         hash_cache,
         EmbeddingLayer(encoder=Embedder()),
         HeuristicLayer(rules=load_rules()),
     ]
     if not skip_llm:
-        layers.append(LLMFallbackLayer(client=OllamaClient(), labels=LABELS))
+        layers.append(
+            LLMFallbackLayer(client=OllamaClient(), labels=config.llm.labels))
     return ClassificationPipeline(layers=layers)
 
 
-def build_reader(mailbox: str) -> IMAPReader:
+def build_reader(config: AppConfig, mailbox: str) -> IMAPReader:
     return IMAPReader(
-        host=os.environ["IMAP_SERVER"],
-        username=os.environ["MAIL_ACCOUNT"],
-        password=os.environ["EMAIL_PASSWORD"],
+        host=config.imap.server,
+        username=config.imap.username,
+        password=config.imap.password,
         mailbox=mailbox,
     )
 
@@ -268,13 +264,12 @@ def run(
     """Search and classify unread e-mails."""
     config = AppConfig.from_env()
     logger.info(f"Starting classification run: limit={limit}, days={days}")
-
     typer.echo("⏳ Loading pipeline...")
-    pipeline = build_pipeline(skip_llm=skip_llm)
+    pipeline = build_pipeline(config=config, skip_llm=skip_llm)
     parser = EmailParser()
 
     typer.echo("⏳ Connecting to IMAP...")
-    reader = build_reader(mailbox)
+    reader = build_reader(config=config, mailbox=mailbox)
     reader.connect()
 
     typer.echo(
@@ -372,10 +367,11 @@ def demo(
     skip_llm: bool = typer.Option(False, "--skip-llm"),
 ):
     """Classify an e-mail or all e-mails in a folder."""
+    config = AppConfig.from_env()
     from pathlib import Path
 
     base_path = Path(triage.__file__).parent / path
-    pipeline = build_pipeline(skip_llm=skip_llm)
+    pipeline = build_pipeline(config=config, skip_llm=skip_llm)
     parser = EmailParser()
 
     if base_path.is_file():
@@ -402,13 +398,15 @@ def review(
 ):
     """Reviews recent e-mails and annotates examples
     for the embedding database."""
-
-    pipeline = build_pipeline(skip_llm=skip_llm)
+    config = AppConfig.from_env()
+    logger.info(f"Starting review run: limit={limit}, days={days}")
+    typer.echo("⏳ Loading pipeline...")
+    pipeline = build_pipeline(config=config, skip_llm=skip_llm)
     parser = EmailParser()
     store = EmbeddingStore()
     embedder = Embedder()
 
-    reader = build_reader(mailbox)
+    reader = build_reader(config=config, mailbox=mailbox)
     reader.connect()
     raw_emails = reader.fetch_unseen(days=days, limit=limit)
 
@@ -430,6 +428,9 @@ def review(
 
     saved = 0
     skipped = 0
+
+    # Extract labels from config for dynamic options
+    labels = config.llm.labels
 
     for i, parsed in enumerate(new_emails, 1):
         email_input = EmailInput(
@@ -456,7 +457,7 @@ def review(
             typer.echo("\n  🤖 Suggestion: none")
 
         # Dynamically build options from LABELS
-        options_str = "/".join(LABELS) + "/SKIP"
+        options_str = "/".join(labels) + "/SKIP"
         default = result.label if result else None
         default_str = f" ({default})" if default else ""
 
@@ -468,7 +469,7 @@ def review(
             .strip()
             .upper()
         )
-        if label_input == "SKIP" or label_input not in LABELS:
+        if label_input == "SKIP" or label_input not in labels:
             typer.secho("  ⏭  Skipped.", fg=typer.colors.BRIGHT_BLACK)
             skipped += 1
             continue
