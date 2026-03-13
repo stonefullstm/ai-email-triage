@@ -11,6 +11,7 @@ import typer
 from dotenv import load_dotenv
 
 import triage
+from triage.config.app_config import AppConfig
 from triage.email.imap_reader import IMAPReader
 from triage.email.parser import EmailParser
 from triage.core.pipeline import ClassificationPipeline
@@ -25,8 +26,8 @@ from triage.core.llm_fallback import LLMFallbackLayer
 from triage.core.rules_loader import load_rules
 from triage.embedder.model import Embedder
 from triage.llm.ollama_client import OllamaClient
-from triage.cli.exceptions import TriageCliException, ConfigError
-from triage.config.app_config import AppConfig
+from triage.cli.exceptions import TriageCliException
+# from triage.config.app_config import AppConfig
 
 load_dotenv()
 
@@ -117,7 +118,6 @@ def handle_cli_errors(func):
 
 
 MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5:7b")
-# LABELS = ["financeiro", "spam", "notificacao", "pessoal"]
 LABELS = ["ACTION_REQUIRED", "REVIEW_RECOMMENDED",
           "FYI_IGNORE", "REFERENCE_ONLY"]
 hash_cache = HashCacheLayer()
@@ -266,6 +266,9 @@ def run(
     ),
 ):
     """Search and classify unread e-mails."""
+    config = AppConfig.from_env()
+    logger.info(f"Starting classification run: limit={limit}, days={days}")
+
     typer.echo("⏳ Loading pipeline...")
     pipeline = build_pipeline(skip_llm=skip_llm)
     parser = EmailParser()
