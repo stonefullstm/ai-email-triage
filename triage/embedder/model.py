@@ -1,10 +1,9 @@
 from sentence_transformers import SentenceTransformer
 
-DEFAULT_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-
 
 class Embedder:
-    def __init__(self, model_name: str = DEFAULT_MODEL):
+    def __init__(
+            self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
         self.model = SentenceTransformer(
             model_name,
             backend="onnx",

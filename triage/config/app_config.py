@@ -46,6 +46,20 @@ class IMAPConfig:
 
 
 @dataclass
+class EmbeddingConfig:
+    """Embedding model configuration."""
+
+    model_name: str
+
+    @classmethod
+    def from_env(cls) -> "EmbeddingConfig":
+        """Load embedding configuration from environment variables."""
+        return cls(
+            model_name=os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+        )
+
+
+@dataclass
 class LLMConfig:
     """LLM configuration."""
 
@@ -73,6 +87,7 @@ class AppConfig:
     """Main application configuration."""
 
     llm: LLMConfig
+    embedding: EmbeddingConfig
     imap: Optional[IMAPConfig] = None
     debug: bool = False
 
@@ -81,6 +96,7 @@ class AppConfig:
         """Load complete configuration from environment variables."""
         return cls(
             llm=LLMConfig.from_env(),
+            embedding=EmbeddingConfig.from_env(),
             imap=IMAPConfig.from_env(),
             debug=os.getenv("DEBUG", "").lower() == "true",
         )
@@ -90,6 +106,7 @@ class AppConfig:
         """Load only LLM configuration (no IMAP required)."""
         return cls(
             llm=LLMConfig.from_env(),
+            embedding=EmbeddingConfig.from_env(),
             imap=None,
             debug=os.getenv("DEBUG", "").lower() == "true",
         )
