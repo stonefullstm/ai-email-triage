@@ -1,8 +1,10 @@
 import pytest
 import numpy as np
+# from pathlib import Path
 from unittest.mock import MagicMock
 from triage.core.embedding import EmbeddingLayer, cosine_similarity
 from triage.core.base import EmailInput
+from triage.data.embedding_store import EmbeddingStore
 
 
 def make_encoder(vectors: dict[str, np.ndarray]):
@@ -28,8 +30,21 @@ def similar_encoder():
 
 
 @pytest.fixture
-def layer(similar_encoder):
-    layer = EmbeddingLayer(encoder=similar_encoder, top_k=3)
+def temp_db_path(tmp_path):
+    """Caminho para banco de dados temporário."""
+    return tmp_path / "test_embeddings.db"
+
+
+@pytest.fixture
+def embedding_store(temp_db_path):
+    """Store de embedding isolado para testes."""
+    return EmbeddingStore(db_path=temp_db_path)
+
+
+@pytest.fixture
+def layer(similar_encoder, embedding_store):
+    layer = EmbeddingLayer(
+        encoder=similar_encoder, top_k=3, store=embedding_store)
     layer.add_example(
         EmailInput("fatura banco", "banco@example.com", ""), "financeiro")
     layer.add_example(
@@ -39,8 +54,9 @@ def layer(similar_encoder):
     return layer
 
 
-def test_classify_returns_none_when_no_examples(similar_encoder):
-    layer = EmbeddingLayer(encoder=similar_encoder)
+def test_classify_returns_none_when_no_examples(
+        similar_encoder, embedding_store):
+    layer = EmbeddingLayer(encoder=similar_encoder, store=embedding_store)
     email = EmailInput("fatura", "x@x.com", "")
     assert layer.classify(email) is None
 

@@ -9,15 +9,18 @@ def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
 
 
 class EmbeddingLayer(ClassifierLayer):
-    def __init__(self, encoder, top_k: int = 3):
+    def __init__(
+            self,
+            encoder, top_k: int = 3, store: Optional[EmbeddingStore] = None):
         """
         encoder: any object with an encode(text: str) -> np.ndarray method
                  ex: SentenceTransformer, local model, external API
         top_k:   how many neighbors to consider for majority voting
+        store:   optional EmbeddingStore instance (uses default if None)
         """
         self.encoder = encoder
         self.top_k = top_k
-        self.store = EmbeddingStore()
+        self.store = store if store is not None else EmbeddingStore()
         self._examples = self.store.load_all()
 
     def add_example(self, email: EmailInput, label: str) -> None:
