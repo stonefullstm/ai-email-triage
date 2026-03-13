@@ -123,7 +123,8 @@ def build_pipeline(
         config: AppConfig, skip_llm: bool = False) -> ClassificationPipeline:
     layers = [
         hash_cache,
-        EmbeddingLayer(encoder=Embedder()),
+        EmbeddingLayer(
+            encoder=Embedder(model_name=config.embedding.model_name)),
         HeuristicLayer(rules=load_rules()),
     ]
     if not skip_llm:
@@ -404,7 +405,7 @@ def review(
     pipeline = build_pipeline(config=config, skip_llm=skip_llm)
     parser = EmailParser()
     store = EmbeddingStore()
-    embedder = Embedder()
+    embedder = Embedder(model_name=config.embedding.model_name)
 
     reader = build_reader(config=config, mailbox=mailbox)
     reader.connect()
