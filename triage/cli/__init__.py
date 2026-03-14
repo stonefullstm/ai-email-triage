@@ -567,7 +567,7 @@ EMBEDDING_MODEL={embedding_model}
         })
         typer.secho(f"  ✔ '{name}' added.\n", fg=typer.colors.CYAN)
 
-    # sempre garante label indefinido
+    # Always add 'undefined' label if not present
     if not any(label["name"] == "undefined" for label in labels):
         labels.append({
             "name": "undefined",
@@ -576,7 +576,7 @@ EMBEDDING_MODEL={embedding_model}
         })
         typer.echo("  ℹ️  Label 'undefined' added automatically.")
 
-    # escreve yaml
+    # Writes yaml
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
 
     yaml_content = "labels:\n"
@@ -601,13 +601,60 @@ EMBEDDING_MODEL={embedding_model}
             f.write("\n" + "\n".join(sorted(missing)) + "\n")
         typer.secho("✅ .gitignore updated.", fg=typer.colors.GREEN)
 
-    # ── resumo ───────────────────────────────────────────────────────────
+    # ── Summary ───────────────────────────────────────────────────────────
     typer.echo("")
     typer.secho("🎉 Configuration completed!\n", bold=True)
     typer.echo("Next steps:")
     typer.echo("  triage run --dry-run   # test without classifying")
     typer.echo("  triage stats           # view metrics")
     typer.echo("  triage review          # annotaded examples to embedding\n")
+
+
+@app.command()
+@handle_cli_errors
+def stats():
+    """Displays pipeline ranking statistics."""
+
+    stats_store = ClassificationStore()
+    example_store = EmbeddingStore()
+    summary = stats_store.summary()
+
+    if summary["total"] == 0:
+        typer.secho("No classifications recorded yet.", fg=typer.colors.YELLOW)
+        raise typer.Exit()
+
+    typer.echo(f"\n📊 Total classified: {summary['total']} e-mail(s)\n")
+
+    # By label
+    typer.secho("By label:", bold=True)
+    for label, count in summary["by_label"]:
+        pct = count / summary["total"] * 100
+        bar = "█" * int(pct / 5)
+        typer.echo(f"  {label:<15} {bar:<20} {count:>4} ({pct:.1f}%)")
+
+    typer.echo("")
+
+    # By layer/source
+    typer.secho("By layer:", bold=True)
+    source_colors = {
+        "cache":     typer.colors.CYAN,
+        "embedding": typer.colors.BLUE,
+        "heuristic": typer.colors.YELLOW,
+        "llm":       typer.colors.MAGENTA,
+    }
+    for source, count, avg_conf in summary["by_source"]:
+        pct = count / summary["total"] * 100
+        color = source_colors.get(source, typer.colors.WHITE)
+        source_tag = typer.style(f"{source:<12}", fg=color, bold=True)
+        typer.echo(
+            f"  {source_tag} {count:>4} ({pct:.1f}%)"
+            f"  avg confidence: {avg_conf:.0%}")
+
+    # Examples in embedding store
+    typer.echo("")
+    typer.secho("Examples (embedding):", bold=True)
+    typer.echo(
+        f"  {example_store.count()} example(s) anottated for embedding layer.")
 
 
 if __name__ == "__main__":
