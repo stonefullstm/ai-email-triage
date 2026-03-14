@@ -182,3 +182,5 @@ IMPLEMENTACAO_EXEMPLOS.md
 RECOMENDACOES_CLI.md
 SUMARIO_EXECUTIVO.md
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+.venv/

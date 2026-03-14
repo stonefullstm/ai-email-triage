@@ -55,7 +55,8 @@ class EmbeddingConfig:
     def from_env(cls) -> "EmbeddingConfig":
         """Load embedding configuration from environment variables."""
         return cls(
-            model_name=os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+            model_name=os.getenv(
+                "EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
         )
 
 

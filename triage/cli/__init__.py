@@ -81,6 +81,8 @@ def main(
     - MAIL_ACCOUNT: Email account username
     - EMAIL_PASSWORD: Email password or app password
     - MODEL_NAME: LLM model name (optional, default: qwen2.5:7b)
+    - EMBEDDING_MODEL: Embedding model name
+        (optional, default: sentence-transformers/all-MiniLM-L6-v2)
     """
     pass
 
@@ -494,6 +496,118 @@ def review(
         f"Total in database: {store.count()}",
         fg=typer.colors.GREEN,
     )
+
+
+@app.command()
+@handle_cli_errors
+def init():
+    """Configure triage interactively (.env and triage.yaml)."""
+
+    CONFIG_DIR = Path(__file__).resolve().parent.parent / "config"
+    YAML_PATH = CONFIG_DIR / "triage.yaml"
+
+    typer.secho("\n🔧 Initial config\n", bold=True)
+
+    # ── .env ────────────────────────────────────────────────────────────
+    typer.secho("── E-mail credentials ──", bold=True)
+
+    imap_host = typer.prompt("IMAP host", default="imap.gmail.com")
+    imap_port = typer.prompt("IMAP port", default="993")
+    imap_user = typer.prompt("E-mail")
+    imap_password = typer.prompt("Password / App Password", hide_input=True)
+
+    typer.echo("")
+    typer.secho("── Ollama Models ──", bold=True)
+    llm_model = typer.prompt("LLM model", default="qwen2.5:7b")
+    embedding_model = typer.prompt(
+        "Embedding model", default="sentence-transformers/all-MiniLM-L6-v2")
+
+    env_path = Path(".env")
+    env_content = f"""IMAP_SERVER={imap_host}
+IMAP_PORT={imap_port}
+MAIL_ACCOUNT={imap_user}
+EMAIL_PASSWORD={imap_password}
+MODEL_NAME={llm_model}
+EMBEDDING_MODEL={embedding_model}
+"""
+    env_path.write_text(env_content)
+    typer.secho(
+        f"✅ .env created in {env_path.resolve()}", fg=typer.colors.GREEN)
+
+    # ── triage.yaml ─────────────────────────────────────────────────────
+    typer.echo("")
+    typer.secho("── Classification labels ──", bold=True)
+    typer.echo(
+        "Define categories of your pipeline. "
+        "Press Enter to finish.\n"
+    )
+
+    labels = []
+    while True:
+        name = typer.prompt(
+            "  Label name (ex: financial)", default="").strip()
+        if not name:
+            if not labels:
+                typer.secho(
+                    "  Add at least one label.", fg=typer.colors.YELLOW)
+                continue
+            break
+
+        description = typer.prompt(f"  Description of '{name}'")
+        keywords_raw = typer.prompt(
+            f"  Keywords for '{name}' (separated by comma, or Enter to skip)",
+            default=""
+        )
+        keywords = [k.strip() for k in keywords_raw.split(",") if k.strip()]
+
+        labels.append({
+            "name": name,
+            "description": description,
+            "heuristics": {"keywords": keywords, "sender_patterns": []},
+        })
+        typer.secho(f"  ✔ '{name}' added.\n", fg=typer.colors.CYAN)
+
+    # sempre garante label indefinido
+    if not any(label["name"] == "undefined" for label in labels):
+        labels.append({
+            "name": "undefined",
+            "description": "It doesn't fit in category above.",
+            "heuristics": {"keywords": [], "sender_patterns": []},
+        })
+        typer.echo("  ℹ️  Label 'undefined' added automatically.")
+
+    # escreve yaml
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+
+    yaml_content = "labels:\n"
+    for label in labels:
+        yaml_content += f"  - name: {label['name']}\n"
+        yaml_content += f"    description: \"{label['description']}\"\n"
+        yaml_content += "    heuristics:\n"
+        yaml_content += f"      keywords: {label['heuristics']['keywords']}\n"
+        yaml_content += "      sender_patterns: []\n"
+
+    YAML_PATH.write_text(yaml_content)
+    typer.secho(f"✅ triage.yaml created in {YAML_PATH}", fg=typer.colors.GREEN)
+
+    # ── .gitignore ───────────────────────────────────────────────────────
+    gitignore = Path(".gitignore")
+    entries = {".env", "*.db", "__pycache__/", ".venv/"}
+    existing = (set(gitignore.read_text().splitlines())
+                if gitignore.exists() else set())
+    missing = entries - existing
+    if missing:
+        with gitignore.open("a") as f:
+            f.write("\n" + "\n".join(sorted(missing)) + "\n")
+        typer.secho("✅ .gitignore updated.", fg=typer.colors.GREEN)
+
+    # ── resumo ───────────────────────────────────────────────────────────
+    typer.echo("")
+    typer.secho("🎉 Configuration completed!\n", bold=True)
+    typer.echo("Next steps:")
+    typer.echo("  triage run --dry-run   # test without classifying")
+    typer.echo("  triage stats           # view metrics")
+    typer.echo("  triage review          # annotaded examples to embedding\n")
 
 
 if __name__ == "__main__":
