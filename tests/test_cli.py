@@ -72,3 +72,23 @@ class TestArgumentValidation:
 
         result = runner.invoke(app, ["run", "--days", "366"])
         assert result.exit_code != 0
+
+
+class TestCheckRules:
+    """Tests for check-rules command."""
+
+    def test_check_rules_help(self):
+        result = runner.invoke(app, ["check-rules", "--help"])
+        assert result.exit_code == 0
+        assert "Path to the rules.yaml file" in result.stdout
+
+    def test_check_rules_no_file(self):
+        """Test that error is raised when rules.yaml is missing."""
+        with runner.isolated_filesystem():
+            result = runner.invoke(app, ["check-rules", "rules.yaml"])
+            assert result.exit_code != 0
+            assert (
+                "no such file or directory: 'rules.yaml'"
+                in result.stdout.lower()
+                or "file not found: 'rules.yaml'" in result.stdout.lower()
+            )

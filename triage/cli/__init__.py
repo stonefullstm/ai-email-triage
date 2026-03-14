@@ -338,6 +338,7 @@ def run(
 
 
 @app.command()
+@handle_cli_errors
 def check_rules(
     rules_path: Optional[str] = typer.Argument(
         None, help="Path to the rules.yaml file."
@@ -346,7 +347,6 @@ def check_rules(
     """Displays the loaded heuristic rules."""
     path = rules_path or "triage/config/rules.yaml"
     rules = load_rules(path)
-
     typer.echo(f"📋 {len(rules)} rule(s) loaded from '{path}':\n")
     for rule in rules:
         typer.secho(
@@ -361,6 +361,7 @@ def check_rules(
 
 
 @app.command()
+@handle_cli_errors
 def demo(
     path: str = typer.Argument(
         ..., help="File .eml/.txt or folder with various e-mails."
@@ -387,6 +388,7 @@ def demo(
 
 
 @app.command()
+@handle_cli_errors
 def review(
     days: int = typer.Option(
         1, "--days", "-d", help="Search e-mails from last N days."
